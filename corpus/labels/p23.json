@@ -1,0 +1,25 @@
+{
+  "id": "p23",
+  "labels": [
+    {"unit": 0, "rules": []},
+    {"unit": 1, "rules": []},
+    {"unit": 2, "rules": []},
+    {"unit": 3, "rules": []},
+    {"unit": 4, "rules": []},
+    {"unit": 5, "rules": []},
+    {"unit": 6, "rules": []},
+    {"unit": 7, "rules": []},
+    {"unit": 8, "rules": []},
+    {"unit": 9, "rules": []},
+    {"unit": 10, "rules": []},
+    {"unit": 11, "rules": []},
+    {"unit": 12, "rules": []},
+    {"unit": 13, "rules": []},
+    {"unit": 14, "rules": []},
+    {"unit": 15, "rules": []},
+    {"unit": 16, "rules": []},
+    {"unit": 17, "rules": ["investigation"], "reasons": {"investigation": "「調査用ログがそのまま残っている印象があります」。ログの由来を推量で述べており、調べた記述がない"}},
+    {"unit": 18, "rules": []},
+    {"unit": 19, "rules": []}
+  ]
+}

@@ -1,0 +1,71 @@
+{
+ "id": "p09",
+ "labels": [
+  {
+   "unit": 0,
+   "rules": []
+  },
+  {
+   "unit": 1,
+   "rules": []
+  },
+  {
+   "unit": 2,
+   "rules": []
+  },
+  {
+   "unit": 3,
+   "rules": []
+  },
+  {
+   "unit": 4,
+   "rules": []
+  },
+  {
+   "unit": 5,
+   "rules": []
+  },
+  {
+   "unit": 6,
+   "rules": [
+    "svo-incomplete"
+   ],
+   "reasons": {
+    "svo-incomplete": "「…から読み取れる範囲です。」主語がなく、何がその範囲なのかがこの1文では分からない（見出しに頼っている）"
+   }
+  },
+  {
+   "unit": 7,
+   "rules": []
+  },
+  {
+   "unit": 8,
+   "rules": []
+  },
+  {
+   "unit": 9,
+   "rules": []
+  },
+  {
+   "unit": 10,
+   "rules": []
+  },
+  {
+   "unit": 11,
+   "rules": [
+    "passive-agent"
+   ],
+   "reasons": {
+    "passive-agent": "「対応しないと判断されています」。受動態で、誰が判断したのかが書かれていない"
+   }
+  },
+  {
+   "unit": 12,
+   "rules": []
+  },
+  {
+   "unit": 13,
+   "rules": []
+  }
+ ]
+}

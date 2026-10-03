@@ -1,0 +1,31 @@
+{
+  "id": "p14",
+  "labels": [
+    {"unit": 0, "rules": []},
+    {"unit": 1, "rules": []},
+    {"unit": 2, "rules": []},
+    {"unit": 3, "rules": []},
+    {"unit": 4, "rules": []},
+    {"unit": 5, "rules": []},
+    {"unit": 6, "rules": []},
+    {"unit": 7, "rules": ["stance-ending"], "reasons": {"stance-ending": "「カバーしている。」。報告のほかの文は敬体（「確認しました」「可能性があります」）で、この項目は常体で終わっており、敬体と常体が混ざっている"}},
+    {"unit": 8, "rules": ["stance-ending"], "reasons": {"stance-ending": "「含まれていない。」。報告のほかの文は敬体で、この項目は常体で終わっており、敬体と常体が混ざっている"}},
+    {"unit": 9, "rules": []},
+    {"unit": 10, "rules": []},
+    {"unit": 11, "rules": []},
+    {"unit": 12, "rules": []},
+    {"unit": 13, "rules": ["investigation"], "reasons": {"investigation": "「リフレッシュを試みる可能性があります」。推量で述べており、調べたうえで未決として残したという記述がない"}},
+    {"unit": 14, "rules": []},
+    {"unit": 15, "rules": []},
+    {"unit": 16, "rules": ["vague-action"], "reasons": {"vague-action": "「考慮が必要です」。複数レプリカ構成にするとき何をするのかが書かれておらず、「適宜対応する」と同じ型の曖昧な表現"}},
+    {"unit": 17, "rules": []},
+    {"unit": 18, "rules": []},
+    {"unit": 19, "rules": []},
+    {"unit": 20, "rules": []},
+    {"unit": 21, "rules": []},
+    {"unit": 22, "rules": ["surge-failure-metaphor", "investigation"], "reasons": {"surge-failure-metaphor": "「機能上は破綻しませんが」。列挙語の「破綻」を評価の比喩として使っており、専門用語でも事実の記述でもない", "investigation": "「分かりやすいかもしれません」。推量で述べており、調べた記述がない"}},
+    {"unit": 23, "rules": []},
+    {"unit": 24, "rules": []},
+    {"unit": 25, "rules": []}
+  ]
+}

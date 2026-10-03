@@ -1,0 +1,172 @@
+{
+ "id": "p16",
+ "labels": [
+  {
+   "unit": 0,
+   "rules": []
+  },
+  {
+   "unit": 1,
+   "rules": []
+  },
+  {
+   "unit": 2,
+   "rules": []
+  },
+  {
+   "unit": 3,
+   "rules": []
+  },
+  {
+   "unit": 4,
+   "rules": []
+  },
+  {
+   "unit": 5,
+   "rules": []
+  },
+  {
+   "unit": 6,
+   "rules": []
+  },
+  {
+   "unit": 7,
+   "rules": []
+  },
+  {
+   "unit": 8,
+   "rules": []
+  },
+  {
+   "unit": 9,
+   "rules": []
+  },
+  {
+   "unit": 10,
+   "rules": [
+    "announce-only"
+   ],
+   "reasons": {
+    "announce-only": "「以下にさらなる改善点をいくつか挙げます」。中身を言わず、後に続く内容の予告だけをしている"
+   }
+  },
+  {
+   "unit": 11,
+   "rules": []
+  },
+  {
+   "unit": 12,
+   "rules": []
+  },
+  {
+   "unit": 13,
+   "rules": []
+  },
+  {
+   "unit": 14,
+   "rules": []
+  },
+  {
+   "unit": 15,
+   "rules": []
+  },
+  {
+   "unit": 16,
+   "rules": []
+  },
+  {
+   "unit": 17,
+   "rules": []
+  },
+  {
+   "unit": 18,
+   "rules": []
+  },
+  {
+   "unit": 19,
+   "rules": []
+  },
+  {
+   "unit": 20,
+   "rules": []
+  },
+  {
+   "unit": 21,
+   "rules": []
+  },
+  {
+   "unit": 22,
+   "rules": []
+  },
+  {
+   "unit": 23,
+   "rules": []
+  },
+  {
+   "unit": 24,
+   "rules": []
+  },
+  {
+   "unit": 25,
+   "rules": []
+  },
+  {
+   "unit": 26,
+   "rules": [
+    "surge-failure-metaphor"
+   ],
+   "reasons": {
+    "surge-failure-metaphor": "「実害は小さいですが」。「実害」を影響の大きさの評価として使っている。専門用語でも事実の記述でもない"
+   }
+  },
+  {
+   "unit": 27,
+   "rules": []
+  },
+  {
+   "unit": 28,
+   "rules": []
+  },
+  {
+   "unit": 29,
+   "rules": [
+    "investigation"
+   ],
+   "reasons": {
+    "investigation": "「URL 正規化のためかもしれませんが」。コードの意図を推量で述べており、調べた結果としての未決とは書かれていない"
+   }
+  },
+  {
+   "unit": 30,
+   "rules": []
+  },
+  {
+   "unit": 31,
+   "rules": []
+  },
+  {
+   "unit": 32,
+   "rules": []
+  },
+  {
+   "unit": 33,
+   "rules": []
+  },
+  {
+   "unit": 34,
+   "rules": []
+  },
+  {
+   "unit": 35,
+   "rules": []
+  },
+  {
+   "unit": 36,
+   "rules": []
+  },
+  {
+   "unit": 37,
+   "rules": []
+  }
+ ]
+}

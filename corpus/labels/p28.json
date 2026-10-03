@@ -1,0 +1,27 @@
+{
+  "id": "p28",
+  "labels": [
+    {"unit": 0, "rules": []},
+    {"unit": 1, "rules": []},
+    {"unit": 2, "rules": []},
+    {"unit": 3, "rules": []},
+    {"unit": 4, "rules": ["stance-ending"], "reasons": {"stance-ending": "「閉じている」。本文は敬体（です・ます）なのに、この項目は常体で結んでいる"}},
+    {"unit": 5, "rules": []},
+    {"unit": 6, "rules": []},
+    {"unit": 7, "rules": []},
+    {"unit": 8, "rules": []},
+    {"unit": 9, "rules": []},
+    {"unit": 10, "rules": ["stance-ending"], "reasons": {"stance-ending": "「実在する」。本文は敬体なのに、この項目は常体で結んでいる"}},
+    {"unit": 11, "rules": ["stance-ending"], "reasons": {"stance-ending": "「なっている」。本文は敬体なのに、この項目は常体で結んでいる"}},
+    {"unit": 12, "rules": []},
+    {"unit": 13, "rules": ["stance-ending"], "reasons": {"stance-ending": "「残っていない」。本文は敬体なのに、この項目は常体で結んでいる"}},
+    {"unit": 14, "rules": []},
+    {"unit": 15, "rules": ["redundant-paren", "investigation"], "reasons": {"redundant-paren": "「`http://`（非HTTPS）」。http:// の言い換えで、情報量が増えない", "investigation": "「画像が出ない可能性があります」。推量で述べており、調べた記述がない"}},
+    {"unit": 16, "rules": ["stance-ending"], "reasons": {"stance-ending": "「読み込まれている」と「重複しています」。1項目の中で常体と敬体が混ざっている"}},
+    {"unit": 17, "rules": ["stance-ending"], "reasons": {"stance-ending": "「残っている」と「原因になります」。1項目の中で常体と敬体が混ざっている"}},
+    {"unit": 18, "rules": ["investigation"], "reasons": {"investigation": "「想定外になる可能性があります」。推量で述べており、調べた記述がない"}},
+    {"unit": 19, "rules": ["stance-ending"], "reasons": {"stance-ending": "「残っている」と「該当します」。1項目の中で常体と敬体が混ざっている"}},
+    {"unit": 20, "rules": []},
+    {"unit": 21, "rules": ["investigation"], "reasons": {"investigation": "「確認は行っていません」。未確認の表現で、調べた記述も行わなかった理由もない"}}
+  ]
+}

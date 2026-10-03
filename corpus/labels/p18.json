@@ -1,0 +1,167 @@
+{
+ "id": "p18",
+ "labels": [
+  {
+   "unit": 0,
+   "rules": []
+  },
+  {
+   "unit": 1,
+   "rules": []
+  },
+  {
+   "unit": 2,
+   "rules": []
+  },
+  {
+   "unit": 3,
+   "rules": []
+  },
+  {
+   "unit": 4,
+   "rules": []
+  },
+  {
+   "unit": 5,
+   "rules": []
+  },
+  {
+   "unit": 6,
+   "rules": []
+  },
+  {
+   "unit": 7,
+   "rules": []
+  },
+  {
+   "unit": 8,
+   "rules": []
+  },
+  {
+   "unit": 9,
+   "rules": [
+    "metaphor-verb"
+   ],
+   "reasons": {
+    "metaphor-verb": "「論点を漏れなく塞いでいます」。リスクへの対策を取ったことを「塞ぐ」という比喩動詞で言い換えている。慣用句でも文字どおりの動作でもない"
+   }
+  },
+  {
+   "unit": 10,
+   "rules": []
+  },
+  {
+   "unit": 11,
+   "rules": []
+  },
+  {
+   "unit": 12,
+   "rules": []
+  },
+  {
+   "unit": 13,
+   "rules": []
+  },
+  {
+   "unit": 14,
+   "rules": []
+  },
+  {
+   "unit": 15,
+   "rules": [
+    "metaphor-verb",
+    "investigation"
+   ],
+   "reasons": {
+    "metaphor-verb": "「job が長時間張り付く」。job が終了せず残り続けることを「張り付く」という比喩動詞で言い換えている",
+    "investigation": "「張り付く可能性があります」。推量で述べている。調べたうえでの未決という記述がない"
+   }
+  },
+  {
+   "unit": 16,
+   "rules": []
+  },
+  {
+   "unit": 17,
+   "rules": [
+    "metaphor-verb"
+   ],
+   "reasons": {
+    "metaphor-verb": "「出力を握りつぶしている」。出力を /dev/null に捨てる技術操作を「握りつぶす」という比喩動詞で言い換えている"
+   }
+  },
+  {
+   "unit": 18,
+   "rules": []
+  },
+  {
+   "unit": 19,
+   "rules": [
+    "surge-failure-metaphor"
+   ],
+   "reasons": {
+    "surge-failure-metaphor": "「実害は限定的ですが」。「実害」を影響の大きさの評価として使っている"
+   }
+  },
+  {
+   "unit": 20,
+   "rules": []
+  },
+  {
+   "unit": 21,
+   "rules": [
+    "surge-failure-metaphor",
+    "investigation"
+   ],
+   "reasons": {
+    "surge-failure-metaphor": "「実害はありませんが」。「実害」を影響の有無の評価として使っている",
+    "investigation": "「追随漏れになり得ます」。起こりうることを推量で述べている。調べたうえでの未決という記述がない"
+   }
+  },
+  {
+   "unit": 22,
+   "rules": []
+  },
+  {
+   "unit": 23,
+   "rules": []
+  },
+  {
+   "unit": 24,
+   "rules": []
+  },
+  {
+   "unit": 25,
+   "rules": []
+  },
+  {
+   "unit": 26,
+   "rules": []
+  },
+  {
+   "unit": 27,
+   "rules": []
+  },
+  {
+   "unit": 28,
+   "rules": [
+    "surge-verification-metaphor"
+   ],
+   "reasons": {
+    "surge-verification-metaphor": "「実測結果と齟齬なし」。PR で行われたのは手動再現で、計測ではないものを「実測」と呼んでいる"
+   }
+  },
+  {
+   "unit": 29,
+   "rules": []
+  },
+  {
+   "unit": 30,
+   "rules": []
+  },
+  {
+   "unit": 31,
+   "rules": []
+  }
+ ]
+}

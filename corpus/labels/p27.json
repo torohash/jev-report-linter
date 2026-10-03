@@ -1,0 +1,12 @@
+{
+  "id": "p27",
+  "labels": [
+    {"unit": 0, "rules": []},
+    {"unit": 1, "rules": []},
+    {"unit": 2, "rules": []},
+    {"unit": 3, "rules": []},
+    {"unit": 4, "rules": []},
+    {"unit": 5, "rules": ["investigation"], "reasons": {"investigation": "「この環境では確かめていません」。未確認の表現で、調べた記述がない"}},
+    {"unit": 6, "rules": []}
+  ]
+}

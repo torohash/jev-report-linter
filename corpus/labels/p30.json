@@ -1,0 +1,32 @@
+{
+  "id": "p30",
+  "labels": [
+    {"unit": 0, "rules": []},
+    {"unit": 1, "rules": []},
+    {"unit": 2, "rules": []},
+    {"unit": 3, "rules": []},
+    {"unit": 4, "rules": []},
+    {"unit": 5, "rules": []},
+    {"unit": 6, "rules": []},
+    {"unit": 7, "rules": []},
+    {"unit": 8, "rules": ["stance-ending"], "reasons": {"stance-ending": "「追いやすい。」。本文は敬体（です・ます）なのに、この項目は常体で結んでいる"}},
+    {"unit": 9, "rules": ["stance-ending"], "reasons": {"stance-ending": "「視認性が高い。」。本文は敬体なのに、この項目は常体で結んでいる"}},
+    {"unit": 10, "rules": ["stance-ending"], "reasons": {"stance-ending": "「適切。」「スキップされる。」。本文は敬体なのに、この項目は常体で結んでいる"}},
+    {"unit": 11, "rules": []},
+    {"unit": 12, "rules": []},
+    {"unit": 13, "rules": []},
+    {"unit": 14, "rules": ["investigation"], "reasons": {"investigation": "「考えにくいですが」「必ず両キーが存在するはず」。推量で述べており、調べた記述がない"}},
+    {"unit": 15, "rules": []},
+    {"unit": 16, "rules": []},
+    {"unit": 17, "rules": []},
+    {"unit": 18, "rules": []},
+    {"unit": 19, "rules": ["connective-mismatch", "redundant-paren"], "reasons": {"connective-mismatch": "「ただ、」。前の文「問題ありません」に対して留保を予告する接続詞だが、続く内容は「仕様通りで正しいです」という肯定で、前後の論理と合っていない", "redundant-paren": "「同時に欠落している場合（両方空）」。直前の言い換えで、情報量が増えない"}},
+    {"unit": 20, "rules": []},
+    {"unit": 21, "rules": []},
+    {"unit": 22, "rules": []},
+    {"unit": 23, "rules": []},
+    {"unit": 24, "rules": []},
+    {"unit": 25, "rules": []},
+    {"unit": 26, "rules": []}
+  ]
+}

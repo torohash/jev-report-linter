@@ -1,0 +1,113 @@
+{
+ "id": "p01",
+ "labels": [
+  {
+   "unit": 0,
+   "rules": []
+  },
+  {
+   "unit": 1,
+   "rules": []
+  },
+  {
+   "unit": 2,
+   "rules": []
+  },
+  {
+   "unit": 3,
+   "rules": []
+  },
+  {
+   "unit": 4,
+   "rules": []
+  },
+  {
+   "unit": 5,
+   "rules": []
+  },
+  {
+   "unit": 6,
+   "rules": []
+  },
+  {
+   "unit": 7,
+   "rules": []
+  },
+  {
+   "unit": 8,
+   "rules": []
+  },
+  {
+   "unit": 9,
+   "rules": []
+  },
+  {
+   "unit": 10,
+   "rules": []
+  },
+  {
+   "unit": 11,
+   "rules": []
+  },
+  {
+   "unit": 12,
+   "rules": []
+  },
+  {
+   "unit": 13,
+   "rules": []
+  },
+  {
+   "unit": 14,
+   "rules": []
+  },
+  {
+   "unit": 15,
+   "rules": []
+  },
+  {
+   "unit": 16,
+   "rules": []
+  },
+  {
+   "unit": 17,
+   "rules": []
+  },
+  {
+   "unit": 18,
+   "rules": []
+  },
+  {
+   "unit": 19,
+   "rules": [
+    "surge-failure-metaphor",
+    "investigation"
+   ],
+   "reasons": {
+    "surge-failure-metaphor": "「実害はほぼ無いと考えられます」。専門用語でも事実の記述でもなく、影響の評価として「実害」を使っている",
+    "investigation": "「報告する可能性がありますが…実害はほぼ無いと考えられます」。推量で述べており、実際に起きるかを調べた記述がない"
+   }
+  },
+  {
+   "unit": 20,
+   "rules": [
+    "investigation"
+   ],
+   "reasons": {
+    "investigation": "「(未確認)」。既存の backup_service 関連テストを調べた記述がない"
+   }
+  },
+  {
+   "unit": 21,
+   "rules": []
+  },
+  {
+   "unit": 22,
+   "rules": []
+  },
+  {
+   "unit": 23,
+   "rules": []
+  }
+ ]
+}

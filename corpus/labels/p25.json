@@ -1,0 +1,14 @@
+{
+  "id": "p25",
+  "labels": [
+    {"unit": 0, "rules": []},
+    {"unit": 1, "rules": []},
+    {"unit": 2, "rules": []},
+    {"unit": 3, "rules": ["investigation"], "reasons": {"investigation": "「v3 に上げれば解消する見込みです」。解消するかを推量で述べており、確かめた記述がない"}},
+    {"unit": 4, "rules": []},
+    {"unit": 5, "rules": []},
+    {"unit": 6, "rules": []},
+    {"unit": 7, "rules": ["investigation"], "reasons": {"investigation": "「問題ないはずです」。推量で述べており、ランナーの要件を調べた記述がない"}},
+    {"unit": 8, "rules": []}
+  ]
+}

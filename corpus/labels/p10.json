@@ -1,0 +1,107 @@
+{
+ "id": "p10",
+ "labels": [
+  {
+   "unit": 0,
+   "rules": []
+  },
+  {
+   "unit": 1,
+   "rules": []
+  },
+  {
+   "unit": 2,
+   "rules": []
+  },
+  {
+   "unit": 3,
+   "rules": []
+  },
+  {
+   "unit": 4,
+   "rules": []
+  },
+  {
+   "unit": 5,
+   "rules": []
+  },
+  {
+   "unit": 6,
+   "rules": []
+  },
+  {
+   "unit": 7,
+   "rules": []
+  },
+  {
+   "unit": 8,
+   "rules": []
+  },
+  {
+   "unit": 9,
+   "rules": []
+  },
+  {
+   "unit": 10,
+   "rules": []
+  },
+  {
+   "unit": 11,
+   "rules": []
+  },
+  {
+   "unit": 12,
+   "rules": []
+  },
+  {
+   "unit": 13,
+   "rules": []
+  },
+  {
+   "unit": 14,
+   "rules": [
+    "stance-ending"
+   ],
+   "reasons": {
+    "stance-ending": "「保つようにした。」「スクロールできる」。本文は敬体（〜しました、〜でした）なのに、この項目は常体で結んでいる"
+   }
+  },
+  {
+   "unit": 15,
+   "rules": []
+  },
+  {
+   "unit": 16,
+   "rules": []
+  },
+  {
+   "unit": 17,
+   "rules": []
+  },
+  {
+   "unit": 18,
+   "rules": []
+  },
+  {
+   "unit": 19,
+   "rules": []
+  },
+  {
+   "unit": 20,
+   "rules": []
+  },
+  {
+   "unit": 21,
+   "rules": [
+    "investigation"
+   ],
+   "reasons": {
+    "investigation": "「目視確認は未実施」。実施しなかった理由も、調べた記述もない"
+   }
+  },
+  {
+   "unit": 22,
+   "rules": []
+  }
+ ]
+}
