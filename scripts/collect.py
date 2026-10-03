@@ -2,7 +2,7 @@
 """GitHub上の公開Issue/PRから、Claudeが日本語で書いた完了報告を集める。
 
 対象は claude[bot] が投稿した「Claude finished」コメント。1リポジトリ所有者につき1件だけ採る。
-結果は scripts/problems/<id>.json に、出典URL・本文・判定単位（units）を保存する。
+結果は corpus/reports/<id>.json に、出典URL・本文・判定単位（units）を保存する。
 
 使い方:
   python3 scripts/collect.py [件数]
@@ -82,7 +82,7 @@ def split_units(text: str):
 
 def main():
     target = int(sys.argv[1]) if len(sys.argv) > 1 else 30
-    out_dir = ROOT / "scripts" / "problems"
+    out_dir = ROOT / "corpus" / "reports"
     out_dir.mkdir(exist_ok=True)
     seen_owners, saved = set(), 0
     for q in QUERIES:
