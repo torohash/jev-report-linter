@@ -11,7 +11,6 @@ match:
 applies:
 - source: yomiyasu/references/slop-catalog.md
   text: AI普及以後の技術文書で急増した比喩・評価名詞
-words:
 - source: yomiyasu/references/slop-catalog.md
   text: '`事故` `混ざる` `落とし穴` `破綻` `実害` `素通り`'
 excludes:
