@@ -1,0 +1,24 @@
+{
+ "id": "p06",
+ "source": "https://github.com/danything/gitops/pull/105#issuecomment-5577071471",
+ "text": "### レビュー結果\n\n- [x] コンテキスト収集 (README、schedules.yaml、restore.sh の周辺を確認)\n- [x] PR 差分の確認 (`git diff origin/main...HEAD`)\n- [x] notify.yaml のロジックレビュー\n- [x] README.md / restore.sh の変更確認\n- [x] レビューコメント投稿\n\n全体として、既存の設計方針(`k8up-global` への相乗り、`backend` を書かない、bun ベースのシンプルなスクリプト)を踏襲しており、新しい配線も RBAC も最小限に抑えられています。`restore.sh` の `mattermostWebhook` 追加は既存の Secret 作成ブロックにきれいに乗っており、`:-}` のフォールバックも古い env ファイルとの互換性という観点で妥当です。README の更新も実際の手順と整合しています。\n\n1 点、`apps/k8up/notify.yaml` の判定ロジックについて要確認のコメントをインラインで付けました。\n\n- **`Completed` 条件が付かないまま止まった `Backup` を検知できない可能性**(apps/k8up/notify.yaml:134-141): `verdict()` が `null` を返すケース(＝走ったが `Completed` に到達していない)では、失敗判定にも 25 時間チェックにも引っかからず、その namespace は毎日 `OK` として扱われ続けます。README で「2 が本命」としている「そもそも走ったか」の検知が、*走ったが完了しなかった* ケースで抜ける形になっているため、意図的な割り切りかどうか確認をお願いします。\n\nその他、気になった点はありませんでした:\n- `expected.length`(11)は `schedules.yaml` の `spec.backup` を持つ Schedule 数と一致しており、namespace の重複もありません\n- CronJob の実行時刻(18:00 UTC)は最後の backup(portainer 17:30 UTC)から 30 分後で、通常のバックアップ所要時間なら余裕があります\n- Mattermost の webhook 自体はログや通知本文に出力されておらず、シークレットの混入は見当たりません\n- RBAC は `k8up.io` の 4 リソースに対する `get`/`list` のみで、範囲は妥当です\n\nなお、`k8up-global` への `mattermostWebhook` キー追加はまだ本番クラスタに当てられていない(PR 本文より)とのことなので、キーを足したあとに実際に CronJob が完走して Mattermost に届くか(特に `NODE_EXTRA_CA_CERTS` 経由の TLS 信頼がこのリポジトリで初めて使うパターンのため)、一度実機での確認をおすすめします。",
+ "units": [
+  "### レビュー結果",
+  "- [x] コンテキスト収集 (README、schedules.yaml、restore.sh の周辺を確認)",
+  "- [x] PR 差分の確認 (`git diff origin/main...HEAD`)",
+  "- [x] notify.yaml のロジックレビュー",
+  "- [x] README.md / restore.sh の変更確認",
+  "- [x] レビューコメント投稿",
+  "全体として、既存の設計方針(`k8up-global` への相乗り、`backend` を書かない、bun ベースのシンプルなスクリプト)を踏襲しており、新しい配線も RBAC も最小限に抑えられています。",
+  "`restore.sh` の `mattermostWebhook` 追加は既存の Secret 作成ブロックにきれいに乗っており、`:-}` のフォールバックも古い env ファイルとの互換性という観点で妥当です。",
+  "README の更新も実際の手順と整合しています。",
+  "1 点、`apps/k8up/notify.yaml` の判定ロジックについて要確認のコメントをインラインで付けました。",
+  "- **`Completed` 条件が付かないまま止まった `Backup` を検知できない可能性**(apps/k8up/notify.yaml:134-141): `verdict()` が `null` を返すケース(＝走ったが `Completed` に到達していない)では、失敗判定にも 25 時間チェックにも引っかからず、その namespace は毎日 `OK` として扱われ続けます。README で「2 が本命」としている「そもそも走ったか」の検知が、*走ったが完了しなかった* ケースで抜ける形になっているため、意図的な割り切りかどうか確認をお願いします。",
+  "その他、気になった点はありませんでした:",
+  "- `expected.length`(11)は `schedules.yaml` の `spec.backup` を持つ Schedule 数と一致しており、namespace の重複もありません",
+  "- CronJob の実行時刻(18:00 UTC)は最後の backup(portainer 17:30 UTC)から 30 分後で、通常のバックアップ所要時間なら余裕があります",
+  "- Mattermost の webhook 自体はログや通知本文に出力されておらず、シークレットの混入は見当たりません",
+  "- RBAC は `k8up.io` の 4 リソースに対する `get`/`list` のみで、範囲は妥当です",
+  "なお、`k8up-global` への `mattermostWebhook` キー追加はまだ本番クラスタに当てられていない(PR 本文より)とのことなので、キーを足したあとに実際に CronJob が完走して Mattermost に届くか(特に `NODE_EXTRA_CA_CERTS` 経由の TLS 信頼がこのリポジトリで初めて使うパターンのため)、一度実機での確認をおすすめします。"
+ ]
+}

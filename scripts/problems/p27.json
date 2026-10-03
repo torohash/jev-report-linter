@@ -1,0 +1,14 @@
+{
+ "id": "p27",
+ "source": "https://github.com/HIRO15254/sapphire2/pull/679#issuecomment-5951472864",
+ "text": "### レビュー結果（round 1/2）\n\n**Verdict: approve**（重要な指摘はありません）\n\n| 区分 | 範囲 | 場所 | シナリオ | 根拠 |\n|---|---|---|---|---|\n| nit | new | `.claude/skills/audit/SKILL.md:17`, `:24`, `:25` | Triage に 10 件以上ある日の実行では、Medium / Low の候補を捨てたうえで、step 9 で台帳にそのユニットを「監査済み（その SHA）」として記録します。捨てた候補は次のサイクルの sweep まで見つからず、step 10 の報告にも出ません。 | 以前は step 2 で台帳に触れずに止まっていたので、ユニットはそのまま次回に残っていました。step 10 の報告に「捨てた件数」を加えるか、台帳の記録を省くことを検討してください。 |\n| nit | new | `scripts/audit-run.ts:62-67` | `claude` / `codex` が PATH にないと、`spawnSync` は `status: null` と `error` を返します。このとき何も出力せずに終了コード 1 で終わり、外側のエージェントは原因を報告できません。 | `result.error` があれば `console.error` に出すと、原因が報告に残ります。 |\n| unverified | new | `docs/design/agent-workflow.md:66`, `scripts/audit-run.ts:62` | Orca の外側のエージェントは、`bun scripts/audit-run.ts` をシェルツールで同期実行します。このとき、ツールのタイムアウト（Claude Code の Bash は既定 2 分、最大 10 分）が xhigh の監査全体より短いと、内側のセッションが途中で打ち切られる可能性があります。 | Orca の実際の実行方法はリポジトリ内では確認できません。手動実行の確認で、監査が最後（台帳の保存）まで完了するかを見てください。必要なら、プロンプトにバックグラウンド実行か長いタイムアウトを指定してください。 |\n\nカバレッジ: 変更された 7 ファイルをすべて確認しました（ドキュメント間の上限の記述は一貫しています。`check-rules` の除外はこのスクリプトとそのテストに限られます）。実行したテストは `bunx vitest run --project scripts scripts/__tests__/audit-run.test.ts` で、4 件選択、4 件成功、0 件失敗です。`claude --effort` と `codex -c model_reasoning_effort=xhigh` が実際の CLI で通るかは、この環境では確かめていません。PR 本文のとおり、マージ後の手動実行で確認する前提です。",
+ "units": [
+  "### レビュー結果（round 1/2）",
+  "**Verdict: approve**（重要な指摘はありません）",
+  "カバレッジ: 変更された 7 ファイルをすべて確認しました（ドキュメント間の上限の記述は一貫しています。",
+  "`check-rules` の除外はこのスクリプトとそのテストに限られます）。",
+  "実行したテストは `bunx vitest run --project scripts scripts/__tests__/audit-run.test.ts` で、4 件選択、4 件成功、0 件失敗です。",
+  "`claude --effort` と `codex -c model_reasoning_effort=xhigh` が実際の CLI で通るかは、この環境では確かめていません。",
+  "PR 本文のとおり、マージ後の手動実行で確認する前提です。"
+ ]
+}

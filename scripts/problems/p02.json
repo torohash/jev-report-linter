@@ -1,0 +1,18 @@
+{
+ "id": "p02",
+ "source": "https://github.com/ALAB-app-training-team/trainreservation-app-team2/pull/504#issuecomment-5808513025",
+ "text": "### レビュー結果\n\n**frontend/src/features/schedule/components/ScheduleItem.tsx:102-105, 121**\n出発済みの判定・選択不可がフロントエンドの `disabled` 制御のみで実装されており、対応するバックエンド側の検証（`ReservationService` 等）が見当たらない。ボタン無効化を回避してAPIを直接呼び出せば、出発時刻を過ぎたスケジュールでも予約作成が可能になってしまうため、認可・入力検証漏れとなる。バックエンド側にも同様の時刻チェックを追加すべき。\n\n**予約変更フロー（frontend/src/features/reservation 配下）**\nPR本文の受け入れ基準に「出発時刻が現在時刻よりも前の有効な予約を予約変更できないようにする」とあるが、今回変更されたファイルは `EmptySeatCount.tsx` と `ScheduleItem.tsx`（列車検索結果一覧）のみで、予約変更（`ReservationSelectItem.tsx` / `useChangeModal.ts` 等）側に `isDeparted` 相当のチェックが存在しない（grep で該当ロジックなしを確認済み）。この受け入れ基準が未実装のまま残っている可能性が高い。\n\n上記2点はいずれも要件・認可観点での抜けであり、対応を確認・実装する必要がある。それ以外のロジック（`isDeparted` の日付/時刻フォーマットの整合性、`EmptySeatCount` の表示分岐）に明らかなバグは見当たらなかった。\n\n以上でレビューは完了。",
+ "units": [
+  "### レビュー結果",
+  "**frontend/src/features/schedule/components/ScheduleItem.tsx:102-105, 121**",
+  "出発済みの判定・選択不可がフロントエンドの `disabled` 制御のみで実装されており、対応するバックエンド側の検証（`ReservationService` 等）が見当たらない。",
+  "ボタン無効化を回避してAPIを直接呼び出せば、出発時刻を過ぎたスケジュールでも予約作成が可能になってしまうため、認可・入力検証漏れとなる。",
+  "バックエンド側にも同様の時刻チェックを追加すべき。",
+  "**予約変更フロー（frontend/src/features/reservation 配下）**",
+  "PR本文の受け入れ基準に「出発時刻が現在時刻よりも前の有効な予約を予約変更できないようにする」とあるが、今回変更されたファイルは `EmptySeatCount.tsx` と `ScheduleItem.tsx`（列車検索結果一覧）のみで、予約変更（`ReservationSelectItem.tsx` / `useChangeModal.ts` 等）側に `isDeparted` 相当のチェックが存在しない（grep で該当ロジックなしを確認済み）。",
+  "この受け入れ基準が未実装のまま残っている可能性が高い。",
+  "上記2点はいずれも要件・認可観点での抜けであり、対応を確認・実装する必要がある。",
+  "それ以外のロジック（`isDeparted` の日付/時刻フォーマットの整合性、`EmptySeatCount` の表示分岐）に明らかなバグは見当たらなかった。",
+  "以上でレビューは完了。"
+ ]
+}

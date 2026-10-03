@@ -1,0 +1,31 @@
+{
+ "id": "p01",
+ "source": "https://github.com/mmtigers/my_python_project/pull/880#issuecomment-5954093260",
+ "text": "### レビュー完了\n\n- [x] 差分の取得・全体構造の把握\n- [x] `monitors/switchbot_hub_monitor.py` のレビュー\n- [x] `services/system_maintenance_service.py` / `routers/system_router.py` のレビュー\n- [x] `config.py` / `devices.json.example` / `scheduler_boot.py` / `start_all.sh` のレビュー\n- [x] テスト(`test_switchbot_hub_monitor.py`, `test_system_deploy.py`, 既存テストの差分)のレビュー\n- [x] `dashboard_page_service.py` のレビュー\n- [x] 仕様書ドリフトの確認\n- [x] レビュー結果の投稿\n\nCLAUDE.md の観点(正しさ/レイヤリング/設定/テスト/規約)に沿って確認しましたが、**致命的なバグや規約違反は見つかりませんでした**。以下は参考所見です(ブロッカーではありません)。\n\n#### 良かった点\n- `switchbot_hub_monitor.py` の状態遷移(`evaluate_state`)は副作用なしの純粋関数として切り出されており、通知失敗時に「通知済み」フラグを戻さずリトライさせる設計(`main()` 内 L178-182)も正しく実装・テストされています。\n- `system_maintenance_service.py` の「再起動でプロセスが入れ替わる」前提に対して、状態ファイル+プロセス起動時刻比較で成否を確定させる設計は妥当です。`_run_deploy` 内で `_deploy_lock` を保持したままブロッキングな `restart_home_system()` を呼んでいない点(ロック解放後に呼んでいる)もデッドロックを避けられています。\n- `routers/system_router.py` はパース/ログ記録のみで、ロジックは `services/system_maintenance_service.py` に委譲されており、既存の `manual_backup`/`manual_restart` のパターン(ブロッキング処理は `async def` にしない等)を踏襲しています。\n- 新規テスト(`test_system_deploy.py`, `test_switchbot_hub_monitor.py`)は DB を使わないため `isolated_db` は不要ですが、ルーター経由のテストは `api_client` フィクスチャを使っており規約に沿っています。`notification_service`/LINE 経路は `send_push` を直接モックしているため、`conftest.py` のwebhook/トークン空文字化の仕組みを回避していません。\n- `devices.json` の `DeviceConfig.ip` をバリデーションしない設計(不正値で全デバイス読み込みを失敗させない)の判断根拠がコメントで明記されており、妥当です。\n- 仕様書(`switchbot_hub_monitor.md` 新規、`system_router.md`/`system_maintenance_service.md`/`scheduler_boot.md`/`config.md`/`README.md`/`全体設計書.md` 更新)は同PR内でドリフトなく追従済みです(CIの仕様書ドリフトチェックも「検知事項なし」)。\n\n#### 軽微な所見(nit、対応不要)\n- `MY_HOME_SYSTEM/services/system_maintenance_service.py` の `get_deploy_state()` は、再起動後の新プロセスの起動時刻(`_PROCESS_STARTED_AT`)と要求時刻(`restart_requested_at`)を `time.time()` の単純比較で「再起動が完了したか」を判定しています。理論上、同一ミリ秒未満の差では新プロセス側が先に判定ロジックを実行する前に古いプロセスの状態を誤って「中断」と報告する可能性がありますが、systemdによるプロセス入れ替えには実運用上十分な時間差(数百ms以上)があるため、実害はほぼ無いと考えられます。\n- `tests/test_system_deploy.py` の `TestTrigger` 系テストはバックグラウンドスレッドの完了をポーリング(`for _ in range(100): time.sleep(0.02)`)で待っていますが、既存の `backup_service` 関連テストと同様のパターンであれば問題ありません(未確認)。\n\n#### 未実行の確認事項\n- `pyright` / `shellcheck` はこの環境で実行できる権限が無かったため未実施です(PR作者も同様に未実行と記載、CIでの確認待ち)。\n- サンドボックスの制約で `python -m pytest` 自体を実行する権限が無かったため、テストは実際には実行せず静的レビューのみで確認しました。PR作者の報告(2342 passed, 13 skipped)を前提としています。",
+ "units": [
+  "### レビュー完了",
+  "- [x] 差分の取得・全体構造の把握",
+  "- [x] `monitors/switchbot_hub_monitor.py` のレビュー",
+  "- [x] `services/system_maintenance_service.py` / `routers/system_router.py` のレビュー",
+  "- [x] `config.py` / `devices.json.example` / `scheduler_boot.py` / `start_all.sh` のレビュー",
+  "- [x] テスト(`test_switchbot_hub_monitor.py`, `test_system_deploy.py`, 既存テストの差分)のレビュー",
+  "- [x] `dashboard_page_service.py` のレビュー",
+  "- [x] 仕様書ドリフトの確認",
+  "- [x] レビュー結果の投稿",
+  "CLAUDE.md の観点(正しさ/レイヤリング/設定/テスト/規約)に沿って確認しましたが、**致命的なバグや規約違反は見つかりませんでした**。",
+  "以下は参考所見です(ブロッカーではありません)。",
+  "#### 良かった点",
+  "- `switchbot_hub_monitor.py` の状態遷移(`evaluate_state`)は副作用なしの純粋関数として切り出されており、通知失敗時に「通知済み」フラグを戻さずリトライさせる設計(`main()` 内 L178-182)も正しく実装・テストされています。",
+  "- `system_maintenance_service.py` の「再起動でプロセスが入れ替わる」前提に対して、状態ファイル+プロセス起動時刻比較で成否を確定させる設計は妥当です。`_run_deploy` 内で `_deploy_lock` を保持したままブロッキングな `restart_home_system()` を呼んでいない点(ロック解放後に呼んでいる)もデッドロックを避けられています。",
+  "- `routers/system_router.py` はパース/ログ記録のみで、ロジックは `services/system_maintenance_service.py` に委譲されており、既存の `manual_backup`/`manual_restart` のパターン(ブロッキング処理は `async def` にしない等)を踏襲しています。",
+  "- 新規テスト(`test_system_deploy.py`, `test_switchbot_hub_monitor.py`)は DB を使わないため `isolated_db` は不要ですが、ルーター経由のテストは `api_client` フィクスチャを使っており規約に沿っています。`notification_service`/LINE 経路は `send_push` を直接モックしているため、`conftest.py` のwebhook/トークン空文字化の仕組みを回避していません。",
+  "- `devices.json` の `DeviceConfig.ip` をバリデーションしない設計(不正値で全デバイス読み込みを失敗させない)の判断根拠がコメントで明記されており、妥当です。",
+  "- 仕様書(`switchbot_hub_monitor.md` 新規、`system_router.md`/`system_maintenance_service.md`/`scheduler_boot.md`/`config.md`/`README.md`/`全体設計書.md` 更新)は同PR内でドリフトなく追従済みです(CIの仕様書ドリフトチェックも「検知事項なし」)。",
+  "#### 軽微な所見(nit、対応不要)",
+  "- `MY_HOME_SYSTEM/services/system_maintenance_service.py` の `get_deploy_state()` は、再起動後の新プロセスの起動時刻(`_PROCESS_STARTED_AT`)と要求時刻(`restart_requested_at`)を `time.time()` の単純比較で「再起動が完了したか」を判定しています。理論上、同一ミリ秒未満の差では新プロセス側が先に判定ロジックを実行する前に古いプロセスの状態を誤って「中断」と報告する可能性がありますが、systemdによるプロセス入れ替えには実運用上十分な時間差(数百ms以上)があるため、実害はほぼ無いと考えられます。",
+  "- `tests/test_system_deploy.py` の `TestTrigger` 系テストはバックグラウンドスレッドの完了をポーリング(`for _ in range(100): time.sleep(0.02)`)で待っていますが、既存の `backup_service` 関連テストと同様のパターンであれば問題ありません(未確認)。",
+  "#### 未実行の確認事項",
+  "- `pyright` / `shellcheck` はこの環境で実行できる権限が無かったため未実施です(PR作者も同様に未実行と記載、CIでの確認待ち)。",
+  "- サンドボックスの制約で `python -m pytest` 自体を実行する権限が無かったため、テストは実際には実行せず静的レビューのみで確認しました。PR作者の報告(2342 passed, 13 skipped)を前提としています。"
+ ]
+}

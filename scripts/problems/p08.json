@@ -1,0 +1,18 @@
+{
+ "id": "p08",
+ "source": "https://github.com/nairoki23/discord-bot/issues/23#issuecomment-5903106747",
+ "text": "### 修正しました\n\n- [x] `service/timer/timer.py` の `_on_done` を `self.jobs.pop(job_id, None)` に変更（Issue の修正案 1）。`cancel()` と done callback の二重呼び出しでも `KeyError` が出なくなります。`service/timer/CLAUDE.md` の「完了・キャンセルしたジョブは即削除」という仕様も維持されます。\n- [x] `tests/test_timer.py` を追加\n  - キャンセル後に `list_jobs()` からジョブが消え、done callback 実行後も loop の例外ハンドラに何も届かないこと\n  - 存在しない ID の `cancel()` が `False` を返すこと\n  - 正常終了したジョブが削除されること\n\n### 注意\nこの環境ではテスト実行のコマンドが許可されておらず、`python -m unittest` を**実行できていません**。手元か CI で確認をお願いします。\n\nなお CLAUDE.md では PR は `dev` 向けとされているため、作成時に base を `dev` に変更してください。\n ・ [branch](https://github.com/nairoki23/discord-bot/tree/claude/issue-23-20260930-0250)",
+ "units": [
+  "### 修正しました",
+  "- [x] `service/timer/timer.py` の `_on_done` を `self.jobs.pop(job_id, None)` に変更（Issue の修正案 1）。`cancel()` と done callback の二重呼び出しでも `KeyError` が出なくなります。`service/timer/CLAUDE.md` の「完了・キャンセルしたジョブは即削除」という仕様も維持されます。",
+  "- [x] `tests/test_timer.py` を追加",
+  "- キャンセル後に `list_jobs()` からジョブが消え、done callback 実行後も loop の例外ハンドラに何も届かないこと",
+  "- 存在しない ID の `cancel()` が `False` を返すこと",
+  "- 正常終了したジョブが削除されること",
+  "### 注意",
+  "この環境ではテスト実行のコマンドが許可されておらず、`python -m unittest` を**実行できていません**。",
+  "手元か CI で確認をお願いします。",
+  "なお CLAUDE.md では PR は `dev` 向けとされているため、作成時に base を `dev` に変更してください。",
+  "・ [branch](https://github.com/nairoki23/discord-bot/tree/claude/issue-23-20260930-0250)"
+ ]
+}

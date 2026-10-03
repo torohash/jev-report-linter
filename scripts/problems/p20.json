@@ -1,0 +1,28 @@
+{
+ "id": "p20",
+ "source": "https://github.com/Hashimoto-Noriaki/next-article-share-app/pull/470#issuecomment-5835159556",
+ "text": "### レビュー結果\n\n- [x] コンテキストの収集（PRの変更内容を確認）\n- [x] リクエスト内容の把握\n- [x] レビュー実施\n- [x] コメント投稿\n\nトリガーコメントが `@claude` のみで具体的な指示がなかったため、CLAUDE.md の規約に沿って本 PR のコードレビューを実施しました。\n\n#### 確認した内容\n\n- `.claude/rules/architecture.md`（新設）・`frontend.md`（改訂）・`git.md`（新設）の diff\n- `CLAUDE.md` / README.md / docs 配下の変更\n- スキル（`pr-description` / `smart-commit`）の diff\n- ドキュメントの記述と実際のソース構成（`src/external/`, `src/features/articles/`, `src/eslint-local-rules/`, `.github/workflows/`）を突き合わせて整合性を確認\n\n#### 総評\n\n`architecture.md` に書かれているレイヤー構成・依存方向・命名規則は、実際の `src/external/`（auth, cloudinary, dto, handler, service, repository）や `src/features/articles/components/{server,client}`、`src/eslint-local-rules/restrict-action-imports.js` などの実装と突き合わせて確認しましたが、記述と実態は一致しています。README・`docs/git/branch-strategy.md` から参照しているワークフローファイル（`ci.yml` / `sast.yml` / `deploy-staging.yml` / `deploy-prod.yml` / `claude-code-review.yml` / `claude.yml`）もすべて実在し、リンク切れはありませんでした。Critical に該当する問題（セキュリティ・認証認可・CI 失敗）は見つかりませんでした。\n\n#### Warning\n\n- `CLAUDE.md` の「型安全性」節に追加された `ユーザー入力が Zod で検証されているか（Server Actions 経由は src/external/handler/ 側、Route Handlers はハンドラ内で検証する）` は、「セキュリティ」節の `ユーザー入力は Zod でバリデーションしているか` と内容が重複しています。今回追加された一文は「どこで検証すべきか」という詳細情報を含んでいる点で価値がありますが、同じ観点が2つの節に分散していてレビュー時にどちらを参照すべきか分かりにくくなっています。セキュリティ側の記述を削除するか、型安全性側に検証場所の情報を集約するなど、どちらか一方にまとめることを検討してください。\n\n#### コメント（任意）\n\n- `.claude/rules/frontend.md` にあった「不要な `'use client'` は Server Component の恩恵を失うので Critical」という記述が削除され、代わりに `CLAUDE.md` の Rules に「不要な `'use client'` は Warning として扱う」が追加されています。PR 概要に明記されている意図的な変更のため問題ありませんが、重要度が下がる変更なので、レビュー時の運用に影響がないか一応認識しておくとよさそうです。\n\nCritical は 0 件のため `--approve` 相当ですが、上記 Warning は軽微な内容の重複整理の提案です。\n\nブランチ: `feature/harness-setting`",
+ "units": [
+  "### レビュー結果",
+  "- [x] コンテキストの収集（PRの変更内容を確認）",
+  "- [x] リクエスト内容の把握",
+  "- [x] レビュー実施",
+  "- [x] コメント投稿",
+  "トリガーコメントが `@claude` のみで具体的な指示がなかったため、CLAUDE.md の規約に沿って本 PR のコードレビューを実施しました。",
+  "#### 確認した内容",
+  "- `.claude/rules/architecture.md`（新設）・`frontend.md`（改訂）・`git.md`（新設）の diff",
+  "- `CLAUDE.md` / README.md / docs 配下の変更",
+  "- スキル（`pr-description` / `smart-commit`）の diff",
+  "- ドキュメントの記述と実際のソース構成（`src/external/`, `src/features/articles/`, `src/eslint-local-rules/`, `.github/workflows/`）を突き合わせて整合性を確認",
+  "#### 総評",
+  "`architecture.md` に書かれているレイヤー構成・依存方向・命名規則は、実際の `src/external/`（auth, cloudinary, dto, handler, service, repository）や `src/features/articles/components/{server,client}`、`src/eslint-local-rules/restrict-action-imports.js` などの実装と突き合わせて確認しましたが、記述と実態は一致しています。",
+  "README・`docs/git/branch-strategy.md` から参照しているワークフローファイル（`ci.yml` / `sast.yml` / `deploy-staging.yml` / `deploy-prod.yml` / `claude-code-review.yml` / `claude.yml`）もすべて実在し、リンク切れはありませんでした。",
+  "Critical に該当する問題（セキュリティ・認証認可・CI 失敗）は見つかりませんでした。",
+  "#### Warning",
+  "- `CLAUDE.md` の「型安全性」節に追加された `ユーザー入力が Zod で検証されているか（Server Actions 経由は src/external/handler/ 側、Route Handlers はハンドラ内で検証する）` は、「セキュリティ」節の `ユーザー入力は Zod でバリデーションしているか` と内容が重複しています。今回追加された一文は「どこで検証すべきか」という詳細情報を含んでいる点で価値がありますが、同じ観点が2つの節に分散していてレビュー時にどちらを参照すべきか分かりにくくなっています。セキュリティ側の記述を削除するか、型安全性側に検証場所の情報を集約するなど、どちらか一方にまとめることを検討してください。",
+  "#### コメント（任意）",
+  "- `.claude/rules/frontend.md` にあった「不要な `'use client'` は Server Component の恩恵を失うので Critical」という記述が削除され、代わりに `CLAUDE.md` の Rules に「不要な `'use client'` は Warning として扱う」が追加されています。PR 概要に明記されている意図的な変更のため問題ありませんが、重要度が下がる変更なので、レビュー時の運用に影響がないか一応認識しておくとよさそうです。",
+  "Critical は 0 件のため `--approve` 相当ですが、上記 Warning は軽微な内容の重複整理の提案です。",
+  "ブランチ: `feature/harness-setting`"
+ ]
+}

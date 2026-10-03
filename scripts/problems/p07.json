@@ -1,0 +1,24 @@
+{
+ "id": "p07",
+ "source": "https://github.com/chika3742/genshin_material/pull/520#issuecomment-5912869816",
+ "text": "### コードレビュー結果\n\n- [x] PR差分の取得\n- [x] 前回指摘の解決状況の確認\n- [x] 変更ファイルのレビュー\n- [x] 総括\n\n「Review fix」（363fae6）を含む最新の状態をレビューしました。解決済みの指摘には触れていません。\n\n#### 新規の指摘\n\n1. **英語文言のタイプミス**（[コメント](https://github.com/chika3742/genshin_material/pull/520#discussion_r4145455249)）: `characterListPage.firstSyncBanner.text` が `all your owned character` と単数形になっています。確認ダイアログの文言に合わせて `characters` にしてください（修正後は slang の再生成が必要です）。\n\n#### 未解決のまま残っている前回の指摘（参考）\n\n- クールダウン中に投げる `StateError`（`character_state_repository.dart:71`）が今もそのままです。このため、万一ここに到達すると理由の分からないエラーのスナックバーが出て、Crashlytics にもエラーとして送られます。意図的に残しているなら対応は不要です。\n- 新しい UI（`CharacterBulkSyncButton`、初回同期バナー、`useCharacterBulkSyncResult`）のウィジェットテストはまだありません。\n\n#### 確認して問題がなかった点\n\n- `showCharacterBulkSyncConfirmDialog(WidgetRef)` に処理をまとめたことで、`catchError(logAndReport)` の付け忘れを防げるようになりました。OK 押下時の `ref.context.mounted` チェックもあり、閉じた後のウィジェットで `ref` を使ってしまうことはありません。\n- 「フィルターをクリア」ボタンは `isFiltering` が false のとき無効になり、`clearFilters()` は並べ替え設定を残したまま絞り込みだけを解除します。テストも新しいメソッド名に合わせて更新されています。\n- 英語ロケールには新しいキーが入り、`possession*` は削除されています。複数形の分岐（`minutes(param=ttlMinutes)`）とリンク（`@:{.minutes}`）も正しく生成されています。削除された `whereToGet` は `lib/` のどこからも参照されていません。\n\n新たに見つかったのは軽微な文言の指摘 1 件だけです。\n | ブランチ: [`character-bulk-sync`](https://github.com/chika3742/genshin_material/tree/character-bulk-sync)",
+ "units": [
+  "### コードレビュー結果",
+  "- [x] PR差分の取得",
+  "- [x] 前回指摘の解決状況の確認",
+  "- [x] 変更ファイルのレビュー",
+  "- [x] 総括",
+  "「Review fix」（363fae6）を含む最新の状態をレビューしました。",
+  "解決済みの指摘には触れていません。",
+  "#### 新規の指摘",
+  "1. **英語文言のタイプミス**（[コメント](https://github.com/chika3742/genshin_material/pull/520#discussion_r4145455249)）: `characterListPage.firstSyncBanner.text` が `all your owned character` と単数形になっています。確認ダイアログの文言に合わせて `characters` にしてください（修正後は slang の再生成が必要です）。",
+  "#### 未解決のまま残っている前回の指摘（参考）",
+  "- クールダウン中に投げる `StateError`（`character_state_repository.dart:71`）が今もそのままです。このため、万一ここに到達すると理由の分からないエラーのスナックバーが出て、Crashlytics にもエラーとして送られます。意図的に残しているなら対応は不要です。",
+  "- 新しい UI（`CharacterBulkSyncButton`、初回同期バナー、`useCharacterBulkSyncResult`）のウィジェットテストはまだありません。",
+  "#### 確認して問題がなかった点",
+  "- `showCharacterBulkSyncConfirmDialog(WidgetRef)` に処理をまとめたことで、`catchError(logAndReport)` の付け忘れを防げるようになりました。OK 押下時の `ref.context.mounted` チェックもあり、閉じた後のウィジェットで `ref` を使ってしまうことはありません。",
+  "- 「フィルターをクリア」ボタンは `isFiltering` が false のとき無効になり、`clearFilters()` は並べ替え設定を残したまま絞り込みだけを解除します。テストも新しいメソッド名に合わせて更新されています。",
+  "- 英語ロケールには新しいキーが入り、`possession*` は削除されています。複数形の分岐（`minutes(param=ttlMinutes)`）とリンク（`@:{.minutes}`）も正しく生成されています。削除された `whereToGet` は `lib/` のどこからも参照されていません。",
+  "新たに見つかったのは軽微な文言の指摘 1 件だけです。"
+ ]
+}

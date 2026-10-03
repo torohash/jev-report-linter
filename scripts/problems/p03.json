@@ -1,0 +1,17 @@
+{
+ "id": "p03",
+ "source": "https://github.com/tttdddkkk/claude-skills/pull/15#issuecomment-5790154280",
+ "text": "### レビュー完了\n\n- [x] コンテキスト収集(CLAUDE.md のレビュー方針、PR 本文)\n- [x] 変更差分の取得と確認\n- [x] SKILL.md / README / references の内容確認\n- [x] `comment-lint.mjs` の変更確認(規則の突合・フィクスチャの手動検証を含む)\n- [x] `dev-setup` 側の移行差分確認(参照の残留なし)\n- [x] インラインコメント投稿(🔴 CRITICAL 1件、🟡 WARNING 2件)\n- [x] 完了報告\n\nインラインコメントとして3件投稿しました。集計とマージ判定は後続のワークフローに委ねます。",
+ "units": [
+  "### レビュー完了",
+  "- [x] コンテキスト収集(CLAUDE.md のレビュー方針、PR 本文)",
+  "- [x] 変更差分の取得と確認",
+  "- [x] SKILL.md / README / references の内容確認",
+  "- [x] `comment-lint.mjs` の変更確認(規則の突合・フィクスチャの手動検証を含む)",
+  "- [x] `dev-setup` 側の移行差分確認(参照の残留なし)",
+  "- [x] インラインコメント投稿(🔴 CRITICAL 1件、🟡 WARNING 2件)",
+  "- [x] 完了報告",
+  "インラインコメントとして3件投稿しました。",
+  "集計とマージ判定は後続のワークフローに委ねます。"
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "id": "p04",
+ "source": "https://github.com/noan98/VeloX/pull/255#issuecomment-5666766478",
+ "text": "### レビュー完了\n\n- [x] コンテキスト収集 (CLAUDE.md / PR 本文 / diff stat)\n- [x] 変更ファイルの精読 (serve.py, busy.html, perf-windows.yml, テスト2ファイル)\n- [x] ロジックの静的検証 (ロック境界・ループの腕分離・env 配線)\n- [x] レビューコメント投稿\n\n**結論: LGTM。ブロッキングな問題は見つかりませんでした。**\n\n#### 良い点\n\n- `BeaconCounts` の state → instance → {first, last} という構造変更は §42.4 の -5 の原因 (別実体の値を跨いだ引き算) を的確に潰しています。`_summary_locked()` を `summary()`/`reset()` で共有している点も DRY で読みやすいです。\n- `scripts/bench/serve.py:120-121` の `entry[\"last_frames\"] = max(entry[\"last_frames\"], frames)` は元の単純な上書きから改善されており、同一実体内でのカウンタ後退 (壊れた入力やビーコンの到着順の乱れ) に対して安全側に倒しています。\n- `reset()` が「返してから空にする」を 1 回のロック内でやっている設計 (`serve.py:143-154`) は、腕の境界での取りこぼし・二重カウントを構造的に防げていて妥当です。\n- `perf-windows.yml` 側は `Reset-Beacons` を A/B ループ開始前に 1 回、各腕の直後に呼ぶ配置になっており、`INPUT_BEACON` の env 経由の受け渡し (script injection 対策) も既存パターンと一貫しています (`.github/workflows/perf-windows.yml:294,407,577` と同じ形)。\n- テストが §42.4/§42.5 の実際の壊れ方 (再起動で負になる、腕が混ざる) をそのまま回帰テストにしているのは良い設計です。`test_perf_windows_inputs.py` 側も「変更前の workflow に対して落ちることを確認済み」と明記されており、配線ミスを検知できる形になっています。\n\n#### 軽微な所見 (ブロッキングではありません)\n\n- `scripts/bench/serve.py` の `record()` は、同一 `id` の中で**最初に届いた beacon** を `first_frames`/`first_ticks` として固定します。`fetch` はページ側で待たずに投げっぱなしなので、理論上はネットワーク遅延で到着順が入れ替わる余地はありますが、localhost 上・500ms 間隔という実運用では起きにくく、既存の (per-state 時代からの) 設計を踏襲しているだけなので対応不要と判断します。\n- PR 本文にある通り `#247` はこの PR では close されない設計ですが、コミットメッセージ・PR 本文ともに `Closes #247` 等のキーワードは入っておらず、タイトルの `(#247)` も CLAUDE.md の規則上 close をトリガーしません。意図通りです。\n\n#### 検証状況\n\n- 差分の静的読解 (`git diff origin/main...HEAD`) は完了し、ロジック・ロック境界・PowerShell 側の腕分離ループを一通り追いました。\n- サンドボックスの制約により `python3 -m unittest discover -s .github/scripts` / `cargo test` 等の実行コマンドがこのセッションでは承認されず、実行結果の再現確認はできませんでした。PR 本文に記載の実行結果 (194 tests OK / cargo fmt・clippy・test --lib 1052 passed) は妥当な内容に見えますが、CI 側の結果を正としてご確認ください。\n (branch: `claude/phase-4-progress-yspbfv`)",
+ "units": [
+  "### レビュー完了",
+  "- [x] コンテキスト収集 (CLAUDE.md / PR 本文 / diff stat)",
+  "- [x] 変更ファイルの精読 (serve.py, busy.html, perf-windows.yml, テスト2ファイル)",
+  "- [x] ロジックの静的検証 (ロック境界・ループの腕分離・env 配線)",
+  "- [x] レビューコメント投稿",
+  "**結論: LGTM。",
+  "ブロッキングな問題は見つかりませんでした。",
+  "**",
+  "#### 良い点",
+  "- `BeaconCounts` の state → instance → {first, last} という構造変更は §42.4 の -5 の原因 (別実体の値を跨いだ引き算) を的確に潰しています。`_summary_locked()` を `summary()`/`reset()` で共有している点も DRY で読みやすいです。",
+  "- `scripts/bench/serve.py:120-121` の `entry[\"last_frames\"] = max(entry[\"last_frames\"], frames)` は元の単純な上書きから改善されており、同一実体内でのカウンタ後退 (壊れた入力やビーコンの到着順の乱れ) に対して安全側に倒しています。",
+  "- `reset()` が「返してから空にする」を 1 回のロック内でやっている設計 (`serve.py:143-154`) は、腕の境界での取りこぼし・二重カウントを構造的に防げていて妥当です。",
+  "- `perf-windows.yml` 側は `Reset-Beacons` を A/B ループ開始前に 1 回、各腕の直後に呼ぶ配置になっており、`INPUT_BEACON` の env 経由の受け渡し (script injection 対策) も既存パターンと一貫しています (`.github/workflows/perf-windows.yml:294,407,577` と同じ形)。",
+  "- テストが §42.4/§42.5 の実際の壊れ方 (再起動で負になる、腕が混ざる) をそのまま回帰テストにしているのは良い設計です。`test_perf_windows_inputs.py` 側も「変更前の workflow に対して落ちることを確認済み」と明記されており、配線ミスを検知できる形になっています。",
+  "#### 軽微な所見 (ブロッキングではありません)",
+  "- `scripts/bench/serve.py` の `record()` は、同一 `id` の中で**最初に届いた beacon** を `first_frames`/`first_ticks` として固定します。`fetch` はページ側で待たずに投げっぱなしなので、理論上はネットワーク遅延で到着順が入れ替わる余地はありますが、localhost 上・500ms 間隔という実運用では起きにくく、既存の (per-state 時代からの) 設計を踏襲しているだけなので対応不要と判断します。",
+  "- PR 本文にある通り `#247` はこの PR では close されない設計ですが、コミットメッセージ・PR 本文ともに `Closes #247` 等のキーワードは入っておらず、タイトルの `(#247)` も CLAUDE.md の規則上 close をトリガーしません。意図通りです。",
+  "#### 検証状況",
+  "- 差分の静的読解 (`git diff origin/main...HEAD`) は完了し、ロジック・ロック境界・PowerShell 側の腕分離ループを一通り追いました。",
+  "- サンドボックスの制約により `python3 -m unittest discover -s .github/scripts` / `cargo test` 等の実行コマンドがこのセッションでは承認されず、実行結果の再現確認はできませんでした。PR 本文に記載の実行結果 (194 tests OK / cargo fmt・clippy・test --lib 1052 passed) は妥当な内容に見えますが、CI 側の結果を正としてご確認ください。",
+  "(branch: `claude/phase-4-progress-yspbfv`)"
+ ]
+}

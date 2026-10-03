@@ -1,0 +1,29 @@
+{
+ "id": "p28",
+ "source": "https://github.com/kenjitaylor-toriihealth/toriihealth/issues/32#issuecomment-5947442079",
+ "text": "### index.html チェック結果（コードは変更していません）\n\n**結論：サイトの表示や予約導線を壊すような重大なエラーは見つかりませんでした。** 下記は改善候補です。\n\n#### 問題なし\n- `<html>`・`<body>` は各1つで正しく閉じている\n- 共通パーツの読み込みは CLAUDE.md の規約どおり\n  - `assets/js/analytics.js`（line 48）\n  - `assets/css/styles.css`（line 51）\n  - `#site-header` / `#site-footer`（line 95 / 3210）\n  - `include-partials.js`（line 3271）\n- 参照先のファイルは実在する（`assets/`、`partials/`、`Torii_Health_TopPage_files/` のJS）\n- canonical は `https://toriihealth.org/` で apex になっている\n- 予約リンク `https://toriihealth.intakeq.com/booking`（line 1239）は正常\n- 古い reCAPTCHA の iframe は残っていない\n\n#### 軽微な問題（優先度順）\n1. **`og:image` などが `http://`（非HTTPS）**（lines 17, 23–27）。Squarespace CDN の画像を指しており、SNSシェア時に画像が出ない可能性があります。CDN は契約終了で消えるリスクもあります（既知TODO #4）。\n2. **Kit の `ck.5.js` が2回読み込まれている**（line 3220）。同じタグが重複しています。\n3. **Kit のスライドインフォームが本文末尾に残っている**（lines 3220–3271）。既知TODO #10 のとおり、表示が本文に重なる原因になります。\n4. **`<base href=\".\">`**（line 7）。サブパスから開くと相対リンクが想定外になる可能性があります。ルート直下の `index.html` なら問題ありません。\n5. **Squarespace の JS/CSS が大量に残っている**（ファイルは約214KB）。既知TODO #5・#8（二重読み込みによるコンソールエラーなど）に該当します。\n\n確認方法は静的な読み取りとファイル存在チェックです。ブラウザでの表示確認（PC幅・スマホ幅）やコンソールエラーの確認は行っていません。",
+ "units": [
+  "### index.html チェック結果（コードは変更していません）",
+  "**結論：サイトの表示や予約導線を壊すような重大なエラーは見つかりませんでした。",
+  "** 下記は改善候補です。",
+  "#### 問題なし",
+  "- `<html>`・`<body>` は各1つで正しく閉じている",
+  "- 共通パーツの読み込みは CLAUDE.md の規約どおり",
+  "- `assets/js/analytics.js`（line 48）",
+  "- `assets/css/styles.css`（line 51）",
+  "- `#site-header` / `#site-footer`（line 95 / 3210）",
+  "- `include-partials.js`（line 3271）",
+  "- 参照先のファイルは実在する（`assets/`、`partials/`、`Torii_Health_TopPage_files/` のJS）",
+  "- canonical は `https://toriihealth.org/` で apex になっている",
+  "- 予約リンク `https://toriihealth.intakeq.com/booking`（line 1239）は正常",
+  "- 古い reCAPTCHA の iframe は残っていない",
+  "#### 軽微な問題（優先度順）",
+  "1. **`og:image` などが `http://`（非HTTPS）**（lines 17, 23–27）。Squarespace CDN の画像を指しており、SNSシェア時に画像が出ない可能性があります。CDN は契約終了で消えるリスクもあります（既知TODO #4）。",
+  "2. **Kit の `ck.5.js` が2回読み込まれている**（line 3220）。同じタグが重複しています。",
+  "3. **Kit のスライドインフォームが本文末尾に残っている**（lines 3220–3271）。既知TODO #10 のとおり、表示が本文に重なる原因になります。",
+  "4. **`<base href=\".\">`**（line 7）。サブパスから開くと相対リンクが想定外になる可能性があります。ルート直下の `index.html` なら問題ありません。",
+  "5. **Squarespace の JS/CSS が大量に残っている**（ファイルは約214KB）。既知TODO #5・#8（二重読み込みによるコンソールエラーなど）に該当します。",
+  "確認方法は静的な読み取りとファイル存在チェックです。",
+  "ブラウザでの表示確認（PC幅・スマホ幅）やコンソールエラーの確認は行っていません。"
+ ]
+}

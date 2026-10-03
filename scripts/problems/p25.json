@@ -1,0 +1,16 @@
+{
+ "id": "p25",
+ "source": "https://github.com/5ym/renovate/pull/6#issuecomment-5954522365",
+ "text": "### レビュー結果\n\n**問題なし**です。\n\n- `.github/workflows/renovate.yml` の `actions/create-github-app-token@v2` → `@v3` の 1 行変更のみです。\n- 同ステップで使っている `client-id` / `private-key` / `owner` は、PR 説明にある v2 の `appId option is required` エラーの原因(v2 が `client-id` を読まない)と整合します。v3 に上げれば解消する見込みです。\n- シークレットは `secrets.RENOVATE_APP_PRIVATE_KEY`、ID は `vars.RENOVATE_APP_CLIENT_ID` から参照しており、混入はありません。`permissions: {}` のままで権限が広がることもありません。\n\n**要確認(軽微)**: マージ後に `workflow_dispatch` で一度手動実行し、`danything` と `5ym` の両 matrix でトークン生成が通ることを確認すると安心です。v3 は実行環境が Node 24 になるため、ランナー側の要件にも注意してください。ただし `ubuntu-latest` なら問題ないはずです。\n\nテストは GitHub Actions の設定変更なので該当しません。",
+ "units": [
+  "### レビュー結果",
+  "**問題なし**です。",
+  "- `.github/workflows/renovate.yml` の `actions/create-github-app-token@v2` → `@v3` の 1 行変更のみです。",
+  "- 同ステップで使っている `client-id` / `private-key` / `owner` は、PR 説明にある v2 の `appId option is required` エラーの原因(v2 が `client-id` を読まない)と整合します。v3 に上げれば解消する見込みです。",
+  "- シークレットは `secrets.RENOVATE_APP_PRIVATE_KEY`、ID は `vars.RENOVATE_APP_CLIENT_ID` から参照しており、混入はありません。`permissions: {}` のままで権限が広がることもありません。",
+  "**要確認(軽微)**: マージ後に `workflow_dispatch` で一度手動実行し、`danything` と `5ym` の両 matrix でトークン生成が通ることを確認すると安心です。",
+  "v3 は実行環境が Node 24 になるため、ランナー側の要件にも注意してください。",
+  "ただし `ubuntu-latest` なら問題ないはずです。",
+  "テストは GitHub Actions の設定変更なので該当しません。"
+ ]
+}

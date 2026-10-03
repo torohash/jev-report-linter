@@ -1,0 +1,33 @@
+{
+ "id": "p19",
+ "source": "https://github.com/mockysunshinework/workout_tracker/pull/69#issuecomment-5853275197",
+ "text": "### レビュー完了\n\n**Todo**\n- [x] コンテキスト取得\n- [x] コミット `1857a74` の差分確認（`app/models/record_message_handler.rb` / `plan.md` / 両 spec）\n- [x] レビュー結果の投稿\n\n### 差分の内容\n\n前回レビューで指摘した「同じ種目を複数行に分けて送るとエコーバックで種目名が重複し、当日セット数が各行に付く」問題への修正です。`RecordMessageHandler.save`（`app/models/record_message_handler.rb:43-61`）で、保存前に `resolved` を種目（`Exercise` インスタンス）単位でグルーピングし直しています。\n\n```ruby\ngroups_by_exercise = resolved.each_with_object({}) do |(exercise, entry), acc|\n  (acc[exercise] ||= []).concat(entry.groups)\nend\n```\n\n### 確認したこと\n\n- **グルーピングの正しさ**: `resolved` の各要素の `exercise` は `Exercise.find_exact_match` の呼び出しごとに別オブジェクトになり得ますが、`ActiveRecord::Base` は永続化済みレコードなら `id` ベースで `hash` / `eql?` を実装しているため、同じ行に別インスタンスとして現れても `Hash` のキーとして正しく同一視されます。3 行目のベンチプレスが 1 行目と同じキーにまとまる点は問題ありません。\n- **順序の保持**: Ruby の `Hash` は挿入順を保持するため「初出の順」でまとまり、`groups` は `concat` で行の登場順のまま連結されます（`ベンチプレス60/5` → `ベンチプレス70/3` の順で `append_sets!` に渡り、採番も 1→2 のまま）。\n- **保存・採番への影響なし**: `append_sets!` の呼び出しが「行ごと」から「種目ごとに 1 回」に変わっただけで、渡す `sets` 配列の中身・順序は変わらないため DB 上の結果は従来どおりです。`daily_set_count` は全種目分の追記後に `workout.workout_sets.group(:exercise_id).count` から取るので、まとめても値は変わりません。\n- **既存の設計方針との整合**: 同一種目内で重量・回数が同じグループが複数あっても Group 単位ではマージせず個別列挙する仕様（`app/models/line_messages.rb:22-23`、2026-09-16 決定）は維持されており、今回の変更は「種目をまたぐ重複表示」のみを解消する、意図どおりのスコープです。\n- **テスト**: `spec/models/record_message_handler_spec.rb` と `spec/requests/line_record_message_spec.rb` に、ベンチプレスを 1・3 行目に分けた 3 行入力の example が追加されており、保存結果（採番継続）・エコーバック（種目名 1 回・グループ 2 つ・当日計セット数・合計）を検証しています。PR コメントの記述どおり、この変更は指摘の再現条件を正確に押さえたテストになっています。\n- CLAUDE.md の TDD 方針（RED→GREEN）もコミットメッセージ・plan.md 上で守られています。\n\n### 気になった点\n\n特にありません。ブロッカーはなく、設計判断・実装・テストとも指摘への対応として妥当です。\n\n### 実行確認について\n\nCI サンドボックスの制約により、今回も `bundle exec rspec` / `bundle exec rubocop` の実行はブロックされ、独立した実行確認はできませんでした（コード読解によるレビューのみ）。PR コメント記載の「ローカルで 328 examples, 0 failures」「RuboCop 指摘なし」はコード上の変更範囲と整合しています。\n\n### 結論\n\n`1857a74` の差分に問題は見当たりません。**approve の意思表示をします。** 本アシスタントの権限上、GitHub の Review 機能での正式な Approve は実行できないため、この場でのコメントによる承認表示とさせていただきます。マージの判断はオーナーの操作でお願いします。",
+ "units": [
+  "### レビュー完了",
+  "**Todo**",
+  "- [x] コンテキスト取得",
+  "- [x] コミット `1857a74` の差分確認（`app/models/record_message_handler.rb` / `plan.md` / 両 spec）",
+  "- [x] レビュー結果の投稿",
+  "### 差分の内容",
+  "前回レビューで指摘した「同じ種目を複数行に分けて送るとエコーバックで種目名が重複し、当日セット数が各行に付く」問題への修正です。",
+  "`RecordMessageHandler.save`（`app/models/record_message_handler.rb:43-61`）で、保存前に `resolved` を種目（`Exercise` インスタンス）単位でグルーピングし直しています。",
+  "### 確認したこと",
+  "- **グルーピングの正しさ**: `resolved` の各要素の `exercise` は `Exercise.find_exact_match` の呼び出しごとに別オブジェクトになり得ますが、`ActiveRecord::Base` は永続化済みレコードなら `id` ベースで `hash` / `eql?` を実装しているため、同じ行に別インスタンスとして現れても `Hash` のキーとして正しく同一視されます。3 行目のベンチプレスが 1 行目と同じキーにまとまる点は問題ありません。",
+  "- **順序の保持**: Ruby の `Hash` は挿入順を保持するため「初出の順」でまとまり、`groups` は `concat` で行の登場順のまま連結されます（`ベンチプレス60/5` → `ベンチプレス70/3` の順で `append_sets!` に渡り、採番も 1→2 のまま）。",
+  "- **保存・採番への影響なし**: `append_sets!` の呼び出しが「行ごと」から「種目ごとに 1 回」に変わっただけで、渡す `sets` 配列の中身・順序は変わらないため DB 上の結果は従来どおりです。`daily_set_count` は全種目分の追記後に `workout.workout_sets.group(:exercise_id).count` から取るので、まとめても値は変わりません。",
+  "- **既存の設計方針との整合**: 同一種目内で重量・回数が同じグループが複数あっても Group 単位ではマージせず個別列挙する仕様（`app/models/line_messages.rb:22-23`、2026-09-16 決定）は維持されており、今回の変更は「種目をまたぐ重複表示」のみを解消する、意図どおりのスコープです。",
+  "- **テスト**: `spec/models/record_message_handler_spec.rb` と `spec/requests/line_record_message_spec.rb` に、ベンチプレスを 1・3 行目に分けた 3 行入力の example が追加されており、保存結果（採番継続）・エコーバック（種目名 1 回・グループ 2 つ・当日計セット数・合計）を検証しています。PR コメントの記述どおり、この変更は指摘の再現条件を正確に押さえたテストになっています。",
+  "- CLAUDE.md の TDD 方針（RED→GREEN）もコミットメッセージ・plan.md 上で守られています。",
+  "### 気になった点",
+  "特にありません。",
+  "ブロッカーはなく、設計判断・実装・テストとも指摘への対応として妥当です。",
+  "### 実行確認について",
+  "CI サンドボックスの制約により、今回も `bundle exec rspec` / `bundle exec rubocop` の実行はブロックされ、独立した実行確認はできませんでした（コード読解によるレビューのみ）。",
+  "PR コメント記載の「ローカルで 328 examples, 0 failures」「RuboCop 指摘なし」はコード上の変更範囲と整合しています。",
+  "### 結論",
+  "`1857a74` の差分に問題は見当たりません。",
+  "**approve の意思表示をします。",
+  "** 本アシスタントの権限上、GitHub の Review 機能での正式な Approve は実行できないため、この場でのコメントによる承認表示とさせていただきます。",
+  "マージの判断はオーナーの操作でお願いします。"
+ ]
+}

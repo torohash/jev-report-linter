@@ -1,0 +1,25 @@
+{
+ "id": "p26",
+ "source": "https://github.com/yugtoalert-max/first-oci-claude-dev/pull/33#issuecomment-5954473659",
+ "text": "### CI(node ジョブ)が落ちている原因と直し方\n\n- [x] CI の状態とログを確認\n- [x] 原因の特定\n- [x] 修正案の整理\n\n### 原因\n\n`node` ジョブの `Run npm run lint` ステップが失敗しています。ログのエラーは 1 件だけです。\n\n```\npackages/core/src/ep8-probe.ts\n  3:9  error  'unused' is assigned a value but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars\n✖ 1 problem (1 error, 0 warnings)\n```\n\n`ep8-probe.ts` の 3 行目 `const unused = 1;` が、未使用変数を禁じる `@typescript-eslint/no-unused-vars` に違反しています。この設定では、使わない変数は名前が `_` で始まっていれば許されます。`contract` / `terraform` / `checkov` の各ジョブは成功しており、落ちているのは lint だけです。\n\n### 直し方\n\n`packages/core/src/ep8-probe.ts` を次のように直せば lint は通ります。\n\n```ts\nexport function isBlank(s: string): boolean {\n  return s.trim().length === 0;\n}\n```\n\n- 3 行目の `const unused = 1;` を削除します。使わない変数なので、`_unused` に改名するより削除が自然です。\n- 4 行目の `|| s === undefined` も削除を勧めます。`s` は `string` 型で、`s.trim()` を先に評価しているため、`s` が `undefined` ならその時点で例外になります。右辺には到達せず、比較として意味がありません。lint のエラーではありませんが、レビューでは指摘される箇所です。\n- 同じ行の `==` は `===` にそろえるのが望ましいです。ここで `eqeqeq` ルールが有効かどうかはログからは確認できていません。\n\n### 補足\n\n- 依頼どおり、コミットも push もしていません。ファイルも変更していません。\n- この PR は確認用でマージしない方針なので、直さずに閉じても構いません。直した場合は、push 後に `node` ジョブが緑になることで確認できます。",
+ "units": [
+  "### CI(node ジョブ)が落ちている原因と直し方",
+  "- [x] CI の状態とログを確認",
+  "- [x] 原因の特定",
+  "- [x] 修正案の整理",
+  "### 原因",
+  "`node` ジョブの `Run npm run lint` ステップが失敗しています。",
+  "ログのエラーは 1 件だけです。",
+  "`ep8-probe.ts` の 3 行目 `const unused = 1;` が、未使用変数を禁じる `@typescript-eslint/no-unused-vars` に違反しています。",
+  "この設定では、使わない変数は名前が `_` で始まっていれば許されます。",
+  "`contract` / `terraform` / `checkov` の各ジョブは成功しており、落ちているのは lint だけです。",
+  "### 直し方",
+  "`packages/core/src/ep8-probe.ts` を次のように直せば lint は通ります。",
+  "- 3 行目の `const unused = 1;` を削除します。使わない変数なので、`_unused` に改名するより削除が自然です。",
+  "- 4 行目の `|| s === undefined` も削除を勧めます。`s` は `string` 型で、`s.trim()` を先に評価しているため、`s` が `undefined` ならその時点で例外になります。右辺には到達せず、比較として意味がありません。lint のエラーではありませんが、レビューでは指摘される箇所です。",
+  "- 同じ行の `==` は `===` にそろえるのが望ましいです。ここで `eqeqeq` ルールが有効かどうかはログからは確認できていません。",
+  "### 補足",
+  "- 依頼どおり、コミットも push もしていません。ファイルも変更していません。",
+  "- この PR は確認用でマージしない方針なので、直さずに閉じても構いません。直した場合は、push 後に `node` ジョブが緑になることで確認できます。"
+ ]
+}

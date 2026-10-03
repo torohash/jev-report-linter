@@ -1,0 +1,20 @@
+{
+ "id": "p24",
+ "source": "https://github.com/HighBridgeDragon/jp-diet-minutes-skill/pull/63#issuecomment-5962758653",
+ "text": "### レビュー結果: 問題なし（LGTM）\n\n- [x] 差分確認\n- [x] `release.yml` / SKILL.md の配置確認\n\n**`.gitattributes`**\n- `SKILL.md` はスラッシュを含まないパターンなので、どの階層でもマッチします。実体は `jp-diet-minutes/SKILL.md` のみで、意図どおり除外されます。\n- Release の zip は `release.yml:59` の `zip -r jp-diet-minutes.zip jp-diet-minutes/` で作るため、`export-ignore` の影響は受けません。コメントの記述と一致しています。\n- 将来 `SKILL.md` を別の場所に増やした場合も除外されます。意図しない除外を避けたいなら `/jp-diet-minutes/SKILL.md export-ignore` とパスを固定する手もありますが、現状では必須ではありません。\n- 補足: GitHub の tarball/zip を直接取得してスキルを導入するツールがあれば、`SKILL.md` が欠けて失敗します。`git clone` ベースの `npx skills add` には影響しません。README の導入手順が clone ベースのままか、念のため確認してください。\n\n**`README.md`**\n- 日付付きの検証ログを削除し、動作条件に統合する整理は妥当です。`jq` 未導入時の挙動は上の `jq` 項目に残っており、情報の欠落はありません。\n- `host_not_allowed` の記述がなくなりました。ユーザーがエラーから原因を引きやすいよう、必要なら「ネットワークアクセス」項目にエラー名を一言残すのも一案です。任意です。\n\nセキュリティ・パフォーマンス面の懸念はありません。CLAUDE.md は存在しません。",
+ "units": [
+  "### レビュー結果: 問題なし（LGTM）",
+  "- [x] 差分確認",
+  "- [x] `release.yml` / SKILL.md の配置確認",
+  "**`.gitattributes`**",
+  "- `SKILL.md` はスラッシュを含まないパターンなので、どの階層でもマッチします。実体は `jp-diet-minutes/SKILL.md` のみで、意図どおり除外されます。",
+  "- Release の zip は `release.yml:59` の `zip -r jp-diet-minutes.zip jp-diet-minutes/` で作るため、`export-ignore` の影響は受けません。コメントの記述と一致しています。",
+  "- 将来 `SKILL.md` を別の場所に増やした場合も除外されます。意図しない除外を避けたいなら `/jp-diet-minutes/SKILL.md export-ignore` とパスを固定する手もありますが、現状では必須ではありません。",
+  "- 補足: GitHub の tarball/zip を直接取得してスキルを導入するツールがあれば、`SKILL.md` が欠けて失敗します。`git clone` ベースの `npx skills add` には影響しません。README の導入手順が clone ベースのままか、念のため確認してください。",
+  "**`README.md`**",
+  "- 日付付きの検証ログを削除し、動作条件に統合する整理は妥当です。`jq` 未導入時の挙動は上の `jq` 項目に残っており、情報の欠落はありません。",
+  "- `host_not_allowed` の記述がなくなりました。ユーザーがエラーから原因を引きやすいよう、必要なら「ネットワークアクセス」項目にエラー名を一言残すのも一案です。任意です。",
+  "セキュリティ・パフォーマンス面の懸念はありません。",
+  "CLAUDE.md は存在しません。"
+ ]
+}

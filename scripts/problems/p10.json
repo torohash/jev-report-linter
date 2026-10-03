@@ -1,0 +1,30 @@
+{
+ "id": "p10",
+ "source": "https://github.com/shu0411/stage-formation-simulator/pull/25#issuecomment-5873692082",
+ "text": "### 対応完了\n\n前回の実行（エラーで中断）を再実行し、スマホ横表示で右カラムがスクロールできず項目が見切れる不具合を修正しました。\n\n**タスク一覧**\n- [x] リクエスト内容の確認・コードの調査\n- [x] 原因の特定\n- [x] 修正の実装\n- [x] 回帰用のE2Eテストを追加\n- [x] lint / typecheck / test の実行\n- [x] 変更をコミット・push\n\n**原因（前回コメントの診断を修正）**\n\n前回の実行コメントでは「`DialogContent` に `gridTemplateRows` が未指定なのが原因」と診断されていましたが、実際に検証したところ、この2カラムグリッドは行が1つしかないため、`gridTemplateRows` の有無にかかわらず既定の `align-content: normal`（グリッドでは `stretch` として扱われる）により行の高さは常にコンテナの高さぴったりに揃っており、両者で挙動に差はありませんでした（実測でも同一の高さになることを確認）。\n\n実際の原因は、右カラム（操作欄・入力欄を縦に並べる `flex` コンテナ）の子要素（各 `Card`）が、flex アイテムの既定値 `flex-shrink: 1` によりコンテナの高さに収まるよう圧縮されていたことです。MUI の `Card` は `overflow: hidden` を持つため、圧縮された分だけ内部の項目（「前後」入力欄など）が見切れて表示され、かつ `overflowY: auto` によるスクロールも「圧縮後はぴったり収まっている」状態のため発生しない、という状態でした。\n\n**修正内容**\n\n- `src/components/dialogs/FormationEditorDialog.tsx`: 右カラムの `flex` コンテナに `'& > *': { flexShrink: 0 }` を追加し、カードが自然な高さを保つようにした。これによりコンテナの高さを超えた分は `overflowY: auto` で正しくスクロールできる\n- `e2e/formation-editor-layout.spec.ts`: モバイル横表示（844×390）で右カラムの `scrollHeight` が `clientHeight` を上回ること（＝スクロール可能な状態になっていること）と、スクロール後に最後の入力欄（「前後」）が表示されることを検証する回帰テストを追加（修正前のコードでは失敗することを確認済み）\n\n**検証**\n- `npm run lint` — pass\n- `npm run typecheck` — pass\n- `npm run format:check` — pass\n- `npm test` — 30 files / 162 tests pass\n- `npm run test:e2e` — 21 tests pass（Playwright chromium を本実行環境に新規インストールして実行。実機・ブラウザのデバイスエミュレーションでの目視確認は未実施）\n\ndesign.md 1.6 に記載の仕様（右カラムのみ縦スクロール）自体は変更していないため、ドキュメントの追加更新はありません。",
+ "units": [
+  "### 対応完了",
+  "前回の実行（エラーで中断）を再実行し、スマホ横表示で右カラムがスクロールできず項目が見切れる不具合を修正しました。",
+  "**タスク一覧**",
+  "- [x] リクエスト内容の確認・コードの調査",
+  "- [x] 原因の特定",
+  "- [x] 修正の実装",
+  "- [x] 回帰用のE2Eテストを追加",
+  "- [x] lint / typecheck / test の実行",
+  "- [x] 変更をコミット・push",
+  "**原因（前回コメントの診断を修正）**",
+  "前回の実行コメントでは「`DialogContent` に `gridTemplateRows` が未指定なのが原因」と診断されていましたが、実際に検証したところ、この2カラムグリッドは行が1つしかないため、`gridTemplateRows` の有無にかかわらず既定の `align-content: normal`（グリッドでは `stretch` として扱われる）により行の高さは常にコンテナの高さぴったりに揃っており、両者で挙動に差はありませんでした（実測でも同一の高さになることを確認）。",
+  "実際の原因は、右カラム（操作欄・入力欄を縦に並べる `flex` コンテナ）の子要素（各 `Card`）が、flex アイテムの既定値 `flex-shrink: 1` によりコンテナの高さに収まるよう圧縮されていたことです。",
+  "MUI の `Card` は `overflow: hidden` を持つため、圧縮された分だけ内部の項目（「前後」入力欄など）が見切れて表示され、かつ `overflowY: auto` によるスクロールも「圧縮後はぴったり収まっている」状態のため発生しない、という状態でした。",
+  "**修正内容**",
+  "- `src/components/dialogs/FormationEditorDialog.tsx`: 右カラムの `flex` コンテナに `'& > *': { flexShrink: 0 }` を追加し、カードが自然な高さを保つようにした。これによりコンテナの高さを超えた分は `overflowY: auto` で正しくスクロールできる",
+  "- `e2e/formation-editor-layout.spec.ts`: モバイル横表示（844×390）で右カラムの `scrollHeight` が `clientHeight` を上回ること（＝スクロール可能な状態になっていること）と、スクロール後に最後の入力欄（「前後」）が表示されることを検証する回帰テストを追加（修正前のコードでは失敗することを確認済み）",
+  "**検証**",
+  "- `npm run lint` — pass",
+  "- `npm run typecheck` — pass",
+  "- `npm run format:check` — pass",
+  "- `npm test` — 30 files / 162 tests pass",
+  "- `npm run test:e2e` — 21 tests pass（Playwright chromium を本実行環境に新規インストールして実行。実機・ブラウザのデバイスエミュレーションでの目視確認は未実施）",
+  "design.md 1.6 に記載の仕様（右カラムのみ縦スクロール）自体は変更していないため、ドキュメントの追加更新はありません。"
+ ]
+}

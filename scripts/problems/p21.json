@@ -1,0 +1,31 @@
+{
+ "id": "p21",
+ "source": "https://github.com/yoshipon-tech/site-blocker/pull/24#issuecomment-5812278683",
+ "text": "### レビュー完了\n\n- [x] コンテキスト収集（差分・spec・関連ファイルを読む）\n- [x] レビュー観点ごとに確認（Design / Functionality / Security / Test / Document）\n- [x] レビュー結果をコメントにまとめる\n\n**総評**: MUST はありません。`requirements.md` → `design.md` → 実装（`blockedUrl.ts` / `App.tsx` / `blocked.spec.ts`）の対応がよく取れていて、E2E も要件（1.1〜1.9, 2.1, 3.1/3.2, 4.x）をほぼ1対1でカバーしています。以下は Q / FYI のみです。\n\nQ (Simplicity):\n`.github/workflows/deploy-web.yml:37-41` — `pnpm --filter @site-blocker/web run build` を明示的に実行したあと `test:e2e` を走らせていますが、`apps/web/playwright.config.ts:15-19` の `webServer.command` が `pnpm run build && pnpm run preview` なので、`test:e2e` の中でもう一度ビルドが走ります。意図的に「Chromium インストール前にビルド失敗を早期検知する」ためのフェイルファストであれば理解できますが、そうであれば一言コメントで残すと次に読む人が「二重ビルドでは？」と迷わずに済みそうです。単なる見落としであれば、明示ビルドを削って `test:e2e` 側のビルドだけに任せる手もあります。\n\nFYI (Document):\n`docs/specs/blocked-page/requirements.md:52` の未決事項欄に「2026-09-24 に U1・U2 を見直した」とある通り、「確認してほしい点」の1つ目（U1/U2 の見直しが意図どおりか）は spec・design・実装の3点とも一致していました。`parseBlockedUrl` はデコードせず先頭の `#` だけ落とし（1.7）、hash が空のときは見出しだけ（2.1）で、`blocked.spec.ts` の該当テストも一致しています。\n\nFYI (Test):\n2つ目の確認点（`test:e2e` を `pnpm test`/`pnpm check` から分離した点）も `vite-env.d.ts` や `e2e/tsconfig.json` の分離を含めて妥当です。`apps/web/eslint.config.js`（lint-setup 由来、`**/*.config.{js,ts}` を型情報なしの lint に落とす設定）により `vite.config.ts` と同様 `playwright.config.ts` も `tsc` の対象からは外れますが、これは今回のPR固有の抜けではなく既存の運用方針の延長です。念のため共有します。\n\nIMO (Style):\n4つ目の確認点（スマートフォン幅で「に。」が3行目に落ちる件）は `tasks.md` 2.6 の検証項目（横スクロールなし・海や太陽に文字が隠れない）には抵触せず、見た目の好みの範囲だと思います。気になるなら `.headline` の `clamp(40px, 5.2vw, 66px)`（`App.css:60`）の下限をもう少し下げるか `letter-spacing` を狭めると収まりそうですが、直すかどうかは見た目の好み次第で急ぎではなさそうです。\n\nその他、セキュリティ（`dangerouslySetInnerHTML` 不使用・同一オリジンのみ通信）、公開ワークフローの権限分離（`contents: read` → `pages: write`/`id-token: write` は deploy ジョブのみ）、URL の契約（末尾スラッシュ・フラグメントの非エンコード）はいずれも仕様どおりでした。",
+ "units": [
+  "### レビュー完了",
+  "- [x] コンテキスト収集（差分・spec・関連ファイルを読む）",
+  "- [x] レビュー観点ごとに確認（Design / Functionality / Security / Test / Document）",
+  "- [x] レビュー結果をコメントにまとめる",
+  "**総評**: MUST はありません。",
+  "`requirements.md` → `design.md` → 実装（`blockedUrl.ts` / `App.tsx` / `blocked.spec.ts`）の対応がよく取れていて、E2E も要件（1.1〜1.9, 2.1, 3.1/3.2, 4.x）をほぼ1対1でカバーしています。",
+  "以下は Q / FYI のみです。",
+  "Q (Simplicity):",
+  "`.github/workflows/deploy-web.yml:37-41` — `pnpm --filter @site-blocker/web run build` を明示的に実行したあと `test:e2e` を走らせていますが、`apps/web/playwright.config.ts:15-19` の `webServer.command` が `pnpm run build && pnpm run preview` なので、`test:e2e` の中でもう一度ビルドが走ります。",
+  "意図的に「Chromium インストール前にビルド失敗を早期検知する」ためのフェイルファストであれば理解できますが、そうであれば一言コメントで残すと次に読む人が「二重ビルドでは？",
+  "」と迷わずに済みそうです。",
+  "単なる見落としであれば、明示ビルドを削って `test:e2e` 側のビルドだけに任せる手もあります。",
+  "FYI (Document):",
+  "`docs/specs/blocked-page/requirements.md:52` の未決事項欄に「2026-09-24 に U1・U2 を見直した」とある通り、「確認してほしい点」の1つ目（U1/U2 の見直しが意図どおりか）は spec・design・実装の3点とも一致していました。",
+  "`parseBlockedUrl` はデコードせず先頭の `#` だけ落とし（1.7）、hash が空のときは見出しだけ（2.1）で、`blocked.spec.ts` の該当テストも一致しています。",
+  "FYI (Test):",
+  "2つ目の確認点（`test:e2e` を `pnpm test`/`pnpm check` から分離した点）も `vite-env.d.ts` や `e2e/tsconfig.json` の分離を含めて妥当です。",
+  "`apps/web/eslint.config.js`（lint-setup 由来、`**/*.config.{js,ts}` を型情報なしの lint に落とす設定）により `vite.config.ts` と同様 `playwright.config.ts` も `tsc` の対象からは外れますが、これは今回のPR固有の抜けではなく既存の運用方針の延長です。",
+  "念のため共有します。",
+  "IMO (Style):",
+  "4つ目の確認点（スマートフォン幅で「に。",
+  "」が3行目に落ちる件）は `tasks.md` 2.6 の検証項目（横スクロールなし・海や太陽に文字が隠れない）には抵触せず、見た目の好みの範囲だと思います。",
+  "気になるなら `.headline` の `clamp(40px, 5.2vw, 66px)`（`App.css:60`）の下限をもう少し下げるか `letter-spacing` を狭めると収まりそうですが、直すかどうかは見た目の好み次第で急ぎではなさそうです。",
+  "その他、セキュリティ（`dangerouslySetInnerHTML` 不使用・同一オリジンのみ通信）、公開ワークフローの権限分離（`contents: read` → `pages: write`/`id-token: write` は deploy ジョブのみ）、URL の契約（末尾スラッシュ・フラグメントの非エンコード）はいずれも仕様どおりでした。"
+ ]
+}

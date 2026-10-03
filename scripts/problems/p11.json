@@ -1,0 +1,31 @@
+{
+ "id": "p11",
+ "source": "https://github.com/keito4/config/issues/1299#issuecomment-5862499791",
+ "text": "### 対応完了\n\n**Todo**\n- [x] ファイル長チェック結果 (`.filelengthignore` / file-length チェックスクリプト) を確認\n- [x] 現在長すぎるファイルを洗い出す\n- [x] 各ファイルについて「分割可能」か「ignore対象」か判定\n- [x] 分割可能なものはリファクタリング実施\n- [x] ignore対象は理由とともに `.filelengthignore` に追加\n- [x] 品質ゲート実行（lint/test/format）\n- [x] 変更をコミット・プッシュ\n- [x] 判断が必要な項目をコメントに記載\n\n### 調査結果\n\n`script/check-file-length.sh` は**ステージされた `*.ts`/`*.tsx`/`*.js`/`*.jsx` のみ**を対象に行数を検査します（`.filelengthignore` 冒頭のコメントにも明記済み）。この基準でリポジトリ内の対象ファイルを全件洗い出したところ：\n\n- WARN_LIMIT (350行) 超は `templates/testing/examples/api.test.ts` (412行) / `i18n.test.tsx` (404行) / `ssr-hydration.spec.ts` (355行) の3ファイルのみで、すべて既に `.filelengthignore` に登録済みでした。これらは「そのまま配置して使う単一ファイルの参照実装テンプレート」であり、分割すると利用者が参照しづらくなり保守性が下がるため、ignore継続が適切と判断しました（新規追加なし）。\n- HARD_LIMIT (500行) を超えるファイルは0件。\n- その他の対象拡張子ファイル（test/配下含む）はすべて閾値未満で、分割が必要なものはありませんでした。\n\n### 実施した修正（このPRで対応）\n\n調査中に、`.filelengthignore` の整理漏れとして**未使用の重複テンプレート**を発見し削除しました。\n\n- リポジトリルート直下の `.filelengthignore.template` は、どのビルド/セットアップスクリプトからも参照されていない死蔵ファイルで、実際に config-base イメージへ取り込まれ利用される `.devcontainer/templates/.filelengthignore.template` と内容が乖離していました（片方にのみ「対象拡張子はts/tsx/js/jsxのみ」という注意書きがある等）。\n- 未使用側（ルート直下）を削除し、`script/README.md` の参照パスを実際に使われる `.devcontainer/templates/.filelengthignore.template` に修正しました。\n- `npm test`（1020件全パス）、`npx eslint . --ext .js`、`npm run format:check`、`npx bats test/integration/check_file_length.bats` を実行し、影響がないことを確認済みです。\n\n### 判断が必要な項目（フォローアップ推奨）\n\n- 実際に配布される `.devcontainer/templates/.filelengthignore.template` には、上記の「対象拡張子はts/tsx/js/jsxのみ」という注意コメントが欠けています。ルート版の削除に伴い、この注意書きを配布側テンプレートにも追記するのが望ましいですが、**このセッションのサンドボックスでは `.devcontainer/` 配下の編集がセンシティブファイルとしてブロックされ、直接反映できませんでした**。人手または別セッションでの追記をご検討ください（差分は上記コメントと同内容）。\n- `templates/policies/complexity-thresholds.json` にも `fileLines` しきい値の設定があり、`check-file-length.sh` とは別軸のコード複雑度チェック体系（`code-complexity-check.sh`）が既に存在します。今回のIssue範囲（`.filelengthignore`本体）とは別管理のため変更していませんが、長期的に基準を一本化するかは別途ご判断ください。",
+ "units": [
+  "### 対応完了",
+  "**Todo**",
+  "- [x] ファイル長チェック結果 (`.filelengthignore` / file-length チェックスクリプト) を確認",
+  "- [x] 現在長すぎるファイルを洗い出す",
+  "- [x] 各ファイルについて「分割可能」か「ignore対象」か判定",
+  "- [x] 分割可能なものはリファクタリング実施",
+  "- [x] ignore対象は理由とともに `.filelengthignore` に追加",
+  "- [x] 品質ゲート実行（lint/test/format）",
+  "- [x] 変更をコミット・プッシュ",
+  "- [x] 判断が必要な項目をコメントに記載",
+  "### 調査結果",
+  "`script/check-file-length.sh` は**ステージされた `*.ts`/`*.tsx`/`*.js`/`*.jsx` のみ**を対象に行数を検査します（`.filelengthignore` 冒頭のコメントにも明記済み）。",
+  "この基準でリポジトリ内の対象ファイルを全件洗い出したところ：",
+  "- WARN_LIMIT (350行) 超は `templates/testing/examples/api.test.ts` (412行) / `i18n.test.tsx` (404行) / `ssr-hydration.spec.ts` (355行) の3ファイルのみで、すべて既に `.filelengthignore` に登録済みでした。これらは「そのまま配置して使う単一ファイルの参照実装テンプレート」であり、分割すると利用者が参照しづらくなり保守性が下がるため、ignore継続が適切と判断しました（新規追加なし）。",
+  "- HARD_LIMIT (500行) を超えるファイルは0件。",
+  "- その他の対象拡張子ファイル（test/配下含む）はすべて閾値未満で、分割が必要なものはありませんでした。",
+  "### 実施した修正（このPRで対応）",
+  "調査中に、`.filelengthignore` の整理漏れとして**未使用の重複テンプレート**を発見し削除しました。",
+  "- リポジトリルート直下の `.filelengthignore.template` は、どのビルド/セットアップスクリプトからも参照されていない死蔵ファイルで、実際に config-base イメージへ取り込まれ利用される `.devcontainer/templates/.filelengthignore.template` と内容が乖離していました（片方にのみ「対象拡張子はts/tsx/js/jsxのみ」という注意書きがある等）。",
+  "- 未使用側（ルート直下）を削除し、`script/README.md` の参照パスを実際に使われる `.devcontainer/templates/.filelengthignore.template` に修正しました。",
+  "- `npm test`（1020件全パス）、`npx eslint . --ext .js`、`npm run format:check`、`npx bats test/integration/check_file_length.bats` を実行し、影響がないことを確認済みです。",
+  "### 判断が必要な項目（フォローアップ推奨）",
+  "- 実際に配布される `.devcontainer/templates/.filelengthignore.template` には、上記の「対象拡張子はts/tsx/js/jsxのみ」という注意コメントが欠けています。ルート版の削除に伴い、この注意書きを配布側テンプレートにも追記するのが望ましいですが、**このセッションのサンドボックスでは `.devcontainer/` 配下の編集がセンシティブファイルとしてブロックされ、直接反映できませんでした**。人手または別セッションでの追記をご検討ください（差分は上記コメントと同内容）。",
+  "- `templates/policies/complexity-thresholds.json` にも `fileLines` しきい値の設定があり、`check-file-length.sh` とは別軸のコード複雑度チェック体系（`code-complexity-check.sh`）が既に存在します。今回のIssue範囲（`.filelengthignore`本体）とは別管理のため変更していませんが、長期的に基準を一本化するかは別途ご判断ください。"
+ ]
+}

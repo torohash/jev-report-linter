@@ -1,0 +1,27 @@
+{
+ "id": "p23",
+ "source": "https://github.com/kajiLabTeam/kakureru/pull/102#issuecomment-5764762286",
+ "text": "### レビュー完了\n\n- [x] コンテキスト収集（PR差分・CodeRabbitのやり取り）\n- [x] 差分を読んでレビュー\n- [x] コメントに結果を反映\n\nCodeRabbitラウンド1で指摘された`restart_recovery.dart`のisActiveガード順序の問題は、`6c44ed3`で適切に修正されていることを確認しました。`resetOwnRoleForRestart`（`users/{uid}`へのupdate）と`hasHandled`の設定が、どちらも`ModalRoute.isActive`ガードを通過した後に実行されるようになっており、`leaveRoom`のremoveとの競合（幽霊参加者の復活）は解消されています。「共有の退出状態を持たせる」という2件目の指摘を見送った判断（`isActive`のfalse化が`didPop`後に同期的に起きる前提でガード1箇所で十分）も、`popUntil`→`isActive`確認→`pushReplacement`の実装（`leave_room_action.dart`, `restart_recovery.dart:89`）と符合しており妥当です。\n\n### コードの確認\n\n- `lib/features/room/repository/room_repository.dart:186-191`の`resetOwnRoleForRestart`は`users/{uid}`への`update`、`leaveRoom`（同361-364行）は同ノードの`remove`で、そのコメントどおりの実装。`restart_recovery.dart`の競合分析は正確です。\n- `game_result_page.dart`の`hasHandledExit`は「ホームに戻る」ボタン押下時に同期的にtrueへ設定してから`popUntil`しており、`useEffect`のdispose時点で正しい値を読めます。バックボタン/スワイプ経路（`PopScope`が無い）ではフラグが立たないため意図通り退出処理に入ります。\n- `game_over_navigation.dart`のガード（`ModalRoute.isActive`）は`restart_recovery.dart`と同じ形で、pop中に終了検知が届いてホームのルートを`pushReplacement`で壊してしまう問題を同様に防いでいます。\n- `error_message.dart`の分類ロジックは、`code`ベースの判定→文字列ベースの判定の順で、権限/ネットワーク/見つからない/不明を過不足なくカバーしています。リポジトリ層が投げる日本語例外（`ルームが見つかりません`/`ルームが存在しません`）まで拾っているのも確認しました。\n- `room_home_page.dart`は宣言通り未変更（`state.error`の生文字列がまだ残っていますが、追従PRでの対応とスコープ外にしている旨が明記されています）。\n\n### テスト\n\n`test/features/room/view/game_result_page_test.dart`の新規テスト（「ホームへ戻る途中に巻き戻しが届いても、役割リセットを書き込まない」等）は、退出・巻き戻し・pop中競合の3方向をそれぞれ検証しており、回帰の再現性も高いです。この環境には`flutter`コマンドが無く`flutter test`/`flutter analyze`を実際には実行できなかったため、コードの静的な読み込みとテストコードの内容確認にとどめています（PR本文記載の実行結果は追試していません）。\n\n### 気になった点（ブロッカーではない）\n\n- `restart_recovery.dart`と`game_result_page.dart`に残る一連の`debugPrint`（例: `restart_recovery.dart:60,67,79,116`, `game_result_page.dart:209,226`）は、今回のpop中競合バグの調査用ログがそのまま残っている印象があります。issue #95の方針（分類漏れを追うためのログ）とは別目的なので、マージ後に実機確認が終わったら削っても良さそうです（必須ではありません）。\n\n総じて、issue #94・#95の要求を満たしており、CodeRabbitの指摘にも実装・回帰テストの両面で適切に対応済みです。スコープ外に回した3件（`room_setting_page.dart`の戻り先、`room_waiting_page.dart`への同ガード追加、SnackBar文面の関数化）も理由が明確で妥当な判断だと思います。",
+ "units": [
+  "### レビュー完了",
+  "- [x] コンテキスト収集（PR差分・CodeRabbitのやり取り）",
+  "- [x] 差分を読んでレビュー",
+  "- [x] コメントに結果を反映",
+  "CodeRabbitラウンド1で指摘された`restart_recovery.dart`のisActiveガード順序の問題は、`6c44ed3`で適切に修正されていることを確認しました。",
+  "`resetOwnRoleForRestart`（`users/{uid}`へのupdate）と`hasHandled`の設定が、どちらも`ModalRoute.isActive`ガードを通過した後に実行されるようになっており、`leaveRoom`のremoveとの競合（幽霊参加者の復活）は解消されています。",
+  "「共有の退出状態を持たせる」という2件目の指摘を見送った判断（`isActive`のfalse化が`didPop`後に同期的に起きる前提でガード1箇所で十分）も、`popUntil`→`isActive`確認→`pushReplacement`の実装（`leave_room_action.dart`, `restart_recovery.dart:89`）と符合しており妥当です。",
+  "### コードの確認",
+  "- `lib/features/room/repository/room_repository.dart:186-191`の`resetOwnRoleForRestart`は`users/{uid}`への`update`、`leaveRoom`（同361-364行）は同ノードの`remove`で、そのコメントどおりの実装。`restart_recovery.dart`の競合分析は正確です。",
+  "- `game_result_page.dart`の`hasHandledExit`は「ホームに戻る」ボタン押下時に同期的にtrueへ設定してから`popUntil`しており、`useEffect`のdispose時点で正しい値を読めます。バックボタン/スワイプ経路（`PopScope`が無い）ではフラグが立たないため意図通り退出処理に入ります。",
+  "- `game_over_navigation.dart`のガード（`ModalRoute.isActive`）は`restart_recovery.dart`と同じ形で、pop中に終了検知が届いてホームのルートを`pushReplacement`で壊してしまう問題を同様に防いでいます。",
+  "- `error_message.dart`の分類ロジックは、`code`ベースの判定→文字列ベースの判定の順で、権限/ネットワーク/見つからない/不明を過不足なくカバーしています。リポジトリ層が投げる日本語例外（`ルームが見つかりません`/`ルームが存在しません`）まで拾っているのも確認しました。",
+  "- `room_home_page.dart`は宣言通り未変更（`state.error`の生文字列がまだ残っていますが、追従PRでの対応とスコープ外にしている旨が明記されています）。",
+  "### テスト",
+  "`test/features/room/view/game_result_page_test.dart`の新規テスト（「ホームへ戻る途中に巻き戻しが届いても、役割リセットを書き込まない」等）は、退出・巻き戻し・pop中競合の3方向をそれぞれ検証しており、回帰の再現性も高いです。",
+  "この環境には`flutter`コマンドが無く`flutter test`/`flutter analyze`を実際には実行できなかったため、コードの静的な読み込みとテストコードの内容確認にとどめています（PR本文記載の実行結果は追試していません）。",
+  "### 気になった点（ブロッカーではない）",
+  "- `restart_recovery.dart`と`game_result_page.dart`に残る一連の`debugPrint`（例: `restart_recovery.dart:60,67,79,116`, `game_result_page.dart:209,226`）は、今回のpop中競合バグの調査用ログがそのまま残っている印象があります。issue #95の方針（分類漏れを追うためのログ）とは別目的なので、マージ後に実機確認が終わったら削っても良さそうです（必須ではありません）。",
+  "総じて、issue #94・#95の要求を満たしており、CodeRabbitの指摘にも実装・回帰テストの両面で適切に対応済みです。",
+  "スコープ外に回した3件（`room_setting_page.dart`の戻り先、`room_waiting_page.dart`への同ガード追加、SnackBar文面の関数化）も理由が明確で妥当な判断だと思います。"
+ ]
+}

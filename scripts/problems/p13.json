@@ -1,0 +1,29 @@
+{
+ "id": "p13",
+ "source": "https://github.com/myon-bioinformatics/markdown/issues/62#issuecomment-5861423489",
+ "text": "### Todo\n- [x] Read `markdown_to_html` / `render_inline` implementation\n- [x] Read `docs/antipatterns.md` FORGEABLE_INBAND_PLACEHOLDER section and how PR #61 fixed dialects\n- [x] Reproduce the two examples from the issue (confirmed via code reading)\n- [x] Review proposed fix options and give Blocking / Non-blocking / Nit verdict\n\n### レビュー: Issue #62 提案・方針\n\nコードを確認しました（`markdown.py:4598-4641` の `render_inline`）。指摘は正確で、`\\x00PH{n}\\x00` を stash → 復元する際に入力側の `\\x00` を一切エスケープしていないため、`docs/antipatterns.md:40` の `FORGEABLE_INBAND_PLACEHOLDER` にそのまま該当します。同じファイル内の `_dialect_inline_to_markdown`（`markdown.py:5613-5664`）が全く同じクラスのバグを private-use センチネル `` の escape-doubling で既に修正済みであることも確認しました。\n\n**Blocking**\n- 提案の方向性（入力側のセンチネルを事前にエスケープダブリングしてから stash し、復元後に戻す）は妥当で、`_dialect_inline_to_markdown` と一貫した手法です。実装は必須で、2つの repro をそのままリグレッションテストに追加すべきです。\n- 2つのオプションのうちどちらを選ぶかは重要な設計判断です。**Option 1（`render_inline` 内でのみ `\\x00` を escape-doubling）だけでは不十分**です。理由: フェンスコードブロックの本文は `render_inline` を経由せず `_escape_html_text`（`html.escape(text, quote=False)`、`markdown.py:4052-4053`）に直接渡されます（例: `markdown.py:4744`）。`html.escape` は NUL を一切変換しないため、コードフェンス内に生の `\\x00` があれば `<pre><code>` に生の NUL がそのまま漏れます。これは今回の issue と同一クラスの欠陥で、`render_inline` だけを直すと兄弟バグが未修正のまま残ります。\n  - **Option 2（`markdown_to_html` 入口で NUL → U+FFFD に一括置換）を推奨**します。CommonMark 仕様の \"insecure characters\" 規定にも合致し、一箇所の置換で `render_inline` 経由・非経由の両方のパスをカバーできます。実装すれば `render_inline` 側の escape-doubling ロジック自体が不要になり、コードもシンプルになります。\n  - Option 1 を採用する場合は、フェンスコード側のNUL漏れも同じPRでカバーするか、明示的にフォローアップ課題として切り出してください（暗黙のスコープ外放置は避けるべきです）。\n\n**Non-blocking**\n- Option 2 を選ぶ場合でも、`docs/antipatterns.md` にこの具体的な教訓（「stdlib `html.escape` は NUL を無害化しない」）を1行追記しておくと、今後同種のバグの再発防止に役立ちます。\n- テストは issue記載の2例に加えて、フェンスコードブロック内に生NULを含む入力（`` ```\\n\\x00\\n``` `` 等）のケースも一緒に追加することを提案します（Option 2 を選べば同じ修正で通るはずですが、回帰保証として明示的にテストしておく価値があります）。\n\n**Nit**\n- `_dialect_inline_to_markdown` は復元を `while True` で安定するまで繰り返しています（リンクラベルにコードスパンが入れ子になるケースに対応するため、`markdown.py:5657-5663`）。一方 `render_inline` の `markdown_link_to_html` / `markdown_image_to_html` はラベルを再帰的に `render_inline` へ通さず単純に `html.escape` するだけなので（`markdown.py:1120-1132`）、入れ子は発生せず現状の単純な for ループでの復元で問題ありません。修正時にこの前提が変わらない限り stability loop は不要ですが、念のため一言コメントを残しておくと将来の実装変更時に見落とされにくくなります。\n\nまとめとして、issueの問題認識と修正方針の大枠（escape-doubling / NUL→U+FFFD のいずれか）は正しいです。実装するなら、コードフェンス側の同種の漏れも一緒に塞げる Option 2 を推奨します。今回はレビューのみで実装は行っていません。",
+ "units": [
+  "### Todo",
+  "- [x] Read `markdown_to_html` / `render_inline` implementation",
+  "- [x] Read `docs/antipatterns.md` FORGEABLE_INBAND_PLACEHOLDER section and how PR #61 fixed dialects",
+  "- [x] Reproduce the two examples from the issue (confirmed via code reading)",
+  "- [x] Review proposed fix options and give Blocking / Non-blocking / Nit verdict",
+  "### レビュー: Issue #62 提案・方針",
+  "コードを確認しました（`markdown.py:4598-4641` の `render_inline`）。",
+  "指摘は正確で、`\\x00PH{n}\\x00` を stash → 復元する際に入力側の `\\x00` を一切エスケープしていないため、`docs/antipatterns.md:40` の `FORGEABLE_INBAND_PLACEHOLDER` にそのまま該当します。",
+  "同じファイル内の `_dialect_inline_to_markdown`（`markdown.py:5613-5664`）が全く同じクラスのバグを private-use センチネル `` の escape-doubling で既に修正済みであることも確認しました。",
+  "**Blocking**",
+  "- 提案の方向性（入力側のセンチネルを事前にエスケープダブリングしてから stash し、復元後に戻す）は妥当で、`_dialect_inline_to_markdown` と一貫した手法です。実装は必須で、2つの repro をそのままリグレッションテストに追加すべきです。",
+  "- 2つのオプションのうちどちらを選ぶかは重要な設計判断です。**Option 1（`render_inline` 内でのみ `\\x00` を escape-doubling）だけでは不十分**です。理由: フェンスコードブロックの本文は `render_inline` を経由せず `_escape_html_text`（`html.escape(text, quote=False)`、`markdown.py:4052-4053`）に直接渡されます（例: `markdown.py:4744`）。`html.escape` は NUL を一切変換しないため、コードフェンス内に生の `\\x00` があれば `<pre><code>` に生の NUL がそのまま漏れます。これは今回の issue と同一クラスの欠陥で、`render_inline` だけを直すと兄弟バグが未修正のまま残ります。",
+  "- **Option 2（`markdown_to_html` 入口で NUL → U+FFFD に一括置換）を推奨**します。CommonMark 仕様の \"insecure characters\" 規定にも合致し、一箇所の置換で `render_inline` 経由・非経由の両方のパスをカバーできます。実装すれば `render_inline` 側の escape-doubling ロジック自体が不要になり、コードもシンプルになります。",
+  "- Option 1 を採用する場合は、フェンスコード側のNUL漏れも同じPRでカバーするか、明示的にフォローアップ課題として切り出してください（暗黙のスコープ外放置は避けるべきです）。",
+  "**Non-blocking**",
+  "- Option 2 を選ぶ場合でも、`docs/antipatterns.md` にこの具体的な教訓（「stdlib `html.escape` は NUL を無害化しない」）を1行追記しておくと、今後同種のバグの再発防止に役立ちます。",
+  "- テストは issue記載の2例に加えて、フェンスコードブロック内に生NULを含む入力（`` ```\\n\\x00\\n``` `` 等）のケースも一緒に追加することを提案します（Option 2 を選べば同じ修正で通るはずですが、回帰保証として明示的にテストしておく価値があります）。",
+  "**Nit**",
+  "- `_dialect_inline_to_markdown` は復元を `while True` で安定するまで繰り返しています（リンクラベルにコードスパンが入れ子になるケースに対応するため、`markdown.py:5657-5663`）。一方 `render_inline` の `markdown_link_to_html` / `markdown_image_to_html` はラベルを再帰的に `render_inline` へ通さず単純に `html.escape` するだけなので（`markdown.py:1120-1132`）、入れ子は発生せず現状の単純な for ループでの復元で問題ありません。修正時にこの前提が変わらない限り stability loop は不要ですが、念のため一言コメントを残しておくと将来の実装変更時に見落とされにくくなります。",
+  "まとめとして、issueの問題認識と修正方針の大枠（escape-doubling / NUL→U+FFFD のいずれか）は正しいです。",
+  "実装するなら、コードフェンス側の同種の漏れも一緒に塞げる Option 2 を推奨します。",
+  "今回はレビューのみで実装は行っていません。"
+ ]
+}
