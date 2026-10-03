@@ -1,0 +1,491 @@
+# jev-report-linter ルール集
+#
+# すべてのルールはJevのNoul（Yes/No）質問として判定する。
+# state には報告全文と対象の1文を渡し、question は対象の1文について問う。
+#
+# category はREADMEの4分類に従う。
+#   削除  その文の存在自体が不要。文ごと削除させる
+#   修正  意味は必要だが表現に問題がある。書き直させる
+#   調査  未確認・未確定のまま書かれている。調べて確定させる
+#   正常  該当した場合、その文を正常として扱う
+#
+# source はルールの出典。yomiyasu/ は https://github.com/nanaism/yomiyasu のリポジトリ直下を指す。
+# instruction は差し戻し時にエージェントへ返す指示で、出典の修正方針を写したもの。
+# match は該当する文、no_match は該当しない文の例で、出典にある例だけを載せる。
+
+defaults:
+  # 修正の指示すべてに付ける共通の制約
+  # source: yomiyasu/SKILL.md「最優先ルール: 意味の保持」「情報の不増補」
+  rewrite_constraint: >-
+    元の文の主張・比重・言い切りの強さ・文の働きを変えない。
+    元の文や前後から分からない動作主、名詞、行動、原因、条件、数値、例、専門用語を足さない。
+    ぼかした語を、より狭い具体的な事実に置き換えない。
+
+rules:
+  # ================================================================ 削除
+  - id: stock-closing
+    category: 削除
+    source: yomiyasu/references/slop-catalog.md 6章「定型クロージング」、references/domains/essay.md 3章
+    question: 対象の文は、「いかがでしたでしょうか」「ぜひ試してみてください」「〜の参考になれば幸いです」「〜してみてはいかがでしょうか」のような定型の結びや形式的な呼びかけか。
+    instruction: 形式的な呼びかけを削り、本文の自然な結びで終わる。
+    match:
+      - いかがでしたでしょうか
+      - ぜひ試してみてください
+      - 〜の参考になれば幸いです
+      - 〜してみてはいかがでしょうか
+      - ぜひ参考にしてみてください
+
+  - id: reading-effect-push
+    category: 削除
+    source: yomiyasu/references/domains/business.md 3章
+    question: 対象の文は、読んだあとの効果を読み手に押し付ける文言か。
+    instruction: 読了効果の押し付け文言を削除する。
+    match:
+      - これらを理解すれば業務効率が飛躍的に向上します
+
+  - id: empty-opening
+    category: 削除
+    source: yomiyasu/references/domains/tech.md 3章
+    question: 対象の文は、文章の冒頭に置かれた空疎な前置きか。
+    instruction: 冒頭の空疎な前置きを削り、解決すべき課題や前提条件から書き始める。
+    match:
+      - 近年、AI技術の発展は目覚ましく…
+
+  - id: closing-proposal
+    category: 削除
+    source: yomiyasu/references/domains/essay.md 3章
+    question: 対象の文は、最後の段落で、社会や未来への提言を無理に置いている文か。
+    instruction: 最後の段落に無理に置いた社会や未来への提言を削り、自然に閉じる。
+
+  - id: summary-heading
+    category: 削除
+    source: yomiyasu/references/domains/tech.md 1章
+    question: 対象の行は、短い文章に置かれた、形だけの「まとめ」見出しか。
+    instruction: 短い文章では「まとめ」見出しを置かない。
+
+  # ================================================================ 修正: 語彙
+  - id: metaphor-verb
+    category: 修正
+    source: yomiyasu/references/slop-catalog.md 1章、SKILL.md「比喩動詞の具体化」、references/gemini-syntax.md 原則4、references/domains/business.md 1章
+    question: 対象の文は、抽象的な事柄や技術操作を、「効く・効いてくる」「壊れる」「倒す」「溶かす」「潰す」「踏み込む」「引き返す」「添える」「収斂する」「沈黙する」「黙って」「崩れる」「配る」のような比喩の動詞で言い換えているか。ふだんの日本語で定着した慣用句と、時計や機械や身体など文字どおりの物理的対象についての「壊れる」は含めない。
+    instruction: >-
+      比喩の動詞を、ふだん使う言葉や文脈に合った言葉に置き換える。難解な技術用語や硬い漢語に寄せない。
+      比喩が持っていた含み（「地味に」の目立たないけれど確かにある感じ、「〜てしまった」の後悔など）は残す。
+      データやシステムの「壊れる」は「おかしくなる」「使えなくなる」のように意味の広さが同じ言葉にする。
+    match:
+      - 例外が起きたときは、安全側に倒す。
+      - この工夫が、後々の運用で地味に効いてくる。
+      - 古いコードの問題を1つずつ潰していく。
+      - 設定の反映に丸一日溶かしてしまった。
+      - 前提の理解がずれていると、全体の設計が崩れやすくなります。
+      - 作業リソースを各工程へ配ります。
+    no_match:
+      - 例外が起きたときは、安全を優先して処理します。
+      - この工夫をしておくと、後々の運用で目立たないながらも役立ちます。
+      - 古いコードの問題を1つずつ直していきます。
+      - 設定の反映に丸一日かかってしまいました。
+
+  - id: direct-translation
+    category: 修正
+    source: yomiyasu/references/slop-catalog.md 2章
+    question: 対象の文は、英語表現の直訳から生じた言い回しを含むか。対象は「静かに壊れる」「黙って無視される」「〜した瞬間」「〜を正本にする」「〜を指している」「〜を示唆している」「耐力のある」「構造を支える」「〜に深く分け入る」「深掘りする」。
+    instruction: >-
+      直訳調の言い回しを自然な日本語にする。「〜した瞬間」は「〜するとすぐに」「〜した時点で」、
+      「正本にする」は「信頼できる唯一の情報源とする」、「指している・示唆している」は「表している」「と考えられる」、
+      「耐力のある」は「不可欠な」「外せない」、「深掘りする」は「詳しく調べる」にする。
+      「静かに」「黙って」は「気づかないうちに」「知らないうちに」のように、気づけない幅のまま直す。
+    match:
+      - 通信が切れた瞬間に、画面が静かに固まる。
+      - 設定を保存した瞬間に、古いキャッシュが静かに壊れます。
+    no_match:
+      - 通信が切れると、気づかないうちに画面が動かなくなります。
+      - 設定を保存するとすぐに、古いキャッシュが気づかないうちに使えなくなります。
+
+  - id: surge-failure-metaphor
+    category: 修正
+    source: yomiyasu/references/slop-catalog.md 3章「障害・失敗の比喩」、SKILL.md Step 3
+    question: 対象の文は、「事故」「混ざる」「落とし穴」「破綻」「実害」「素通り」を、障害や失敗の比喩として使っているか。文脈上正当な専門用語や事実の記述は含めない。
+    instruction: >-
+      ふだん使う平易な言葉に開く。事故→思いがけない失敗・トラブル、混ざる→入り込む、落とし穴→見落としやすい点・気をつけたい点、
+      破綻→うまくいかなくなる、実害→実際の困りごと、素通り→気づかず通る。
+
+  - id: surge-verification-metaphor
+    category: 修正
+    source: yomiyasu/references/slop-catalog.md 3章「確認・検証の比喩」、SKILL.md Step 3
+    question: 対象の文は、「実測」「疑う」「照合」「突き合わせる」「断定」「取り違える」を、確認や検証の比喩として使っているか。文脈上正当な専門用語や事実の記述は含めない。
+    instruction: >-
+      ふだん使う平易な言葉に開く。実測→実際に測った値、疑う→念のため見直す・確かめる、照合→照らし合わせる、
+      突き合わせる→見比べる・比べる、断定→言い切る、取り違える→順序を間違える・勘違いする。
+    match:
+      - 両者を突き合わせることで、差分が浮き彫りになる。
+      - 前後を取り違えると、意図しない挙動につながる。
+    no_match:
+      - 両者を比べると、違いがはっきり分かります。
+      - 前後の順序を間違えると、思いがけない動き方をします。
+
+  - id: surge-role-metaphor
+    category: 修正
+    source: yomiyasu/references/slop-catalog.md 3章「役割・位置の比喩」、SKILL.md Step 3
+    question: 対象の文は、「入口」「土台」「道具」「核心」「主役」「構図」「線引き」を、役割や位置の比喩として使っているか。文脈上正当な専門用語や事実の記述は含めない。
+    instruction: >-
+      ふだん使う平易な言葉に開く。入口→はじめの一歩・手始め、土台→基本・根っこ、道具→手段・やり方、
+      核心→いちばん肝心なところ・大事な点、主役→中心、構図→全体の仕組み・関係、線引き→区切り・境界。
+
+  - id: surge-evaluation-noun
+    category: 修正
+    source: yomiyasu/references/slop-catalog.md 3章「評価・結論の定型」、SKILL.md Step 3
+    question: 対象の文は、「既定」「別物」「定番」「要点」「定石」「桁違い」を、評価や結論の定型として使っているか。文脈上正当な専門用語や事実の記述は含めない。
+    instruction: >-
+      ふだん使う平易な言葉に開く。既定→初めの設定・もともとの設定、別物→まったく違うもの、定番→よく使われるもの、
+      要点→大事なところ、定石→いつものやり方・標準の進め方、桁違い→段違い・はるかに大きい。
+
+  - id: abstract-metaphor-noun
+    category: 修正
+    source: yomiyasu/scripts/yomiyasu_lint.py SLOP_WORDS「抽象比喩名詞」
+    question: 対象の文は、「営み」「装置」「羅針盤」「起爆剤」「触媒」を比喩として使っているか。文字どおりの意味や必要な文脈を担っている場合は含めない。
+    instruction: 文脈上必要のない比喩であれば、ふだん使う自然な表現に置き換える。
+
+  - id: grandiose
+    category: 修正
+    source: yomiyasu/references/slop-catalog.md 4章、references/domains/essay.md 1章
+    question: 対象の文は、ささやかな体験や日常的な技術判断を、「真理」「真実」「結末」「宿命」「運命」「境地」「極致」「究極」「虚飾」「虚像」「美学」「深淵」「禁欲的」「優美」「冷徹」「残酷」「凝縮」「結晶」のような重い熟語で大げさに語っているか。
+    instruction: 重い熟語を削り、元の文にある内容を平易な言葉で表す。元にない架空の固有名詞や普遍の教訓を足さない。
+    match:
+      - 日常の喧騒という虚飾を剥ぎ取った時、この道具の真実が見えてくる。
+    no_match:
+      - 日々の忙しさから離れたとき、この道具の本当の良さが見えてくる。
+
+  - id: moralizing
+    category: 修正
+    source: yomiyasu/references/domains/essay.md 1章、2章
+    question: 対象の文は、小さな発見や個別の出来事を、過剰な教訓や過度な一般論に仕立てているか。
+    instruction: 無理な教訓や一般論を外し、元の文にある素朴な内容を平易な言葉で表す。
+
+  - id: pseudo-texture
+    category: 修正
+    source: yomiyasu/references/slop-catalog.md 5章「質感を装う語」
+    question: 対象の文は、「手触り」「肌感」「肌感覚」「体温」「温度感」「熱量」「血の通った」「泥臭い」のような、質感を装う語を使っているか。
+    instruction: 元の文や前後から分かる範囲で客観的な事実を書く。情報が足りない場合は作り話を足さず、同じ幅のふだんの言葉で書く。
+    match:
+      - 新機能の手触り感を確認します。
+    no_match:
+      - 新機能の使い勝手を確認します。
+
+  - id: pseudo-cognition
+    category: 修正
+    source: yomiyasu/references/slop-catalog.md 5章「認知を装う語」
+    question: 対象の文は、「解像度（を上げる・が高い）」「腹落ち」「メンタルモデル」「文脈」のような、認知を装う語を使っているか。
+    instruction: 何をどこまで調べたのかを、元の文にある情報の範囲で客観的に書く。
+    match:
+      - 現状の課題について解像度を上げます。
+    no_match:
+      - 現状の課題について、より詳しく整理します。
+
+  - id: pseudo-evaluation
+    category: 修正
+    source: yomiyasu/references/slop-catalog.md 5章「評価を装う語」
+    question: 対象の文は、「本質」「本質的」「地に足のついた」「等身大」を、空疎な修飾語として使っているか。その語が文の主題や論点そのものになっている場合は含めない。
+    instruction: 空疎な修飾語は削る。論点を「目的」など別の概念にすり替えない。動詞を足して文の働きを変えない。
+
+  - id: coined-label
+    category: 修正
+    source: yomiyasu/references/slop-catalog.md 5章「未定義造語」
+    question: 対象の文は、「意思決定OS」のような、勝手な比喩命名による未定義の造語を使っているか。
+    instruction: ふだん使う平易な言葉や客観的な機能説明で書く。硬い漢語を並べない。
+
+  - id: stiff-kango
+    category: 修正
+    source: yomiyasu/SKILL.md「比喩動詞の具体化」、references/gemini-syntax.md 原則7、references/domains/tech.md 2章・3章
+    question: 対象の文は、「発生」「担保」のような硬い2字漢語を不要な場面で使っているか、または漢語が連続して硬くなっているか。
+    instruction: 難解な漢語の連続を、和語や動詞へ適度に開く。
+    match:
+      - この処理でデータの整合性を担保します。
+    no_match:
+      - この処理で、データに矛盾が生じない状態を保ちます。
+
+  # ================================================================ 修正: 構文
+  - id: unclear-svo
+    category: 修正
+    source: yomiyasu/SKILL.md「主語と目的語の明確化」、references/gemini-syntax.md 原則1
+    question: 対象の文は、主語や目的語の省略のせいで、「誰が・何を・どうした」がその1文で完結していないか。
+    instruction: 元の文や前後から分かる範囲で、動作主と対象を置く。省かれた語を補うのは、前後の文にその語があるときだけにする。分からない語は作らない。
+    match:
+      - 処理を流すたびに、状態が勝手に書き換わっていく。
+      - 使い倒すことで、道具が手に馴染む。
+    no_match:
+      - 処理を実行するたびに、意図せず状態が書き換わっていきます。
+      - 徹底して使い込むことで、道具を思い通りに扱えるようになります。
+
+  - id: demonstrative
+    category: 修正
+    source: yomiyasu/SKILL.md「主語と目的語の明確化」、references/gemini-syntax.md 原則1
+    question: 対象の文は、「これ」「両者」「片方」のような指示代名詞に頼っていて、文単体では何を指すかが分からないか。
+    instruction: 指す先が文脈から分かるときに限り、具体的な名詞に戻す。
+
+  - id: passive-no-agent
+    category: 修正
+    source: yomiyasu/references/domains/business.md 2章「主語の明確化」
+    question: 対象の文は、受動態で書かれていて、責任を持つ主体が曖昧になっているか。
+    instruction: 元の文や前後から主体が特定できる場合に限り、責任主体を明記する。特定できない場合は架空の人物や役職を作らず、客観的な事実として書く。
+
+  - id: personification
+    category: 修正
+    source: yomiyasu/SKILL.md「擬人化の解消」、references/gemini-syntax.md 原則3
+    question: 対象の文は、道具や概念に感情や意志を持たせた擬人化表現を使っているか。道具や仕組みの働きを客観的に述べている文は含めない。
+    instruction: 客観的な事実として書き直す。元にない条件（〜を使えば）や可能（〜できます）を足さない。
+    match:
+      - このドキュメントが、APIの仕様を語っている。
+      - 新しいガイドラインが、チームに変化を促す。
+      - コードが自らの振る舞いを証明する。
+      - 画面の配置が、利用者の迷いを誘う。
+    no_match:
+      - このドキュメントに、APIの仕様が書かれています。
+      - コード自体に動作の内容が示されています。
+      - このツールはログを集めます。
+
+  - id: inanimate-subject-phrase
+    category: 修正
+    source: yomiyasu/scripts/yomiyasu_lint.py METAPHOR_VERB_PATTERNS「非生物主語」
+    question: 対象の文は、「文化が醸成される」「プロセスが定着する」「事例が残した」のような、非生物を主語にした言い回しを使っているか。文字どおりの動作や状態変化を表している場合は含めない。
+    instruction: 不自然な言い回しであれば、ふだん使う動詞や客観的な表現に書き直す。
+
+  - id: subject-predicate-mismatch
+    category: 修正
+    source: yomiyasu/SKILL.md「段落と文の論理構造」4、references/gemini-syntax.md 原則13
+    question: 対象の文は、主語と述語の対応が崩れているか。
+    instruction: 元の文の意図が読み取れる範囲で、主語と述語を対応させる。
+
+  - id: preface-filler
+    category: 修正
+    source: yomiyasu/references/slop-catalog.md 6章「前置フィラー」、SKILL.md「セルフラベリングと否定対比の整理」、references/gemini-syntax.md 原則5
+    question: 対象の文は、「重要なのは」「結論から言うと」「正直に言うと」「避けたいのは」「ここで注目すべきは」のような前置きを含み、その前置きを削っても主張が変わらないか。前置きが「何が大事か」という評価そのものを担っている場合は含めない。
+    instruction: 単なる前置きは削り、要点の主文から書き始める。
+    match:
+      - 結論から言うと、このボタンを押すだけで完了します。
+    no_match:
+      - このボタンを押すだけで完了します。
+      - 画面の見た目ではなく、裏側のデータ構造が重要です。
+
+  - id: post-label
+    category: 修正
+    source: yomiyasu/references/slop-catalog.md 6章「後置ラベリング」
+    question: 対象の文は、「〜というわけです」「〜に他なりません」「〜と言えるでしょう」「面白いのはここです」のような後置のラベリングを含むか。
+    instruction: 文末を客観的な事実記述で閉じる。元の文が推量の場合は、断定に上げず推量の強さを保つ。
+    match:
+      - 〜というわけです
+      - 〜に他なりません
+      - 〜と言えるでしょう
+      - 面白いのはここです
+
+  - id: negative-parallelism
+    category: 修正
+    source: yomiyasu/references/slop-catalog.md 2章、SKILL.md「セルフラベリングと否定対比の整理」、references/gemini-syntax.md 原則5
+    question: 対象の文は「AではなくB」の否定対比で、否定を外しても主張が変わらないか。Aだと思われがちなところをBだと言い直しているなど、否定が意味や比重を担っている場合は含めない。
+    instruction: 肯定文にする。否定していたAを「Aに加えてB」と並べたり、「AよりB」と順位づけしたりしない。「そのもの」などの強調語を足さない。
+    no_match:
+      - 目的は、機能の追加ではなく使いやすさの向上です。
+      - 重要なのは、画面の見た目ではなく裏側のデータ構造です。
+
+  - id: wrapper-phrase
+    category: 修正
+    source: yomiyasu/references/gemini-syntax.md 原則6、知見3
+    question: 対象の文は、「一般に〜」「現代社会において〜」「もちろん〜とは限らないが」のような中身のない包装や、リスク回避のために付け足された一般的な免責事項を含むか。
+    instruction: 無意味な包装や免責を削り、事実のみを残す。
+
+  - id: meta-declaration
+    category: 修正
+    source: yomiyasu/references/domains/business.md 2章「メタ宣言の削除」
+    question: 対象の文は、進め方や姿勢を宣言するだけの前置きを含むか。
+    instruction: 前置きを削り、結論や要請事項から書き始める。
+    match:
+      - 検討にあたっては多角的な視点を考慮し…
+
+  - id: paper-tone
+    category: 修正
+    source: yomiyasu/references/domains/tech.md 3章
+    question: 対象の文は、「本稿では」「筆者は」のような過度な論文調で書かれているか。
+    instruction: 論文調を削り、解決すべき課題や前提条件から書く。
+
+  - id: honorific-cushion
+    category: 修正
+    source: yomiyasu/references/gemini-syntax.md 知見4
+    question: 対象の文は、呼びかけ語や形式的な敬語のクッションを過剰に付けているか。
+    instruction: 過剰な呼びかけ語や敬語のクッションを外す。
+
+  - id: vague-action
+    category: 修正
+    source: yomiyasu/references/domains/business.md 2章「条件と結果の1対1対応」
+    question: 対象の文は、「適宜対応する」のような曖昧な表現を使っているか。
+    instruction: 元の資料に具体的な条件がある場合に限り、具体化する。資料にない条件や数値を作らない。
+    match:
+      - 適宜対応する
+
+  - id: abstract-only
+    category: 修正
+    source: yomiyasu/references/domains/tech.md 2章
+    question: 対象の文は、抽象的な概念説明にとどまり、手順や設定を示していないか。
+    instruction: 元の文や前後の資料にある情報の範囲で、手順や設定を整理して書く。元にないコマンドやコード片を作らない。
+
+  # ================================================================ 修正: 文と段落のつながり
+  - id: announce-only
+    category: 修正
+    source: yomiyasu/SKILL.md「段落と文の論理構造」2、references/gemini-syntax.md 原則13
+    question: 対象の文は、中身を伴わない予告だけの文か。
+    instruction: 予告が担っていた重み（注目すべき、重要など）を述語に残して、続く中身の文と1文にまとめる。まとめると意味が変わる場合は残す。
+    match:
+      - 注目すべき点があります。
+      - 次の点が挙げられます。
+      - ここで重要なポイントがあります。
+      - 理由は以下の通りです。
+      - 開発を円滑に進める上で、意識したい点があります。
+    no_match:
+      - 開発を円滑に進めるためにも、定期的な進捗共有が役立ちます。
+
+  - id: connective-mismatch
+    category: 修正
+    source: yomiyasu/SKILL.md「段落と文の論理構造」1、references/gemini-syntax.md 原則13
+    question: 対象の文は、つなぎ言葉（ただし、しかし、また、そして、つまり、そのため）、主題の「も」、文頭の指示語（これ、それ、こうした）が、前後の文の論理的な関係と合っていないか。
+    instruction: 接続の根拠が前後から明確に分かる場合は、適切な接続表現に直す。分からない場合は無理に直さない。
+    match:
+      - 設定を変更しました。ただし、再起動が必要です。
+      - エラー処理を組み込みました。また、通信失敗時にも自動で再試行が行われます。
+    no_match:
+      - 設定を変更した後は、再起動が必要です。
+      - エラー処理を組み込み、通信失敗時にも自動で再試行するようにしました。
+
+  - id: mixed-topic
+    category: 修正
+    source: yomiyasu/SKILL.md「段落と文の論理構造」3、references/gemini-syntax.md 原則13
+    question: 対象の文は、同じ段落の他の文と異なる話題を述べているか。
+    instruction: 文の順序を変えずに、段落を分ける。
+
+  - id: mixed-ending
+    category: 修正
+    source: yomiyasu/SKILL.md「文書の立場と文末」、references/gemini-syntax.md 原則2
+    question: 対象の文の文末は、文書全体の立場（勧め・決まり・説明）や文体（です・ます／だ・である）と食い違っているか。やり方を「〜します」で説明して最後の1文だけを「〜しましょう」で結ぶ形と、原則を述べてから手順を並べる形は含めない。
+    instruction: 文書全体の立場を1つ決め、立場に合わない文末だけを直す。主語は足さない。強さを上げない。
+    match:
+      - 会議の前に資料を共有しておきます。事前の確認を心がけましょう。
+      - パスワードは定期的に更新しましょう。安全性を保つことが重要です。
+    no_match:
+      - 会議の前に資料を共有しておきましょう。事前の確認を心がけましょう。
+      - パスワードは定期的に更新します。安全性を保つことが重要です。
+
+  - id: sentence-end-repetition
+    category: 修正
+    source: yomiyasu/references/gemini-syntax.md 原則8、scripts/yomiyasu_lint.py sentence_end_repetition
+    question: 対象の文は、直前の2文と同じ文末（〜です、〜ます、〜でした、〜ました、〜である、〜だ、〜だろう）で終わっているか。
+    instruction: 文末のリズムを調整する。文書の立場に合った文末の種類は変えない。
+
+  - id: long-sentence
+    category: 修正
+    source: yomiyasu/SKILL.md「文長と読点の調整」、references/gemini-syntax.md 原則7
+    question: 対象の文は、60文字を超える長大な複文か。
+    instruction: 前後のつながりを後ろの文のつなぎ言葉（そのため、こうすることで、一方で、反対に）で残せるときだけ分ける。目的や理由が文末の結論にかかっている文は分けない。
+
+  - id: staccato
+    category: 修正
+    source: yomiyasu/references/gemini-syntax.md 原則7
+    question: 対象の文は、10文字未満の極端な短文で、前後にも同じような短文が続いているか。
+    instruction: 極端な短文の連打をやめる。
+
+  - id: too-many-commas
+    category: 修正
+    source: yomiyasu/SKILL.md「文長と読点の調整」、references/gemini-syntax.md 原則7
+    question: 対象の文は、読点を3個以上含むか。
+    instruction: 1文あたりの読点を0〜2個に抑える。
+
+  - id: emphasis-comma
+    category: 修正
+    source: yomiyasu/references/gemini-syntax.md 原則7
+    question: 対象の文は、「前提を、〜」「ここでは、〜」のように、文頭に不自然な強調の読点を打っているか。
+    instruction: 文頭の不自然な強調読点を外す。
+
+  # ================================================================ 修正: 記号と書式
+  - id: em-dash
+    category: 修正
+    source: yomiyasu/SKILL.md「装飾記号と不要な空白の排除」、references/gemini-syntax.md 原則9、references/slop-catalog.md 2章
+    question: 対象の文は、ダッシュ記号（—、―、――）を含むか。
+    instruction: 日本語の自然な接続助詞や句読点に置き換える。前にある理由や条件が、つないだ後ろの部分までかかるようになるなら、2文に分ける。
+    match:
+      - 重要な機能――とりわけ認証周り――は慎重に実装する必要があります。
+    no_match:
+      - 認証機能をはじめとする重要な処理は、慎重に実装する必要があります。
+
+  - id: emoji
+    category: 修正
+    source: yomiyasu/SKILL.md「装飾記号と不要な空白の排除」、references/gemini-syntax.md 原則12
+    question: 対象の文は、絵文字を含むか。
+    instruction: 絵文字を取り除き、平文で書く。
+
+  - id: trailing-colon
+    category: 修正
+    source: yomiyasu/SKILL.md「装飾記号と不要な空白の排除」、references/gemini-syntax.md 原則12
+    question: 対象の文は、文末がコロン（：または:）で終わっているか。
+    instruction: 句点で文を閉じるか、不要な前置きを省いて直接書く。
+
+  - id: redundant-paren
+    category: 修正
+    source: yomiyasu/SKILL.md「装飾記号と不要な空白の排除」、references/gemini-syntax.md 原則10
+    question: 対象の文は、情報量の増えない言い換えや同義語の補足カッコを含むか。
+    instruction: 意味の重複する注釈カッコを削る。必要な情報は地の文に組み込む。
+    match:
+      - 修正前のAI生成文（素の出力）
+      - 不自然な日本語（いわゆるAI臭さ）
+    no_match:
+      - 修正前のAI生成文
+      - AI特有の不自然な日本語
+
+  - id: halfwidth-space
+    category: 修正
+    source: yomiyasu/SKILL.md「装飾記号と不要な空白の排除」、references/gemini-syntax.md 原則11
+    question: 対象の文は、英単語やアルファベットの前後に不要な半角空白を空けているか。太字の表示のために ** の外側に入れた半角スペースは含めない。
+    instruction: 日本語の助詞や平仮名とアルファベットの間は、空白を空けずに接続する。
+    match:
+      - "この README は、 yomiyasu で 生成させた文章です。"
+    no_match:
+      - このREADMEは、yomiyasuで生成させた文章です。
+
+  - id: bold-not-rendered
+    category: 修正
+    source: yomiyasu/SKILL.md「装飾記号と不要な空白の排除」、references/gemini-syntax.md 原則14
+    question: 対象の文は、太字の印（**）のすぐ内側が記号（「」『』（）【】、。やバッククォート）で、すぐ外側が文字になっている箇所を含むか。
+    instruction: >-
+      かっこごと太字にしているときは、かっこの内側だけを太字にする。太字の終わりが句点などのときは、句点を太字の外に出す。
+      どちらもできないときは、** の外側の、文字に接する側に半角スペースを1つ入れる。
+    match:
+      - "次に**「文書の立場」**を決めます。"
+      - "これは**必須です。**詳しくは下に書きます。"
+      - "立場は**「勧め」か「決まり」**で決めます。"
+    no_match:
+      - "次に「**文書の立場**」を決めます。"
+      - "これは**必須です**。詳しくは下に書きます。"
+      - "立場は **「勧め」か「決まり」** で決めます。"
+
+  - id: excess-bold
+    category: 修正
+    source: yomiyasu/references/domains/tech.md 1章、scripts/yomiyasu_lint.py excess_bold
+    question: 対象の文は、同じ段落に複数ある太字のうちの1つを含むか。
+    instruction: 太字は1,000文字あたり1〜2箇所までに抑え、重要な要点だけに絞る。
+
+  - id: list-for-reasoning
+    category: 修正
+    source: yomiyasu/references/domains/tech.md 1章、scripts/yomiyasu_lint.py excess_list
+    question: 対象の行は、思考の流れや論理展開を述べている箇条書きの項目か。単に並列された項目は含めない。
+    instruction: >-
+      思考の流れや論理展開は地の文の段落で書く。各項目を文書の立場に合う文末にし、元にない評価や義務を足さない。
+      地の文にすると同じ文末が3つ以上続くときは、箇条書きのまま残す。
+
+  # ================================================================ 調査
+  - id: unconfirmed
+    category: 調査
+    source: README.md「分類」
+    question: 対象の文は、未確認や未確定といった表現を使っているか。
+    instruction: 確定状態に持っていけるように調査する。
+
+  # ================================================================ 正常
+  - id: investigated-unresolved
+    category: 正常
+    source: README.md「分類」
+    question: 対象の文は、情報を調べてなお未決事項として保持しなければならないもの、または調べたうえで情報が存在しなかったことを述べているか。
+    instruction: ""
