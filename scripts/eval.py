@@ -4,6 +4,7 @@
   python3 scripts/eval.py run      Jevに聞き、値を scripts/out/scores.json に保存する（3回）
   python3 scripts/eval.py report   保存した値を corpus/labels/ の正解と突き合わせて集計する
   python3 scripts/eval.py run-per-unit / report-per-unit   単位1つにつき1リクエストで聞く形（比較用、1回）
+  python3 scripts/eval.py bands    measurements/ に保存した値を、明瞭なNo・不確か・明瞭なYesに分けて数える（Jevを呼ばない）
 
 Jevへの渡し方:
 - 報告1件につき、報告全文と単位の配列を state に1回だけ入れ、その報告への質問をまとめて載せる。
@@ -168,5 +169,61 @@ def cmd_report(name="scores.json"):
     print(f"食い違いの一覧: scripts/out/disagreements.md（{len(detail)}件）")
 
 
+LOW, HIGH = 0.3, 0.7
+
+
+def cmd_bands(name="per-unit-eabe402.json"):
+    """Jevの値を、明瞭なNo（LOW未満）・不確か・明瞭なYes（HIGH以上）に分けて数える。
+
+    measurements/ に保存した値を読むので、Jevを呼ばずに再現できる。
+    明瞭な答えが正解ラベルと食い違う文は scripts/out/clear_disagreements.md に書き出す。"""
+    scores = json.loads((ROOT / "measurements" / name).read_text())["scores"]
+    rules = {r["id"]: r for r in load_rules()}
+    reports, labels = {}, {}
+    for path in sorted((ROOT / "corpus" / "reports").glob("*.json")):
+        p = json.loads(path.read_text())
+        reports[p["id"]] = p
+        labels[p["id"]] = {x["unit"]: x for x in json.loads((ROOT / "corpus" / "labels" / path.name).read_text())["labels"]}
+    by = {}
+    for k, v in scores.items():
+        pid, i, rid = k.split("|")
+        by.setdefault(rid, []).append((sum(v) / len(v), pid, int(i), rid in labels[pid][int(i)]["rules"]))
+    print(f"明瞭なNo: {LOW}未満 / 不確か: {LOW}以上{HIGH}未満 / 明瞭なYes: {HIGH}以上。数字は文の数。")
+    print(f"{'rule':28s} {'聞いた':>5s} {'明瞭No':>5s} {'不確か':>5s} {'明瞭Yes':>5s} | 明瞭Yesで正解該当 / 非該当 | 明瞭Noで正解該当 | 不確かで正解該当 | 正解のうち未質問")
+    lines = ["# Jevが明瞭に答えたのに、正解ラベルと食い違う文", "",
+             f"明瞭なNoは{LOW}未満、明瞭なYesは{HIGH}以上。値はJevが返した確率。", ""]
+    for rid in sorted(rules, key=lambda r: -sum(LOW <= x[0] < HIGH for x in by.get(r, []))):
+        xs = by.get(rid, [])
+        lo = [x for x in xs if x[0] < LOW]
+        mid = [x for x in xs if LOW <= x[0] < HIGH]
+        hi = [x for x in xs if x[0] >= HIGH]
+        asked = {(x[1], x[2]) for x in xs}
+        unasked = sum(rid in l["rules"] and (pid, i) not in asked for pid, ls in labels.items() for i, l in ls.items())
+        hy = sum(x[3] for x in hi)
+        print(f"{rid:28s} {len(xs):5d} {len(lo):6d} {len(mid):6d} {len(hi):6d} | {hy:8d} / {len(hi) - hy:<8d} | {sum(x[3] for x in lo):8d} | {sum(x[3] for x in mid):8d} | {unasked:6d}")
+        for kind, group in (("明瞭なYes・正解は該当なし", [x for x in hi if not x[3]]), ("明瞭なNo・正解は該当", [x for x in lo if x[3]])):
+            if not group:
+                continue
+            r = rules[rid]
+            lines += [f"## {rid}  {kind}  {len(group)}件", "",
+                      "該当の記述: " + " / ".join(a["text"] for a in r["applies"])]
+            if r.get("excludes"):
+                lines.append("除外の記述: " + " / ".join(e["text"] for e in r["excludes"]))
+            lines.append("")
+            for v, pid, i, _ in sorted(group, reverse=True):
+                units = reports[pid]["units"]
+                lines += [f"### {v:.2f}  corpus/reports/{pid}.json units[{i}]",
+                          f"- 前の文: {units[i - 1] if i else '（なし）'}",
+                          f"- **対象の文: {units[i]}**",
+                          f"- 次の文: {units[i + 1] if i + 1 < len(units) else '（なし）'}"]
+                reason = labels[pid][i].get("reasons", {}).get(rid)
+                if reason:
+                    lines.append(f"- 正解ラベルの根拠: {reason}")
+                lines.append("")
+    OUT.mkdir(exist_ok=True)
+    (OUT / "clear_disagreements.md").write_text("\n".join(lines))
+    print("\n食い違いの一覧: scripts/out/clear_disagreements.md")
+
+
 if __name__ == "__main__":
-    {"run": cmd_run, "run-per-unit": lambda: cmd_run(True), "report": cmd_report, "report-per-unit": lambda: cmd_report("scores_per_unit.json")}[sys.argv[1]]()
+    {"run": cmd_run, "run-per-unit": lambda: cmd_run(True), "report": cmd_report, "report-per-unit": lambda: cmd_report("scores_per_unit.json"), "bands": cmd_bands}[sys.argv[1]]()
