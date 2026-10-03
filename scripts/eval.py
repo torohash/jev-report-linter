@@ -21,6 +21,8 @@ import yaml
 from jev_check import PRICE_PER_MTOK, ROOT, ask
 
 PASSES = 3
+# 全ルール共通のしきい値。Jevの値がこれ以上なら検出とする。結果を見てルールごとに変えない。
+THRESHOLD = 0.5
 CHUNK = 150
 # 静的に移すかどうかの判断待ち
 SKIP = {"long-sentence"}
@@ -140,20 +142,15 @@ def cmd_report(name="scores.json"):
             tp, fp = sum(v >= t for v in pos), sum(v >= t for v in neg)
             return tp, fp, len(positives) - tp
 
-        best = None
-        if pos:
-            def f1(t):
-                tp, fp, fn = count(t)
-                return 2 * tp / (2 * tp + fp + fn) if tp else 0
-            best = max(sorted(set(pos)), key=f1)
-        tp, fp, fn = count(best) if best is not None else (0, 0, len(positives))
+        best = THRESHOLD
+        tp, fp, fn = count(best)
         for i, v in enumerate((len(positives), tp + fp, tp, fp, fn)):
             total[i] += v
         rng = f"{pos[0]:.2f}-{pos[-1]:.2f}" if pos else "-"
-        th = f"{best:.2f}" if best is not None else "-"
+        th = f"{best:.2f}"
         print(f"{rid:28s} {len(asked):5d} {len(positives):4d} {len(missed_by_match):5d} {th:>8s} {tp + fp:4d} {tp:5d} {fp:5d} {fn:5d}   {rng:>12s}  {neg[0] if neg else 0:.2f}")
         for u, v in asked.items():
-            hit = best is not None and v >= best
+            hit = v >= best
             if hit != (rid in labels[u]):
                 detail.append({"rule": rid, "kind": "誤検出" if hit else "見逃し", "value": round(v, 2), "threshold": best, "report": u[0], "unit": u[1],
                                "text": reports[u[0]]["units"][u[1]], "reason": reasons[u].get(rid)})
@@ -161,7 +158,7 @@ def cmd_report(name="scores.json"):
             detail.append({"rule": rid, "kind": "見逃し（絞り込みに当たらず）", "value": None, "threshold": best, "report": u[0], "unit": u[1],
                            "text": reports[u[0]]["units"][u[1]], "reason": reasons[u].get(rid)})
     print(f"\n合計: 正解の該当数={total[0]} 検出={total[1]} 正検出={total[2]} 誤検出={total[3]} 見逃し={total[4]}")
-    print("しきい値は、ルールごとに正検出・誤検出・見逃しの釣り合い（F1）が最大になる点。同じデータで決めて同じデータで数えている。")
+    print(f"しきい値は全ルール共通で {THRESHOLD}。結果を見てルールごとに選ぶことはしない。")
     lines = ["# 正解とJevの判定が食い違った箇所", ""]
     for d in sorted(detail, key=lambda d: (d["rule"], d["kind"], -(d["value"] or 0))):
         lines += [f"## {d['rule']}  {d['kind']}  値 {d['value']} / しきい値 {d['threshold']}",
