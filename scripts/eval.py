@@ -1,16 +1,22 @@
 #!/usr/bin/env python3
 """corpus/ の報告でJevルールを測る。試しの計測用で、本体の実装ではない。
 
-  python3 scripts/eval.py run      Jevに聞き、値を scripts/out/scores.json に保存する（3回）
+  python3 scripts/eval.py run      全部の組み立て方でJevに聞き、値を scripts/out/scores_<組み立て>.json に保存する
   python3 scripts/eval.py report   保存した値を corpus/labels/ の正解と突き合わせて集計する
-  python3 scripts/eval.py run-per-unit / report-per-unit   単位1つにつき1リクエストで聞く形（比較用、1回）
 
-Jevへの渡し方:
-- 報告1件につき、報告全文と単位の配列を state に1回だけ入れ、その報告への質問をまとめて載せる。
-- 質問は rule.yml の applies と excludes の原文だけで作る。足す文は「対象の文は、次の記述に当たる。」と
-  「次の記述に当たる場合は、該当しない。」の2つだけである。
-- match を持つルールは、match に当たった単位だけを聞く。
+原文（applies / excludes / words）には手を入れない。変えるのは組み立て方だけで、次の3点を組み合わせて測る。
+
+  形   criteria: 1ルール1質問。applies を criteria.true、excludes を criteria.false に入れる。
+       atomic:   applies と excludes の記述1つにつき1質問。値はコードで合成する。
+                 合成 = applies の平均 × (1 − excludes の最大)
+  文脈 bare:    対象の文だけを渡す。
+       located: 報告全文と対象の文を渡す。
+  言語 ja / en: 足す1文（question）の言語。原文は日本語のまま。
+
+共通: 単位1つにつき1リクエスト。対象の文は `target`、match に当たった箇所は `matched`、
+列挙された語は `words` として渡し、question からバッククォートで指す。
 """
+import itertools
 import json
 import re
 import sys
@@ -20,11 +26,16 @@ import yaml
 
 from jev_check import PRICE_PER_MTOK, ROOT, ask
 
-PASSES = 3
-CHUNK = 150
 # 静的に移すかどうかの判断待ち
 SKIP = {"long-sentence"}
 OUT = ROOT / "scripts" / "out"
+CONFIGS = ["-".join(c) for c in itertools.product(("criteria", "atomic"), ("bare", "located"), ("ja", "en"))]
+QUESTION = {
+    ("ja", False): "`target` は、`description` に当たる。",
+    ("ja", True): "`target` の中の `matched` は、`description` に当たる。",
+    ("en", False): "`target` fits `description`.",
+    ("en", True): "`matched` in `target` fits `description`.",
+}
 
 
 def load_rules():
@@ -40,136 +51,181 @@ def unit_kind(unit):
     return "sentence"
 
 
-def matches(rule, unit):
+def matched(rule, unit):
+    """対象なら、match に当たった箇所（絞り込みがなければ空文字）を返す。対象外なら None。"""
     if unit_kind(unit) not in rule["subject"]:
-        return False
+        return None
     m = rule.get("match") or {}
-    if "regex" in m:
-        return re.search(m["regex"], unit) is not None
-    if "regex_any" in m:
-        return any(re.search(rx, unit) for rx in m["regex_any"])
-    return True
+    for rx in m.get("regex_any", []) + ([m["regex"]] if "regex" in m else []):
+        hit = re.search(rx, unit)
+        if hit:
+            return hit.group(0)
+    return None if ("regex" in m or "regex_any" in m) else ""
 
 
-def question(rule, target):
-    q = {
-        "type": "noul",
-        "instructions": {"対象の文": target, "判定": "対象の文は、次の記述に当たる。", "記述": [a["text"] for a in rule["applies"]]},
-    }
-    if rule.get("excludes"):
-        q["criteria"] = {"false": {"判定": "次の記述に当たる場合は、該当しない。", "記述": [e["text"] for e in rule["excludes"]]}}
+def base(rule, description, hit, lang):
+    q = {"question": QUESTION[(lang, bool(hit))], "description": description}
+    if hit:
+        q["matched"] = hit
+    if rule.get("words"):
+        q["words"] = [w["text"] for w in rule["words"]]
     return q
 
 
-def ask_chunk(state, items):
-    """items は (キー, 質問) の列。トークン上限を超えたら半分に割って聞き直す。"""
-    status, sec, data = ask(state, {f"q{n}": q for n, (_, q) in enumerate(items)})
-    if status == 400 and "max_tokens_exceeded" in str(data) and len(items) > 1:
-        half = len(items) // 2
-        a, b = ask_chunk(state, items[:half]), ask_chunk(state, items[half:])
-        return {**a[0], **b[0]}, a[1] + b[1], a[2] + b[2], a[3] + b[3]
-    if status != 200:
-        raise SystemExit(f"status={status} {data}")
-    values = {items[n][0]: data["answers"][f"q{n}"]["noul"] for n in range(len(items))}
-    return values, data["usage"]["input_tokens"], 1, [sec]
+def questions(rule, hit, shape, lang):
+    """(枝番, 質問) の列を返す。criteria は1つ、atomic は記述の数だけ。"""
+    applies = [a["text"] for a in rule["applies"]]
+    excludes = [e["text"] for e in rule.get("excludes", [])]
+    if shape == "criteria":
+        q = {"type": "noul", "instructions": base(rule, applies, hit, lang), "criteria": {"true": {"what": applies}}}
+        if excludes:
+            q["criteria"]["false"] = {"what": excludes}
+        return [("c", q)]
+    return [(f"a{n}", {"type": "noul", "instructions": base(rule, t, hit, lang)}) for n, t in enumerate(applies)] + \
+           [(f"e{n}", {"type": "noul", "instructions": base(rule, t, hit, lang)}) for n, t in enumerate(excludes)]
 
 
-def cmd_run(per_unit=False):
-    """per_unit=False: 報告1件を state に1回入れ、対象の文を `units[i]` で指す。
-    per_unit=True: 単位1つにつき1リクエストにし、対象の文そのものを state に入れる。"""
-    rules = load_rules()
+def run_config(config, rules, problems):
+    shape, arm, lang = config.split("-")
     jobs = []
-    for path in sorted((ROOT / "corpus" / "reports").glob("*.json")):
-        p = json.loads(path.read_text())
-        if per_unit:
-            for i, u in enumerate(p["units"]):
-                items = [(f"{p['id']}|{i}|{r['id']}", question(r, "`target`")) for r in rules if matches(r, u)]
-                if items:
-                    jobs.append(({"report": p["text"], "target": u}, items))
-            continue
-        items = [(f"{p['id']}|{i}|{r['id']}", question(r, f"`units[{i}]`")) for i, u in enumerate(p["units"]) for r in rules if matches(r, u)]
-        state = {"report": p["text"], "units": p["units"]}
-        jobs += [(state, items[k:k + CHUNK]) for k in range(0, len(items), CHUNK)]
-    scores, passes = {}, []
-    for n in range(1 if per_unit else PASSES):
-        with ThreadPoolExecutor(max_workers=8) as pool:
-            results = list(pool.map(lambda j: ask_chunk(*j), jobs))
-        tokens = sum(r[1] for r in results)
-        reqs = sum(r[2] for r in results)
-        secs = sorted(s for r in results for s in r[3])
-        for values, *_ in results:
-            for k, v in values.items():
-                scores.setdefault(k, []).append(v)
-        passes.append({"requests": reqs, "input_tokens": tokens, "median_sec": secs[len(secs) // 2], "max_sec": secs[-1]})
-        print(f"{n + 1}回目: リクエスト={reqs} 入力トークン={tokens} 費用=${tokens / 1e6 * PRICE_PER_MTOK:.4f} 応答 中央値={secs[len(secs) // 2]:.2f}s 最大={secs[-1]:.2f}s")
+    for p in problems:
+        for i, u in enumerate(p["units"]):
+            qs = {}
+            for r in rules:
+                hit = matched(r, u)
+                if hit is None:
+                    continue
+                for tag, q in questions(r, hit, shape, lang):
+                    qs[f"{p['id']}|{i}|{r['id']}|{tag}"] = q
+            if qs:
+                state = {"target": u} if arm == "bare" else {"report": p["text"], "target": u}
+                jobs.append((state, qs))
+
+    def one(job):
+        state, qs = job
+        keys = list(qs)
+        status, sec, data = ask(state, {f"q{n}": qs[k] for n, k in enumerate(keys)})
+        if status != 200:
+            raise SystemExit(f"{config} status={status} {data}")
+        return {k: data["answers"][f"q{n}"]["noul"] for n, k in enumerate(keys)}, data["usage"]["input_tokens"], sec
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        results = list(pool.map(one, jobs))
+    scores = {k: v for r in results for k, v in r[0].items()}
+    tokens = sum(r[1] for r in results)
+    secs = sorted(r[2] for r in results)
+    meta = {"requests": len(jobs), "questions": len(scores), "input_tokens": tokens, "median_sec": secs[len(secs) // 2], "max_sec": secs[-1]}
     OUT.mkdir(exist_ok=True)
-    (OUT / ("scores_per_unit.json" if per_unit else "scores.json")).write_text(json.dumps({"passes": passes, "rules": [r["id"] for r in rules], "scores": scores}, ensure_ascii=False))
-    print(f"判定数={len(scores)}（1回あたり）")
+    (OUT / f"scores_{config}.json").write_text(json.dumps({"meta": meta, "scores": scores}, ensure_ascii=False))
+    print(f"{config:22s} リクエスト={len(jobs)} 質問={len(scores)} 入力トークン={tokens} 費用=${tokens / 1e6 * PRICE_PER_MTOK:.4f} 応答中央値={secs[len(secs) // 2]:.2f}s")
 
 
-def cmd_report(name="scores.json"):
-    data = json.loads((OUT / name).read_text())
-    rule_ids = data["rules"]
-    mean = {k: sum(v) / len(v) for k, v in data["scores"].items()}
-    spread = sorted(max(v) - min(v) for v in data["scores"].values())
-    reports, labels, reasons = {}, {}, {}
+def load_problems():
+    problems = []
     for path in sorted((ROOT / "corpus" / "reports").glob("*.json")):
         p = json.loads(path.read_text())
-        reports[p["id"]] = p
-        for x in json.loads((ROOT / "corpus" / "labels" / path.name).read_text())["labels"]:
-            labels[(p["id"], x["unit"])] = set(x["rules"])
-            reasons[(p["id"], x["unit"])] = x.get("reasons", {})
-    units = list(labels)
-    passes = data["passes"]
-    tok = sum(p["input_tokens"] for p in passes) / len(passes)
-    print(f"報告={len(reports)} 単位={len(units)} Jevルール={len(rule_ids)} 判定={len(mean)}")
-    print(f"1回あたり: リクエスト={passes[0]['requests']} 入力トークン={tok:.0f} 費用=${tok / 1e6 * PRICE_PER_MTOK:.4f} 報告1件あたり={tok / len(reports):.0f}トークン")
-    print(f"3回の値のぶれ（最大−最小）: 中央値={spread[len(spread) // 2]:.3f} 95%点={spread[int(len(spread) * 0.95)]:.3f} 最大={spread[-1]:.3f}")
-    print()
-    print(f"{'rule':28s} {'聞いた':>5s} {'正解':>4s} {'絞込漏れ':>5s} {'しきい値':>6s} {'検出':>4s} {'正検出':>4s} {'誤検出':>4s} {'見逃し':>4s}   該当の値の範囲  非該当の最大")
-    total = [0, 0, 0, 0, 0]
-    detail = []
+        labels = json.loads((ROOT / "corpus" / "labels" / path.name).read_text())["labels"]
+        p["labels"] = [set(x["rules"]) for x in labels]
+        p["reasons"] = [x.get("reasons", {}) for x in labels]
+        problems.append(p)
+    return problems
+
+
+def composed(config):
+    """(報告, 単位, ルール) ごとの値を返す。atomic は合成する。"""
+    raw = json.loads((OUT / f"scores_{config}.json").read_text())
+    grouped = {}
+    for k, v in raw["scores"].items():
+        pid, i, rid, tag = k.split("|")
+        grouped.setdefault((pid, int(i), rid), {})[tag] = v
+    out = {}
+    for key, tags in grouped.items():
+        if "c" in tags:
+            out[key] = tags["c"]
+        else:
+            a = [v for t, v in tags.items() if t.startswith("a")]
+            e = [v for t, v in tags.items() if t.startswith("e")]
+            out[key] = sum(a) / len(a) * (1 - max(e, default=0.0))
+    return raw["meta"], out
+
+
+def evaluate(values, problems, rule_ids):
+    """ルールごとに、F1が最大になるしきい値と、そのときの数を返す。"""
+    rows = {}
     for rid in rule_ids:
-        asked = {(k.split("|")[0], int(k.split("|")[1])): v for k, v in mean.items() if k.split("|")[2] == rid}
-        positives = [u for u in units if rid in labels[u]]
-        missed_by_match = [u for u in positives if u not in asked]
+        asked = {(k[0], k[1]): v for k, v in values.items() if k[2] == rid}
+        positives = [(p["id"], i) for p in problems for i in range(len(p["units"])) if rid in p["labels"][i]]
         pos = sorted(asked[u] for u in positives if u in asked)
-        neg = sorted((v for u, v in asked.items() if rid not in labels[u]), reverse=True)
-
-        def count(t):
-            tp, fp = sum(v >= t for v in pos), sum(v >= t for v in neg)
-            return tp, fp, len(positives) - tp
-
-        best = None
+        neg = sorted((v for u, v in asked.items() if u not in set(positives)), reverse=True)
+        best, tp, fp = None, 0, 0
         if pos:
             def f1(t):
-                tp, fp, fn = count(t)
-                return 2 * tp / (2 * tp + fp + fn) if tp else 0
+                a, b = sum(v >= t for v in pos), sum(v >= t for v in neg)
+                return 2 * a / (2 * a + b + len(positives) - a)
             best = max(sorted(set(pos)), key=f1)
-        tp, fp, fn = count(best) if best is not None else (0, 0, len(positives))
-        for i, v in enumerate((len(positives), tp + fp, tp, fp, fn)):
-            total[i] += v
-        rng = f"{pos[0]:.2f}-{pos[-1]:.2f}" if pos else "-"
-        th = f"{best:.2f}" if best is not None else "-"
-        print(f"{rid:28s} {len(asked):5d} {len(positives):4d} {len(missed_by_match):5d} {th:>8s} {tp + fp:4d} {tp:5d} {fp:5d} {fn:5d}   {rng:>12s}  {neg[0] if neg else 0:.2f}")
-        for u, v in asked.items():
-            hit = best is not None and v >= best
+            tp, fp = sum(v >= best for v in pos), sum(v >= best for v in neg)
+        f = 2 * tp / (2 * tp + fp + len(positives) - tp) if tp else 0.0
+        rows[rid] = {"asked": len(asked), "positives": len(positives), "unasked": len(positives) - len(pos), "threshold": best,
+                     "detected": tp + fp, "tp": tp, "fp": fp, "fn": len(positives) - tp, "f1": f,
+                     "pos": pos, "neg_max": neg[0] if neg else 0.0, "asked_values": asked}
+    return rows
+
+
+def cmd_run():
+    rules, problems = load_rules(), load_problems()
+    for config in CONFIGS:
+        run_config(config, rules, problems)
+
+
+def cmd_report():
+    rules, problems = load_rules(), load_problems()
+    rule_ids = [r["id"] for r in rules]
+    units = sum(len(p["units"]) for p in problems)
+    total_pos = sum(len(l & set(rule_ids)) for p in problems for l in p["labels"])
+    print(f"報告={len(problems)} 単位={units} Jevルール={len(rule_ids)} 正解の該当数={total_pos}")
+    print("しきい値は、ルールごとに、正解と照らして F1 が最大になる値。同じデータで決めて同じデータで数えている。\n")
+    results = {}
+    print(f"{'組み立て':22s} {'リクエスト':>6s} {'質問':>6s} {'入力トークン':>9s} {'報告1件あたり':>8s}  {'検出':>5s} {'正検出':>4s} {'誤検出':>5s} {'見逃し':>4s}")
+    for config in CONFIGS:
+        meta, values = composed(config)
+        rows = evaluate(values, problems, rule_ids)
+        results[config] = rows
+        s = {k: sum(r[k] for r in rows.values()) for k in ("detected", "tp", "fp", "fn")}
+        print(f"{config:22s} {meta['requests']:8d} {meta['questions']:7d} {meta['input_tokens']:11d} {meta['input_tokens'] // len(problems):10d}  {s['detected']:6d} {s['tp']:5d} {s['fp']:6d} {s['fn']:5d}")
+
+    print("\nルールごとに、F1が最も高かった組み立てを選んだ場合（正解の該当が1個以上あるルール）")
+    print(f"{'rule':28s} {'正解':>3s}  {'組み立て':22s} {'しきい値':>5s} {'検出':>4s} {'正検出':>3s} {'誤検出':>3s} {'見逃し':>3s} {'未質問':>3s}  該当の値   非該当の最大")
+    tot = {"detected": 0, "tp": 0, "fp": 0, "fn": 0}
+    lines = ["# 正解とJevの判定が食い違った箇所（ルールごとに最もよかった組み立て）", ""]
+    unit_text = {(p["id"], i): (u, p["reasons"][i]) for p in problems for i, u in enumerate(p["units"])}
+    labels = {(p["id"], i): p["labels"][i] for p in problems for i in range(len(p["units"]))}
+    for rid in rule_ids:
+        best_config = max(CONFIGS, key=lambda c: (results[c][rid]["f1"], -results[c][rid]["fp"]))
+        r = results[best_config][rid]
+        if not r["positives"]:
+            continue
+        for k in tot:
+            tot[k] += r[k]
+        rng = f"{r['pos'][0]:.2f}-{r['pos'][-1]:.2f}" if r["pos"] else "-"
+        th = f"{r['threshold']:.2f}" if r["threshold"] is not None else "-"
+        print(f"{rid:28s} {r['positives']:4d}  {best_config:22s} {th:>7s} {r['detected']:5d} {r['tp']:5d} {r['fp']:5d} {r['fn']:5d} {r['unasked']:5d}  {rng:>9s}  {r['neg_max']:.2f}")
+        for u, v in sorted(r["asked_values"].items(), key=lambda x: -x[1]):
+            hit = r["threshold"] is not None and v >= r["threshold"]
             if hit != (rid in labels[u]):
-                detail.append({"rule": rid, "kind": "誤検出" if hit else "見逃し", "value": round(v, 2), "threshold": best, "report": u[0], "unit": u[1],
-                               "text": reports[u[0]]["units"][u[1]], "reason": reasons[u].get(rid)})
-        for u in missed_by_match:
-            detail.append({"rule": rid, "kind": "見逃し（絞り込みに当たらず）", "value": None, "threshold": best, "report": u[0], "unit": u[1],
-                           "text": reports[u[0]]["units"][u[1]], "reason": reasons[u].get(rid)})
-    print(f"\n合計: 正解の該当数={total[0]} 検出={total[1]} 正検出={total[2]} 誤検出={total[3]} 見逃し={total[4]}")
-    print("しきい値は、ルールごとに正検出・誤検出・見逃しの釣り合い（F1）が最大になる点。同じデータで決めて同じデータで数えている。")
-    lines = ["# 正解とJevの判定が食い違った箇所", ""]
-    for d in sorted(detail, key=lambda d: (d["rule"], d["kind"], -(d["value"] or 0))):
-        lines += [f"## {d['rule']}  {d['kind']}  値 {d['value']} / しきい値 {d['threshold']}",
-                  f"- 場所: corpus/reports/{d['report']}.json の units[{d['unit']}]",
-                  f"- 対象: {d['text']}"] + ([f"- 正解の根拠: {d['reason']}"] if d["reason"] else []) + [""]
+                text, reasons = unit_text[u]
+                lines += [f"## {rid}  {'誤検出' if hit else '見逃し'}  値 {v:.2f} / しきい値 {r['threshold']}  ({best_config})",
+                          f"- 場所: corpus/reports/{u[0]}.json の units[{u[1]}]", f"- 対象: {text}"] + ([f"- 正解の根拠: {reasons[rid]}"] if rid in reasons else []) + [""]
+    print(f"{'合計':28s} {'':4s}  {'':22s} {'':7s} {tot['detected']:5d} {tot['tp']:5d} {tot['fp']:5d} {tot['fn']:5d}")
+
+    print("\n正解の該当が0個のルール: 組み立てごとの、非該当の最大値")
+    print(f"{'rule':28s} " + " ".join(f"{c.replace('criteria', 'cri').replace('atomic', 'ato').replace('located', 'loc'):>11s}" for c in CONFIGS))
+    for rid in rule_ids:
+        if results[CONFIGS[0]][rid]["positives"]:
+            continue
+        print(f"{rid:28s} " + " ".join(f"{results[c][rid]['neg_max']:11.2f}" for c in CONFIGS))
     (OUT / "disagreements.md").write_text("\n".join(lines))
-    print(f"食い違いの一覧: scripts/out/disagreements.md（{len(detail)}件）")
+    print("\n食い違いの一覧: scripts/out/disagreements.md")
 
 
 if __name__ == "__main__":
-    {"run": cmd_run, "run-per-unit": lambda: cmd_run(True), "report": cmd_report, "report-per-unit": lambda: cmd_report("scores_per_unit.json")}[sys.argv[1]]()
+    {"run": cmd_run, "report": cmd_report}[sys.argv[1]]()

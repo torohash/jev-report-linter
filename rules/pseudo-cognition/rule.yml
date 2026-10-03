@@ -11,6 +11,7 @@ match:
 applies:
 - source: yomiyasu/references/slop-catalog.md
   text: 一見プロっぽく見えるが、中身が何もない空虚なキーワード
+words:
 - source: yomiyasu/references/slop-catalog.md
   text: '`解像度`（解像度を上げる/高い） `腹落ち` `メンタルモデル` `文脈`'
 excludes:

@@ -11,6 +11,7 @@ match:
 applies:
 - source: yomiyasu/references/slop-catalog.md
   text: AI普及以後の技術文書で急増した比喩・評価名詞
+words:
 - source: yomiyasu/references/slop-catalog.md
   text: '`実測` `疑う` `照合` `突き合わせる` `断定` `取り違える`'
 excludes:

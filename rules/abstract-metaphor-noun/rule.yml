@@ -11,6 +11,7 @@ match:
 applies:
 - source: yomiyasu/scripts/yomiyasu_lint.py
   text: 文脈上必要のない比喩や大げさな装飾
+words:
 - source: yomiyasu/scripts/yomiyasu_lint.py
   text: '"営み", "装置", "意思決定OS", "土台", "羅針盤", "起爆剤", "触媒",'
 excludes:
