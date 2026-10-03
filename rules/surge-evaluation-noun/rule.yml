@@ -8,13 +8,20 @@ subject:
 match:
   regex: 既定|別物|定番|要点|定石|桁違い
   from: 出典の表の列挙。活用する語は語幹で照合
-quote:
+applies:
+- source: yomiyasu/references/slop-catalog.md
+  text: AI普及以後の技術文書で急増した比喩・評価名詞
+- source: yomiyasu/references/slop-catalog.md
+  text: '`既定` `別物` `定番` `要点` `定石` `桁違い`'
+excludes:
+- source: yomiyasu/SKILL.md
+  text: 文脈上正当な専門用語や事実の記述
+basis:
 - source: yomiyasu/references/slop-catalog.md
   text: AI普及以後の技術文書で急増した比喩・評価名詞を解体する。
 - source: yomiyasu/references/slop-catalog.md
   text: '`既定` `別物` `定番` `要点` `定石` `桁違い`'
 - source: yomiyasu/SKILL.md
   text: 文脈上正当な専門用語や事実の記述であれば無理に言い換えず保持します。
-fix:
-  source: yomiyasu/references/slop-catalog.md
+- source: yomiyasu/references/slop-catalog.md
   text: '`既定`→「初めの設定・もともとの設定」、`別物`→「まったく違うもの」、`定番`→「よく使われるもの」、`要点`→「大事なところ」、`定石`→「いつものやり方・標準の進め方」、`桁違い`→「段違い・はるかに大きい」'

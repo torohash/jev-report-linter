@@ -7,6 +7,6 @@ subject:
 - list-item
 match:
   regex: 本稿では|筆者は
-quote:
+basis:
 - source: yomiyasu/references/domains/tech.md
   text: 「本稿では」「筆者は」といった過度な論文調や、冒頭の空疎な前置き（「近年、AI技術の発展は目覚ましく…」など）を削り、解決すべき課題や前提条件から書き始めます。

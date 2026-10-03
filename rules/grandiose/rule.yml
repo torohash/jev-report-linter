@@ -8,7 +8,15 @@ subject:
 match:
   regex: 真理|真実|結末|宿命|運命|境地|極致|究極|虚飾|虚像|美学|深淵|禁欲的|優美|冷徹|残酷|凝縮|結晶
   from: 出典の表の列挙
-quote:
+applies:
+- source: yomiyasu/references/slop-catalog.md
+  text: 個人のささやかな体験や日常的な技術判断を、重厚な熟語で大げさに語る傾向
+- source: yomiyasu/references/slop-catalog.md
+  text: '`真理` `真実` `結末` `宿命` `運命` `境地` `極致` `究極` `虚飾` `虚像` `美学` `深淵` `禁欲的` `優美` `冷徹` `残酷` `凝縮` `結晶`'
+excludes:
+- source: yomiyasu/scripts/yomiyasu_lint.py
+  text: 文字どおりの意味や必要な文脈を担っている場合
+basis:
 - source: yomiyasu/references/slop-catalog.md
   text: 個人のささやかな体験や日常的な技術判断を、重厚な熟語で大げさに語る傾向を排除する。
 - source: yomiyasu/references/slop-catalog.md

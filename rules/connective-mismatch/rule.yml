@@ -5,11 +5,13 @@ detector: jev
 subject:
 - sentence
 - list-item
-quote:
+applies:
+- source: yomiyasu/references/gemini-syntax.md
+  text: 文と文をつなぐ接続詞が前後の論理と合っていなかったり
+basis:
 - source: yomiyasu/references/gemini-syntax.md
   text: AI文章は、文と文をつなぐ接続詞が前後の論理と合っていなかったり、中身のない予告文で文字数を稼いだり、1つの段落に無関係な話題が混ざったりしやすい。
 - source: yomiyasu/references/gemini-syntax.md
   text: 「ただし」「しかし」「また」「そのため」などの接続詞、主題の「も」、文頭の指示語（これ、それ、こうした等）は、前後の文と何をつないでいるかを確かめる。
-fix:
-  source: yomiyasu/references/gemini-syntax.md
+- source: yomiyasu/references/gemini-syntax.md
   text: 前後関係から正しい接続が明らかな場合は適切な言葉に直し、判断できない場合は無理に直さず書き手に確認する。

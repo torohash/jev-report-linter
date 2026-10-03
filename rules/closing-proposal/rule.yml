@@ -4,6 +4,9 @@ domain: essay
 detector: jev
 subject:
 - sentence
-quote:
+applies:
+- source: yomiyasu/references/domains/essay.md
+  text: 最後の段落で無理やり社会や未来への提言
+basis:
 - source: yomiyasu/references/domains/essay.md
   text: 最後の段落で無理やり社会や未来への提言を置かず、自然な余韻で文章を閉じます。

@@ -5,6 +5,9 @@ detector: jev
 subject:
 - sentence
 - list-item
-quote:
+applies:
+- source: yomiyasu/references/domains/essay.md
+  text: 過度な一般論や大げさな教訓化
+basis:
 - source: yomiyasu/references/domains/essay.md
   text: 個人の日常の小さな発見や買い物の感想を、過剰に教訓化しません。

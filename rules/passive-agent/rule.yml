@@ -5,9 +5,11 @@ detector: jev
 subject:
 - sentence
 - list-item
-quote:
+applies:
+- source: yomiyasu/references/domains/business.md
+  text: 受動態で曖昧になっている箇所
+basis:
 - source: yomiyasu/references/domains/business.md
   text: 受動態で曖昧になっている箇所は、元の文や前後の資料から主体が特定できる場合に限り、「開発チームで合意した」など責任主体を明記します。
-fix:
-  source: yomiyasu/references/domains/business.md
+- source: yomiyasu/references/domains/business.md
   text: 特定できない場合は無理に架空の人物や役職を作らず、客観的な事実として記述します。

@@ -8,7 +8,7 @@ match:
   check: short-sentence-run
   max_chars: 9
   run: 2
-quote:
+basis:
 - source: yomiyasu/references/gemini-syntax.md
   text: 極端な短文（10文字未満）を連打して劇画調に仕立てる手法も避ける。
 note: '「連打」が何文からかは出典に書かれていない。run: 2 はこのリポジトリで決めた値。'

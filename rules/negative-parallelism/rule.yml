@@ -8,9 +8,14 @@ subject:
 match:
   regex: ([^。、]+)ではなく、?([^。、]+)
   from: yomiyasu_lint.py NEGATIVE_PARALLELISM_PATTERN
-quote:
+applies:
+- source: yomiyasu/scripts/yomiyasu_lint.py
+  text: 否定を外しても主張が変わらない場合
+excludes:
+- source: yomiyasu/scripts/yomiyasu_lint.py
+  text: 誤解の訂正や見方の切り替えなど意味・比重を担っている否定
+basis:
 - source: yomiyasu/scripts/yomiyasu_lint.py
   text: 否定を外しても主張が変わらない場合は肯定文を検討してください。ただし、誤解の訂正や見方の切り替えなど意味・比重を担っている否定なら、無理に肯定化せずそのまま残してください。
-fix:
-  source: yomiyasu/references/slop-catalog.md
+- source: yomiyasu/references/slop-catalog.md
   text: 単なる修辞でXを削っても通じる場合は「Yです」とする。Xと誤解されやすい点への反論や見方の切り替えを担っている場合は、否定を残して「Xではなく、Yです」と自然に整える（Aに加えてBなどに改変しない。「そのもの」等の余計な強調語は足さない）。

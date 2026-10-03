@@ -9,6 +9,6 @@ match:
   check: char-count
   char: 、
   min: 3
-quote:
+basis:
 - source: yomiyasu/SKILL.md
   text: 文の平均の長さは30〜45字程度を目安にし、1文あたりの読点は0〜2個に抑えます。

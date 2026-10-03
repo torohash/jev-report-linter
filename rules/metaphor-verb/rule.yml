@@ -24,7 +24,17 @@ match:
   - プロセスが定着
   - 事例が残した
   from: yomiyasu_lint.py METAPHOR_VERB_PATTERNS
-quote:
+applies:
+- source: yomiyasu/references/slop-catalog.md
+  text: 抽象的な事象や技術操作を、安易な比喩動詞で言い換える傾向
+- source: yomiyasu/scripts/yomiyasu_lint.py
+  text: 不自然な比喩動詞
+excludes:
+- source: yomiyasu/scripts/yomiyasu_lint.py
+  text: 文字どおりの動作や状態変化を表している場合
+- source: yomiyasu/references/slop-catalog.md
+  text: 「骨が折れる」「手を焼く」「目から鱗が落ちる」「首を長くして待つ」のような、ふだんの日本語で定着した慣用句
+basis:
 - source: yomiyasu/references/slop-catalog.md
   text: 抽象的な事象や技術操作を、安易な比喩動詞で言い換える傾向を解体する。
 - source: yomiyasu/scripts/yomiyasu_lint.py

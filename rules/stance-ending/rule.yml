@@ -5,9 +5,16 @@ detector: jev
 subject:
 - sentence
 - list-item
-quote:
+applies:
+- source: yomiyasu/SKILL.md
+  text: 文書の中で文末が混ざっているとき（主語のない「〜します」と「〜しましょう」「〜してください」、敬体と常体、決まりの「〜します」と「〜ことが重要です」の結びなど）
+excludes:
+- source: yomiyasu/SKILL.md
+  text: やり方や仕組みを「〜します」で説明し、文書や段落の最後の1文だけを「〜しましょう」で結ぶ形（技術記事によくある形）
+- source: yomiyasu/SKILL.md
+  text: 原則や大事な点（「〜が最も大切です」など）を述べてから手順を並べる形
+basis:
 - source: yomiyasu/SKILL.md
   text: AIの文章は、「誰が、誰に、何のために書くか」という文書全体の立場を決めないまま1文ずつ文末を選ぶため、方針（〜します）・勧め（〜しましょう）・評価（〜ことが重要です）が混ざります。
-fix:
-  source: yomiyasu/SKILL.md
+- source: yomiyasu/SKILL.md
   text: 文末は1文ずつ決めず、先に文書全体の立場を1つ決めて、すべての文末をその立場に合わせます。

@@ -8,7 +8,13 @@ subject:
 match:
   regex: 本質|地に足のついた|等身大
   from: 出典の表の列挙
-quote:
+applies:
+- source: yomiyasu/references/slop-catalog.md
+  text: 「本質的なアプローチ」のような空疎な修飾語
+excludes:
+- source: yomiyasu/references/slop-catalog.md
+  text: 文の主題や論点そのものになっている語（「本質」「核心」など）
+basis:
 - source: yomiyasu/references/slop-catalog.md
   text: 「本質的なアプローチ」のような空疎な修飾語は削る。ただし、文の主題や論点そのものになっている語（「本質」「核心」など）を「目的」など別の概念へすり替えたり、勝手に動詞を足して文の働きを変えてはならない（「いちばん肝心な点」「大事なところ」など平易な言葉にするか、そのまま残す）。
 - source: yomiyasu/references/slop-catalog.md

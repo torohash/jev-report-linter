@@ -5,6 +5,9 @@ detector: jev
 subject:
 - sentence
 - list-item
-quote:
+applies:
+- source: yomiyasu/references/gemini-syntax.md
+  text: 呼びかけ語や形式的な敬語クッションを過剰に付加
+basis:
 - source: yomiyasu/references/gemini-syntax.md
   text: AIは呼びかけ語や形式的な敬語クッションを過剰に付加し、自然な日本語話者の表現から乖離しがちである。

@@ -13,6 +13,12 @@ match:
   - ^避けたいのは、?
   - ここで注目すべきは
   from: yomiyasu_lint.py FILLER_PATTERNS と出典の列挙
-quote:
+applies:
+- source: yomiyasu/references/slop-catalog.md
+  text: 単なる前置き
+excludes:
+- source: yomiyasu/references/slop-catalog.md
+  text: 「何が大事か」という評価そのものを担っている場合
+basis:
 - source: yomiyasu/references/slop-catalog.md
   text: 単なる前置きは削り、要点の主文から書き始める。ただし「何が大事か」という評価そのものを担っている場合は、述語に移して残す（「〜が大事です」）。

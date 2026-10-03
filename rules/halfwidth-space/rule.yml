@@ -12,9 +12,8 @@ match:
   - inline-code
   skip: リンク記法を含む行
   from: yomiyasu_lint.py unnatural_halfwidth_space
-quote:
+basis:
 - source: yomiyasu/references/gemini-syntax.md
   text: 英語の単語区切り感覚を引きずり、英単語やアルファベットの前後に不要な半角空白を空けるクセを禁止する。
-fix:
-  source: yomiyasu/references/gemini-syntax.md
+- source: yomiyasu/references/gemini-syntax.md
   text: 日本語の助詞や平仮名とアルファベットの間は空白を空けず自然に接続させる。

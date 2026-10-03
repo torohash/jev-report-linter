@@ -5,9 +5,11 @@ detector: jev
 subject:
 - sentence
 - list-item
-quote:
+applies:
+- source: yomiyasu/references/domains/business.md
+  text: 「適宜対応する」といった曖昧な表現
+basis:
 - source: yomiyasu/references/domains/business.md
   text: 「適宜対応する」といった曖昧な表現は、元の資料に具体的な条件（エラーコードや再試行回数など）が記載されている場合に限り、具体化します。
-fix:
-  source: yomiyasu/references/domains/business.md
+- source: yomiyasu/references/domains/business.md
   text: 資料にない条件や数値を勝手に捏造しません。

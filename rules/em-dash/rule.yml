@@ -8,9 +8,8 @@ subject:
 - heading
 match:
   regex: '[—―]'
-quote:
+basis:
 - source: yomiyasu/references/gemini-syntax.md
   text: AI生成文ではダッシュ記号（「—」「―」）が過剰に出現する傾向がみられる。
-fix:
-  source: yomiyasu/references/gemini-syntax.md
+- source: yomiyasu/references/gemini-syntax.md
   text: 日本語の自然な接続助詞や句読点に置き換える。

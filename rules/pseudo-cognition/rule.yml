@@ -8,13 +8,20 @@ subject:
 match:
   regex: 解像度|腹落ち|メンタルモデル|文脈
   from: 出典の表の列挙
-quote:
+applies:
+- source: yomiyasu/references/slop-catalog.md
+  text: 一見プロっぽく見えるが、中身が何もない空虚なキーワード
+- source: yomiyasu/references/slop-catalog.md
+  text: '`解像度`（解像度を上げる/高い） `腹落ち` `メンタルモデル` `文脈`'
+excludes:
+- source: yomiyasu/scripts/yomiyasu_lint.py
+  text: 文字どおりの意味や必要な文脈を担っている場合
+basis:
 - source: yomiyasu/references/slop-catalog.md
   text: 一見プロっぽく見えるが、中身が何もない空虚なキーワードを排除する。
 - source: yomiyasu/references/slop-catalog.md
   text: '`解像度`（解像度を上げる/高い） `腹落ち` `メンタルモデル` `文脈`'
 - source: yomiyasu/scripts/yomiyasu_lint.py
   text: 文脈上必要のない比喩や大げさな装飾であれば、ふだん使う自然な表現に置き換えてください。ただし、文字どおりの意味や必要な文脈を担っている場合は残してかまいません。
-fix:
-  source: yomiyasu/references/slop-catalog.md
+- source: yomiyasu/references/slop-catalog.md
   text: 何をどこまで調べたのか、元の文にある情報の範囲で客観的に書く。

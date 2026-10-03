@@ -16,6 +16,6 @@ match:
   - だ
   - だろう
   from: yomiyasu_lint.py check_sentence_end_repetitions
-quote:
+basis:
 - source: yomiyasu/references/gemini-syntax.md
   text: 文末のリズム調整は、AIっぽさを直すついでに同一文末（「〜です」「〜ます」等）が3文以上連続した場合にのみ行う。

@@ -7,9 +7,11 @@ subject:
 - list-item
 match:
   regex: '[（(][^）)]+[）)]'
-quote:
+applies:
+- source: yomiyasu/references/gemini-syntax.md
+  text: 情報量が増えない言い換えや同義語の補足カッコ
+basis:
 - source: yomiyasu/references/gemini-syntax.md
   text: 情報量が増えない言い換えや同義語の補足カッコを全廃する。
-fix:
-  source: yomiyasu/references/gemini-syntax.md
+- source: yomiyasu/references/gemini-syntax.md
   text: 必要な情報は地の文に直接組み込み、意味の重複する注釈カッコを削る方針をとる。

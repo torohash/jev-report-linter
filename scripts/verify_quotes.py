@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""rules/*/rule.yml の quote と fix が、出典の原文と一字一句同じかを確かめる。
+"""rules/*/rule.yml の applies・excludes・basis が、出典の原文と一字一句同じかを確かめる。
 
 使い方:
   YOMIYASU_DIR=<yomiyasu を置いたディレクトリ> python3 scripts/verify_quotes.py
@@ -20,7 +20,7 @@ def main():
     cache, bad, count = {}, [], 0
     for path in sorted((ROOT / "rules").glob("*/rule.yml")):
         rule = yaml.safe_load(path.read_text())
-        for item in rule["quote"] + ([rule["fix"]] if "fix" in rule else []):
+        for item in rule.get("applies", []) + rule.get("excludes", []) + rule["basis"]:
             src = item["source"]
             file = ROOT / src if src == "README.md" else pathlib.Path(yomiyasu) / src.removeprefix("yomiyasu/")
             if file not in cache:

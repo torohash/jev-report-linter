@@ -9,6 +9,6 @@ match:
   over: 0.25
   min_chars: 300
   from: yomiyasu_lint.py excess_list
-quote:
+basis:
 - source: yomiyasu/references/domains/tech.md
   text: 思考の流れや論理展開を箇条書きに頼らず、地の文の段落で記述します。

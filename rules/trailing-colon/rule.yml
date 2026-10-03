@@ -8,9 +8,8 @@ subject:
 match:
   regex: '[：:]$'
   from: yomiyasu_lint.py trailing_colon
-quote:
+basis:
 - source: yomiyasu/references/gemini-syntax.md
   text: また、箇条書きの前置き文や見出し直後、文末に全角コロン（：）を配置しない。
-fix:
-  source: yomiyasu/references/gemini-syntax.md
+- source: yomiyasu/references/gemini-syntax.md
   text: 句点（。）で文を閉じるか、不要な前置きを省略して直接記述する。

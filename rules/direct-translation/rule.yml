@@ -8,7 +8,13 @@ subject:
 match:
   regex: を正本にする|の正本として|を指している|を示唆している|耐力のある|構造を支える|に深く分け入る|深掘りする
   from: 出典の表「AIの直訳日本語」の列挙
-quote:
+applies:
+- source: yomiyasu/references/slop-catalog.md
+  text: 英語表現を直訳した結果生じる不自然な構文
+excludes:
+- source: yomiyasu/SKILL.md
+  text: 文脈上正当な専門用語や事実の記述
+basis:
 - source: yomiyasu/references/slop-catalog.md
   text: 英語表現を直訳した結果生じる不自然な構文を平文化する。
 - source: yomiyasu/SKILL.md

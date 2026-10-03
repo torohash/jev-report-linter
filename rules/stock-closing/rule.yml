@@ -8,11 +8,10 @@ subject:
 match:
   regex: いかがでした(でしょうか|か)?[？?。]?$|ぜひ(参考|試し|活用)(に)?して(みて)?ください[！!。]?|参考になれば幸いです|してみてはいかがでしょうか
   from: yomiyasu_lint.py FILLER_PATTERNS と出典の列挙
-quote:
+basis:
 - source: yomiyasu/references/slop-catalog.md
   text: '`いかがでしたでしょうか` `ぜひ試してみてください` `〜の参考になれば幸いです`'
 - source: yomiyasu/references/domains/essay.md
   text: 語尾の定型化（`〜してみてはいかがでしょうか`、`ぜひ参考にしてみてください`、`いかがでしたでしょうか`）を排除します。
-fix:
-  source: yomiyasu/references/slop-catalog.md
+- source: yomiyasu/references/slop-catalog.md
   text: 形式的呼びかけを削り、本文の自然な結びで終わる。

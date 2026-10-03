@@ -5,9 +5,11 @@ detector: jev
 subject:
 - sentence
 - list-item
-quote:
+applies:
+- source: yomiyasu/references/domains/tech.md
+  text: 具体的な手順や仕組みの説明が不足している
+basis:
 - source: yomiyasu/references/domains/tech.md
   text: 抽象的な概念説明にとどまらず、元の文や前後の資料にある情報の範囲で手順や設定を整理します。
-fix:
-  source: yomiyasu/references/domains/tech.md
+- source: yomiyasu/references/domains/tech.md
   text: 元の文にないコマンドやコード片を勝手に作って足すことはしません。

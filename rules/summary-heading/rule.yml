@@ -6,7 +6,7 @@ subject:
 - heading
 match:
   regex: ^#+\s*まとめ\s*$
-quote:
+basis:
 - source: yomiyasu/references/domains/tech.md
   text: 50%以上の記事で形骸化している「まとめ」見出しも、短い記事では不要なため配置しません。
 note: 「短い記事」の長さは出典に書かれていない。長さの条件は未実装。

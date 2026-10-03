@@ -7,6 +7,6 @@ subject:
 - list-item
 match:
   check: mixed-style
-quote:
+basis:
 - source: yomiyasu/SKILL.md
   text: 地の文の「です・ます」と「だ・である」は、どちらかにそろえます。

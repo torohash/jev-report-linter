@@ -4,6 +4,9 @@ domain: common
 detector: jev
 subject:
 - sentence
-quote:
+applies:
+- source: yomiyasu/references/gemini-syntax.md
+  text: 主語と述語がねじれている文
+basis:
 - source: yomiyasu/references/gemini-syntax.md
   text: 主語と述語がねじれている文は、元の文の意図が通じる範囲で正しく対応させる。
