@@ -1,0 +1,15 @@
+{
+  "id": "p03",
+  "labels": [
+    {"unit": 0, "rules": []},
+    {"unit": 1, "rules": ["halfwidth-space"], "note": "「CLAUDE.md の」「PR 本文」に半角空白"},
+    {"unit": 2, "rules": []},
+    {"unit": 3, "rules": ["halfwidth-space"], "note": "「references の内容確認」に半角空白"},
+    {"unit": 4, "rules": []},
+    {"unit": 5, "rules": []},
+    {"unit": 6, "rules": ["emoji"], "note": "🔴 と 🟡"},
+    {"unit": 7, "rules": []},
+    {"unit": 8, "rules": []},
+    {"unit": 9, "rules": []}
+  ]
+}

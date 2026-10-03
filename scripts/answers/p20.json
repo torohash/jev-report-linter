@@ -1,0 +1,26 @@
+{
+  "id": "p20",
+  "labels": [
+    {"unit": 0, "rules": []},
+    {"unit": 1, "rules": []},
+    {"unit": 2, "rules": []},
+    {"unit": 3, "rules": []},
+    {"unit": 4, "rules": []},
+    {"unit": 5, "rules": ["long-sentence", "halfwidth-space"], "note": "60文字超の複文（「なかったため、〜実施しました」）。「CLAUDE.md の」「本 PR の」の半角空白"},
+    {"unit": 6, "rules": []},
+    {"unit": 7, "rules": ["halfwidth-space"], "note": "「の diff」の半角空白"},
+    {"unit": 8, "rules": ["halfwidth-space"], "note": "「docs 配下」の半角空白"},
+    {"unit": 9, "rules": ["halfwidth-space"], "note": "「の diff」の半角空白"},
+    {"unit": 10, "rules": ["surge-verification-metaphor"], "note": "「突き合わせて」"},
+    {"unit": 11, "rules": []},
+    {"unit": 12, "rules": ["long-sentence", "too-many-commas", "surge-verification-metaphor"], "note": "60文字超の複文（「確認しましたが、〜一致しています」）。読点3個。「突き合わせて」"},
+    {"unit": 13, "rules": ["long-sentence"], "note": "60文字超の複文（「実在し、〜ありませんでした」）"},
+    {"unit": 14, "rules": ["halfwidth-space"], "note": "「Critical に」「CI 失敗」の半角空白"},
+    {"unit": 15, "rules": []},
+    {"unit": 16, "rules": ["long-sentence", "list-for-reasoning"], "note": "2文目・3文目が60文字超の複文（「ありますが、〜分散していて〜なっています」など）。重複の指摘から提案までの論理展開を箇条書き1項目で記述"},
+    {"unit": 17, "rules": []},
+    {"unit": 18, "rules": ["long-sentence", "halfwidth-space", "list-for-reasoning"], "note": "2文とも60文字超の複文。「は Server Component の」「の Rules に」「は Warning として」「PR 概要」の半角空白。「〜ため問題ありませんが、〜なので、〜」と論理展開を箇条書きで記述"},
+    {"unit": 19, "rules": ["long-sentence", "halfwidth-space"], "note": "バッククォートを除いて62文字の複文（「相当ですが、〜提案です」）。「Critical は」「上記 Warning は」の半角空白"},
+    {"unit": 20, "rules": []}
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "p15",
+  "labels": [
+    {"unit": 0, "rules": []},
+    {"unit": 1, "rules": []},
+    {"unit": 2, "rules": ["halfwidth-space"], "note": "「ブランチの base 扱い」の半角空白"},
+    {"unit": 3, "rules": ["halfwidth-space"], "note": "「関連 Issue のクローズ」の半角空白（節名の引用）"},
+    {"unit": 4, "rules": []},
+    {"unit": 5, "rules": ["halfwidth-space"], "note": "「PR 作成リンク」の半角空白"},
+    {"unit": 6, "rules": []},
+    {"unit": 7, "rules": []},
+    {"unit": 8, "rules": ["long-sentence", "too-many-commas", "halfwidth-space"], "note": "60文字を大きく超える複文。「直後に、」「扱い、」「push し、」の読点3個。「base の指定」「push し」「PR を作る」の半角空白"},
+    {"unit": 9, "rules": ["long-sentence", "halfwidth-space", "sentence-end-repetition"], "note": "1文目が60文字超の複文（「変更し、〜修正しました」）。「PR マージ時」「main への」「develop への」「type ごと」の半角空白。「変更しました」「追記しました」に続く「修正しました」"}
+  ]
+}

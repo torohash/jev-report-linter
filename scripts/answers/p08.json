@@ -1,0 +1,16 @@
+{
+  "id": "p08",
+  "labels": [
+    {"unit": 0, "rules": []},
+    {"unit": 1, "rules": ["halfwidth-space"], "note": "「Issue の修正案」「と done callback の二重呼び出し」"},
+    {"unit": 2, "rules": []},
+    {"unit": 3, "rules": ["halfwidth-space"], "note": "「done callback 実行後も loop の」"},
+    {"unit": 4, "rules": ["halfwidth-space"], "note": "「存在しない ID の」"},
+    {"unit": 5, "rules": []},
+    {"unit": 6, "rules": []},
+    {"unit": 7, "rules": ["unconfirmed", "investigated-unresolved"], "note": "テストを「実行できていません」。コマンドが許可されておらず実行できなかった旨"},
+    {"unit": 8, "rules": ["halfwidth-space"], "note": "「手元か CI で」"},
+    {"unit": 9, "rules": ["long-sentence", "halfwidth-space"], "note": "「とされているため、〜変更してください」で約66文字。「なお CLAUDE.md では PR は」「base を」"},
+    {"unit": 10, "rules": []}
+  ]
+}

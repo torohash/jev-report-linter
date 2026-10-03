@@ -1,0 +1,13 @@
+{
+  "id": "p17",
+  "labels": [
+    {"unit": 0, "rules": ["halfwidth-space"], "note": "「PR の」の半角空白"},
+    {"unit": 1, "rules": []},
+    {"unit": 2, "rules": ["long-sentence"], "note": "60文字超の複文（「変更がなく、〜にあります」）"},
+    {"unit": 3, "rules": ["investigated-unresolved"], "note": "git fetch が承認待ちで「取得できませんでした」"},
+    {"unit": 4, "rules": []},
+    {"unit": 5, "rules": ["halfwidth-space"], "note": "「から PR を」の半角空白"},
+    {"unit": 6, "rules": ["halfwidth-space", "investigated-unresolved"], "note": "「PR を」の半角空白。コミットが無いことを確かめたうえで「出せませんでした」"},
+    {"unit": 7, "rules": []}
+  ]
+}

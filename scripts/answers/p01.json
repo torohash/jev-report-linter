@@ -1,0 +1,29 @@
+{
+  "id": "p01",
+  "labels": [
+    {"unit": 0, "rules": []},
+    {"unit": 1, "rules": []},
+    {"unit": 2, "rules": []},
+    {"unit": 3, "rules": []},
+    {"unit": 4, "rules": []},
+    {"unit": 5, "rules": []},
+    {"unit": 6, "rules": []},
+    {"unit": 7, "rules": []},
+    {"unit": 8, "rules": []},
+    {"unit": 9, "rules": ["long-sentence", "halfwidth-space"], "note": "約70文字で「確認しましたが、」でつなぐ複文。「CLAUDE.md の観点」に半角空白"},
+    {"unit": 10, "rules": []},
+    {"unit": 11, "rules": []},
+    {"unit": 12, "rules": ["long-sentence", "halfwidth-space"], "note": "「切り出されており、〜されています」で100文字超。「内 L178-182」で日本語と素の英字の間に半角空白"},
+    {"unit": 13, "rules": ["long-sentence", "subject-predicate-mismatch"], "note": "2文目「保持したまま〜呼んでいない点(…)も〜避けられています」が60文字超の複文。「呼んでいない点(…)も…避けられています」は主語「点」と述語が対応しない"},
+    {"unit": 14, "rules": ["long-sentence"], "note": "「のみで、〜委譲されており、〜踏襲しています」で100文字超"},
+    {"unit": 15, "rules": ["long-sentence", "halfwidth-space", "sentence-end-repetition"], "note": "2文とも60文字超の複文（不要ですが、/しているため、）。「DB を使わない」「LINE 経路」に半角空白。1文目の「沿っています」は直前2文（避けられています、踏襲しています）と同じ「〜ます」"},
+    {"unit": 16, "rules": ["long-sentence"], "note": "「明記されており、妥当です」まで60文字超の複文"},
+    {"unit": 17, "rules": []},
+    {"unit": 18, "rules": []},
+    {"unit": 19, "rules": ["long-sentence", "too-many-commas", "surge-failure-metaphor", "unconfirmed"], "note": "2文目が100文字超の複文で、読点3個（理論上、/ありますが、/あるため、）。「実害はほぼ無い」。推量の「報告する可能性がありますが」「無いと考えられます」"},
+    {"unit": 20, "rules": ["long-sentence", "unconfirmed"], "note": "「待っていますが、〜問題ありません」で100文字超。「(未確認)」"},
+    {"unit": 21, "rules": []},
+    {"unit": 22, "rules": ["long-sentence", "unconfirmed", "investigated-unresolved"], "note": "約75文字で「無かったため」でつなぐ複文。「未実施」「CIでの確認待ち」。権限が無く実行できなかった旨"},
+    {"unit": 23, "rules": ["long-sentence", "unconfirmed", "investigated-unresolved"], "note": "1文目が60文字超の複文（無かったため、）。「実際には実行せず」。権限が無く実行できなかった旨"}
+  ]
+}

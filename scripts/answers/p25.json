@@ -1,0 +1,14 @@
+{
+  "id": "p25",
+  "labels": [
+    {"unit": 0, "rules": []},
+    {"unit": 1, "rules": []},
+    {"unit": 2, "rules": []},
+    {"unit": 3, "rules": ["halfwidth-space", "unconfirmed"], "note": "「PR 説明にある v2 の」「v2 が」「v3 に上げれば」に半角空白。「解消する見込みです」は推量"},
+    {"unit": 4, "rules": ["long-sentence", "halfwidth-space"], "note": "1文目が60文字超で「参照しており、…ありません」の複文。「ID は」に半角空白"},
+    {"unit": 5, "rules": ["long-sentence", "halfwidth-space", "unconfirmed"], "note": "60文字超で「手動実行し、…確認すると安心です」の複文。「両 matrix で」に半角空白。「要確認」"},
+    {"unit": 6, "rules": ["halfwidth-space"], "note": "「v3 は」「が Node 24 になる」に半角空白"},
+    {"unit": 7, "rules": ["unconfirmed"], "note": "「問題ないはずです」は推量"},
+    {"unit": 8, "rules": ["halfwidth-space"], "note": "「テストは GitHub Actions の」に半角空白"}
+  ]
+}

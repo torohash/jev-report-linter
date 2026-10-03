@@ -1,0 +1,31 @@
+{
+  "id": "p19",
+  "labels": [
+    {"unit": 0, "rules": []},
+    {"unit": 1, "rules": []},
+    {"unit": 2, "rules": []},
+    {"unit": 3, "rules": ["halfwidth-space"], "note": "「両 spec」の半角空白"},
+    {"unit": 4, "rules": []},
+    {"unit": 5, "rules": []},
+    {"unit": 6, "rules": ["long-sentence"], "note": "64文字で、「送ると〜重複し、〜付く」と節をつないでいる"},
+    {"unit": 7, "rules": []},
+    {"unit": 8, "rules": []},
+    {"unit": 9, "rules": ["long-sentence", "list-for-reasoning"], "note": "1文目が60文字超の複文。「〜なり得ますが、〜ため、〜同一視されます」と論理展開を箇条書きで記述"},
+    {"unit": 10, "rules": ["long-sentence", "halfwidth-space", "list-for-reasoning"], "note": "60文字超の複文。「Ruby の」の半角空白。「〜保持するため〜まとまり」と論理展開を箇条書きで記述"},
+    {"unit": 11, "rules": ["long-sentence", "halfwidth-space", "list-for-reasoning"], "note": "2文とも60文字超の複文。「ため DB 上」の半角空白。「〜だけで、〜ため〜」「〜ので、〜」と論理展開を箇条書きで記述"},
+    {"unit": 12, "rules": ["long-sentence", "too-many-commas", "halfwidth-space"], "note": "60文字超の複文。読点3個。「も Group 単位」の半角空白"},
+    {"unit": 13, "rules": ["long-sentence", "halfwidth-space"], "note": "1文目が60文字超の複文（「追加されており、〜検証しています」）。「入力の example が」「PR コメント」の半角空白"},
+    {"unit": 14, "rules": ["halfwidth-space", "sentence-end-repetition"], "note": "「CLAUDE.md の TDD 方針」「plan.md 上」の半角空白。「検証しています」「なっています」に続く「守られています」"},
+    {"unit": 15, "rules": []},
+    {"unit": 16, "rules": []},
+    {"unit": 17, "rules": []},
+    {"unit": 18, "rules": []},
+    {"unit": 19, "rules": ["long-sentence", "halfwidth-space", "unconfirmed", "investigated-unresolved"], "note": "60文字超の複文（「ブロックされ、〜できませんでした」）。「CI サンドボックス」の半角空白。「独立した実行確認はできませんでした」は未確認の明示で、試みたがブロックされてできなかった"},
+    {"unit": 20, "rules": ["halfwidth-space"], "note": "「PR コメント」「RuboCop 指摘なし」の半角空白"},
+    {"unit": 21, "rules": []},
+    {"unit": 22, "rules": []},
+    {"unit": 23, "rules": ["halfwidth-space"], "note": "「approve の」の半角空白"},
+    {"unit": 24, "rules": ["long-sentence", "halfwidth-space", "honorific-cushion", "investigated-unresolved"], "note": "60文字超の複文（「実行できないため、〜させていただきます」）。「GitHub の Review 機能」「Approve は」の半角空白。「とさせていただきます」。権限上「正式な Approve は実行できない」"},
+    {"unit": 25, "rules": ["sentence-end-repetition"], "note": "直前2文（〜をします／〜いただきます）に続き「〜ます」で終わる"}
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "id": "p11",
+  "labels": [
+    {"unit": 0, "rules": []},
+    {"unit": 1, "rules": []},
+    {"unit": 2, "rules": ["halfwidth-space"], "note": "「file-length チェックスクリプト」の半角空白"},
+    {"unit": 3, "rules": []},
+    {"unit": 4, "rules": []},
+    {"unit": 5, "rules": []},
+    {"unit": 6, "rules": []},
+    {"unit": 7, "rules": []},
+    {"unit": 8, "rules": []},
+    {"unit": 9, "rules": []},
+    {"unit": 10, "rules": []},
+    {"unit": 11, "rules": []},
+    {"unit": 12, "rules": ["trailing-colon"], "note": "文末が「：」"},
+    {"unit": 13, "rules": ["long-sentence"], "note": "2文とも60文字超の複文（「〜のみで、〜登録済みでした」「〜であり、〜ため、〜判断しました」）"},
+    {"unit": 14, "rules": []},
+    {"unit": 15, "rules": []},
+    {"unit": 16, "rules": []},
+    {"unit": 17, "rules": []},
+    {"unit": 18, "rules": ["long-sentence", "halfwidth-space", "stiff-kango", "demonstrative"], "note": "60文字超の複文（「〜死蔵ファイルで、〜乖離していました」）。「実際に config-base イメージへ」の半角空白。「死蔵」「乖離」。「片方にのみ」がどちらか不明"},
+    {"unit": 19, "rules": ["long-sentence"], "note": "60文字超の複文（「削除し、〜修正しました」）"},
+    {"unit": 20, "rules": ["long-sentence", "too-many-commas"], "note": "60文字超の複文（「実行し、〜確認済みです」）。読点4個"},
+    {"unit": 21, "rules": []},
+    {"unit": 22, "rules": ["long-sentence", "too-many-commas", "investigated-unresolved"], "note": "2文目が60文字超の複文で、「伴い、」「ですが、」「ブロックされ、」の読点3個。編集がブロックされ「直接反映できませんでした」"},
+    {"unit": 23, "rules": ["long-sentence", "investigated-unresolved"], "note": "2文とも60文字超の複文。別のチェック体系があることを調べたうえで、基準を一本化するかを未決のまま残している"}
+  ]
+}

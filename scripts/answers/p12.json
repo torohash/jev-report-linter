@@ -1,0 +1,32 @@
+{
+  "id": "p12",
+  "labels": [
+    {"unit": 0, "rules": []},
+    {"unit": 1, "rules": []},
+    {"unit": 2, "rules": []},
+    {"unit": 3, "rules": ["halfwidth-space"], "note": "「CI 設定」の半角空白"},
+    {"unit": 4, "rules": []},
+    {"unit": 5, "rules": []},
+    {"unit": 6, "rules": ["long-sentence"], "note": "60文字超の複文（「〜バグは、〜出すことで〜修正されています」）"},
+    {"unit": 7, "rules": ["long-sentence", "halfwidth-space"], "note": "60文字超の複文（「一貫していて、〜追加コミットです」）。「CLAUDE.md の整備」の半角空白"},
+    {"unit": 8, "rules": ["emoji"], "note": "「✅」"},
+    {"unit": 9, "rules": ["long-sentence"], "note": "60文字超の複文（「移動し、〜入っても〜保持します」）"},
+    {"unit": 10, "rules": ["long-sentence", "halfwidth-space"], "note": "60文字超の複文（「追跡し、〜確認しました」）。「を awk のロジック」の半角空白"},
+    {"unit": 11, "rules": []},
+    {"unit": 12, "rules": ["emoji"], "note": "「✅」"},
+    {"unit": 13, "rules": ["long-sentence"], "note": "60文字超の複文（「なっており、〜解消されています」）"},
+    {"unit": 14, "rules": ["long-sentence"], "note": "60文字超の複文（「分離しており、〜配慮されています」）"},
+    {"unit": 15, "rules": ["sentence-end-repetition"], "note": "「解消されています」「配慮されています」に続く「残っています」"},
+    {"unit": 16, "rules": ["long-sentence", "too-many-commas", "sentence-end-repetition", "halfwidth-space"], "note": "60文字超の複文。「追加し、」「含めた点、」「更新されている点、」の読点3個。直前2文に続く「沿っています」。「CI は workflow ごとに paths フィルタ」の半角空白"},
+    {"unit": 17, "rules": []},
+    {"unit": 18, "rules": []},
+    {"unit": 19, "rules": []},
+    {"unit": 20, "rules": ["halfwidth-space"], "note": "「SC2034 相当」の半角空白"},
+    {"unit": 21, "rules": ["long-sentence", "halfwidth-space", "stiff-kango", "unconfirmed"], "note": "1文目が60文字超の複文（「〜の場合、〜満たしにくく〜残っています」）。「判定の awk が」の半角空白。「発生頻度は低く許容範囲内」。推量の「誤判定される可能性が残っています」"},
+    {"unit": 22, "rules": []},
+    {"unit": 23, "rules": ["long-sentence", "unconfirmed", "investigated-unresolved"], "note": "60文字超の複文（「ブロックされ、〜実行できませんでした」）。テストを実行していないことの明示。試みたがブロックされて実行できなかった"},
+    {"unit": 24, "rules": []},
+    {"unit": 25, "rules": ["long-sentence", "unconfirmed", "investigated-unresolved"], "note": "60文字超の複文（「実行できていないため、〜追加してください」）。シンタックスチェックを「実行できていない」。ブロックされて未実施のまま残している"},
+    {"unit": 26, "rules": []}
+  ]
+}

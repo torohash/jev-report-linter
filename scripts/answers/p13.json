@@ -1,0 +1,27 @@
+{
+  "id": "p13",
+  "labels": [
+    {"unit": 0, "rules": []},
+    {"unit": 1, "rules": []},
+    {"unit": 2, "rules": []},
+    {"unit": 3, "rules": []},
+    {"unit": 4, "rules": []},
+    {"unit": 5, "rules": []},
+    {"unit": 6, "rules": []},
+    {"unit": 7, "rules": ["long-sentence", "halfwidth-space"], "note": "60文字超の複文（「正確で、〜いないため、〜該当します」）。「を stash → 復元」の半角空白"},
+    {"unit": 8, "rules": ["long-sentence", "halfwidth-space"], "note": "60文字超の複文（「〜が〜修正済みであることも確認しました」）。「を private-use センチネル」「の escape-doubling で」の半角空白"},
+    {"unit": 9, "rules": []},
+    {"unit": 10, "rules": ["long-sentence", "halfwidth-space"], "note": "1文目が60文字超の複文（「〜は妥当で、〜手法です」）。「してから stash し」「2つの repro を」の半角空白"},
+    {"unit": 11, "rules": ["long-sentence", "halfwidth-space", "sentence-end-repetition"], "note": "3文目・4文目が60文字超の複文（「経由せず〜渡されます」「変換しないため、〜あれば〜漏れます」）。「を escape-doubling」「は NUL を」「今回の issue と」の半角空白。直前の「手法です」「すべきです」に続く「設計判断です」「不十分です」"},
+    {"unit": 12, "rules": ["long-sentence", "halfwidth-space", "sentence-end-repetition"], "note": "2文目・3文目が60文字超の複文（「合致し、〜カバーできます」「実装すれば〜不要になり、〜なります」）。「入口で NUL」「CommonMark 仕様」の半角空白。「漏れます」「残ります」に続く「推奨します」「カバーできます」「なります」"},
+    {"unit": 13, "rules": ["long-sentence"], "note": "60文字超の複文（「〜場合は、〜カバーするか、〜切り出してください」）"},
+    {"unit": 14, "rules": []},
+    {"unit": 15, "rules": ["long-sentence", "halfwidth-space"], "note": "60文字超の複文（「〜場合でも、〜追記しておくと、〜役立ちます」）。「は NUL を」の半角空白"},
+    {"unit": 16, "rules": ["long-sentence", "halfwidth-space", "unconfirmed"], "note": "60文字超の複文（「加えて、〜提案します（〜はずですが、〜）」）。「テストは issue記載」の半角空白。推量の「通るはずですが」"},
+    {"unit": 17, "rules": []},
+    {"unit": 18, "rules": ["long-sentence", "halfwidth-space", "stiff-kango"], "note": "60文字超の複文が3つ。「単純な for ループ」「限り stability loop は」の半角空白。「入れ子は発生せず」"},
+    {"unit": 19, "rules": ["preface-filler", "halfwidth-space"], "note": "「まとめとして、」は削っても主張が変わらない。「U+FFFD のいずれか」の半角空白"},
+    {"unit": 20, "rules": ["halfwidth-space"], "note": "「塞げる Option 2 を」の半角空白"},
+    {"unit": 21, "rules": []}
+  ]
+}

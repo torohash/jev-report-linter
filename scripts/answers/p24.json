@@ -1,0 +1,18 @@
+{
+  "id": "p24",
+  "labels": [
+    {"unit": 0, "rules": ["redundant-paren"], "note": "「問題なし（LGTM）」は同義の言い換え"},
+    {"unit": 1, "rules": []},
+    {"unit": 2, "rules": ["halfwidth-space"], "note": "「SKILL.md の配置確認」に半角空白"},
+    {"unit": 3, "rules": []},
+    {"unit": 4, "rules": []},
+    {"unit": 5, "rules": ["long-sentence", "halfwidth-space"], "note": "1文目がコードを含め60文字超で「作るため、…受けません」の複文。「Release の zip は」に半角空白"},
+    {"unit": 6, "rules": ["long-sentence"], "note": "2文目が60文字超で「避けたいなら…ありますが、…」の複文"},
+    {"unit": 7, "rules": ["long-sentence", "halfwidth-space", "unconfirmed"], "note": "1文目が60文字超で「ツールがあれば、…失敗します」の複文。「GitHub の tarball/zip を」「README の導入手順が clone ベース」に半角空白。「cloneベースのままか、念のため確認してください」は未確認"},
+    {"unit": 8, "rules": []},
+    {"unit": 9, "rules": []},
+    {"unit": 10, "rules": []},
+    {"unit": 11, "rules": []},
+    {"unit": 12, "rules": ["halfwidth-space", "mixed-topic", "investigated-unresolved"], "note": "「CLAUDE.md は」に半角空白。同じ段落の前文（セキュリティ・パフォーマンス）と別の話題。調べたうえで存在しなかったことの記述"}
+  ]
+}
