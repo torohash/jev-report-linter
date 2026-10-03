@@ -1,0 +1,109 @@
+{
+ "id": "p31",
+ "labels": [
+  {
+   "unit": 0,
+   "rules": []
+  },
+  {
+   "unit": 1,
+   "rules": [
+    "empty-opening"
+   ],
+   "reasons": {
+    "empty-opening": "「近年、外部 API の不安定さはますます大きな課題になっています」。報告の冒頭に置かれた一般論で、この後の変更内容に何も足していない。該当の記述の例「近年、AI技術の発展は目覚ましく…」と同じ形"
+   }
+  },
+  {
+   "unit": 2,
+   "rules": []
+  },
+  {
+   "unit": 3,
+   "rules": []
+  },
+  {
+   "unit": 4,
+   "rules": []
+  },
+  {
+   "unit": 5,
+   "rules": []
+  },
+  {
+   "unit": 6,
+   "rules": []
+  },
+  {
+   "unit": 7,
+   "rules": []
+  },
+  {
+   "unit": 8,
+   "rules": [
+    "surge-role-metaphor"
+   ],
+   "reasons": {
+    "surge-role-metaphor": "「今回の変更の主役は `RetryPolicy` です」。「主役」は列挙語そのもの。専門用語でも事実の記述でもなく、変更の中心を比喩で言っている"
+   }
+  },
+  {
+   "unit": 9,
+   "rules": []
+  },
+  {
+   "unit": 10,
+   "rules": []
+  },
+  {
+   "unit": 11,
+   "rules": []
+  },
+  {
+   "unit": 12,
+   "rules": []
+  },
+  {
+   "unit": 13,
+   "rules": []
+  },
+  {
+   "unit": 14,
+   "rules": []
+  },
+  {
+   "unit": 15,
+   "rules": []
+  },
+  {
+   "unit": 16,
+   "rules": []
+  },
+  {
+   "unit": 17,
+   "rules": []
+  },
+  {
+   "unit": 18,
+   "rules": []
+  }
+ ],
+ "targets": {
+  "p4": {
+   "rules": [],
+   "reasons": {}
+  },
+  "p7": {
+   "rules": [
+    "paragraph-topic"
+   ],
+   "reasons": {
+    "paragraph-topic": "4xx を再送しないこと、README の誤字修正、axios のサポート切れ、の3つが1段落に並ぶ。後ろの2つはリトライ処理と関係がない話題"
+   }
+  },
+  "doc": {
+   "rules": [],
+   "reasons": {}
+  }
+ }
+}

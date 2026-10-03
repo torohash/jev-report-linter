@@ -1,0 +1,105 @@
+{
+ "id": "p37",
+ "labels": [
+  {
+   "unit": 0,
+   "rules": []
+  },
+  {
+   "unit": 1,
+   "rules": []
+  },
+  {
+   "unit": 2,
+   "rules": []
+  },
+  {
+   "unit": 3,
+   "rules": []
+  },
+  {
+   "unit": 4,
+   "rules": []
+  },
+  {
+   "unit": 5,
+   "rules": []
+  },
+  {
+   "unit": 6,
+   "rules": []
+  },
+  {
+   "unit": 7,
+   "rules": []
+  },
+  {
+   "unit": 8,
+   "rules": [
+    "surge-evaluation-noun"
+   ],
+   "reasons": {
+    "surge-evaluation-noun": "「これは時刻のテストの定石です」。列挙語「定石」を評価の名詞として使っており、専門用語でも事実の記述でもない"
+   }
+  },
+  {
+   "unit": 9,
+   "rules": []
+  },
+  {
+   "unit": 10,
+   "rules": []
+  },
+  {
+   "unit": 11,
+   "rules": [
+    "wrapper-phrase",
+    "passive-agent"
+   ],
+   "reasons": {
+    "wrapper-phrase": "「一般に、テストは多ければ多いほど安心だと言われます」。該当の記述の例「一般に〜」に当たる包装",
+    "passive-agent": "「安心だと言われます」。受動態で、誰が言っているのかが分からない"
+   }
+  },
+  {
+   "unit": 12,
+   "rules": [
+    "wrapper-phrase"
+   ],
+   "reasons": {
+    "wrapper-phrase": "「もちろんすべての場合に当てはまるとは限らないが」。該当の記述の例「もちろん〜とは限らないが」そのまま"
+   }
+  },
+  {
+   "unit": 13,
+   "rules": [
+    "moralizing"
+   ],
+   "reasons": {
+    "moralizing": "「小さな確認を怠らない姿勢こそが、すべてのエンジニアにとって最も大切な資質だと言えます」。1件のテスト追加のレビューから、すべてのエンジニアの資質という一般論の教訓にしている"
+   }
+  },
+  {
+   "unit": 14,
+   "rules": []
+  },
+  {
+   "unit": 15,
+   "rules": []
+  }
+ ],
+ "targets": {
+  "p2": {
+   "rules": [],
+   "reasons": {}
+  },
+  "p6": {
+   "rules": [],
+   "reasons": {}
+  },
+  "doc": {
+   "rules": [],
+   "reasons": {}
+  }
+ }
+}

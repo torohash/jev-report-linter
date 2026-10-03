@@ -1,0 +1,94 @@
+{
+ "id": "p35",
+ "labels": [
+  {
+   "unit": 0,
+   "rules": []
+  },
+  {
+   "unit": 1,
+   "rules": []
+  },
+  {
+   "unit": 2,
+   "rules": []
+  },
+  {
+   "unit": 3,
+   "rules": []
+  },
+  {
+   "unit": 4,
+   "rules": []
+  },
+  {
+   "unit": 5,
+   "rules": []
+  },
+  {
+   "unit": 6,
+   "rules": []
+  },
+  {
+   "unit": 7,
+   "rules": [
+    "direct-translation"
+   ],
+   "reasons": {
+    "direct-translation": "「`config/app.yaml` を正本にする方針とし」。該当の記述にある「〜を正本にする」をそのまま使っている。文書管理の専門用語としての用法ではない"
+   }
+  },
+  {
+   "unit": 8,
+   "rules": []
+  },
+  {
+   "unit": 9,
+   "rules": []
+  },
+  {
+   "unit": 10,
+   "rules": []
+  },
+  {
+   "unit": 11,
+   "rules": [
+    "coined-label"
+   ],
+   "reasons": {
+    "coined-label": "「この3段を「設定の交通整理レイヤー」と名付けました」。読み込みの3段に、比喩（交通整理）を使った独自の名前を付けている"
+   }
+  },
+  {
+   "unit": 12,
+   "rules": []
+  },
+  {
+   "unit": 13,
+   "rules": []
+  },
+  {
+   "unit": 14,
+   "rules": []
+  },
+  {
+   "unit": 15,
+   "rules": [
+    "abstract-metaphor-noun"
+   ],
+   "reasons": {
+    "abstract-metaphor-noun": "「今後の開発を導く羅針盤になります」。該当の記述に挙がっている「羅針盤」。設定ファイルを羅針盤にたとえており、文字どおりの意味ではなく、文脈上の必要もない"
+   }
+  }
+ ],
+ "targets": {
+  "p5": {
+   "rules": [],
+   "reasons": {}
+  },
+  "doc": {
+   "rules": [],
+   "reasons": {}
+  }
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "id": "p35",
+ "source": "自作（Issue #6）。30件に該当がなかったルールの該当例を置くために書いた。実在の報告ではない",
+ "text": "### 設定ファイルの整理が完了しました\n\n- [x] 既存の設定ファイルを洗い出す\n- [x] 重複している項目を特定する\n- [x] `config/app.yaml` にまとめる\n- [x] 読み込み処理を修正する\n\n### 変更内容\n\n3か所に分かれていた設定を1つにまとめました。\n\n- `config/app.yaml` を正本にする方針とし、`config/local.yaml` と `.env.defaults` は削除\n- `src/config/loader.ts`: 読み込み元を `config/app.yaml` の1つに変更\n- `src/config/schema.ts`: 必須項目の検査を追加（`port`、`databaseUrl`、`logLevel`）\n\n読み込みの流れは、ファイルを読む、環境変数で上書きする、検査する、の3段です。この3段を「設定の交通整理レイヤー」と名付けました。\n\n### 確認\n\n- `npm test` は 74 件すべて成功\n- `npm run start` で、`port` を環境変数 `PORT=4000` で上書きできることを確認\n\nこの `config/app.yaml` が、今後の開発を導く羅針盤になります。",
+ "units": [
+  "### 設定ファイルの整理が完了しました",
+  "- [x] 既存の設定ファイルを洗い出す",
+  "- [x] 重複している項目を特定する",
+  "- [x] `config/app.yaml` にまとめる",
+  "- [x] 読み込み処理を修正する",
+  "### 変更内容",
+  "3か所に分かれていた設定を1つにまとめました。",
+  "- `config/app.yaml` を正本にする方針とし、`config/local.yaml` と `.env.defaults` は削除",
+  "- `src/config/loader.ts`: 読み込み元を `config/app.yaml` の1つに変更",
+  "- `src/config/schema.ts`: 必須項目の検査を追加（`port`、`databaseUrl`、`logLevel`）",
+  "読み込みの流れは、ファイルを読む、環境変数で上書きする、検査する、の3段です。",
+  "この3段を「設定の交通整理レイヤー」と名付けました。",
+  "### 確認",
+  "- `npm test` は 74 件すべて成功",
+  "- `npm run start` で、`port` を環境変数 `PORT=4000` で上書きできることを確認",
+  "この `config/app.yaml` が、今後の開発を導く羅針盤になります。"
+ ]
+}

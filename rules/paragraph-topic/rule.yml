@@ -3,10 +3,10 @@ category: 修正
 domain: common
 detector: jev
 subject:
-- sentence
+- paragraph
 applies:
 - source: yomiyasu/references/gemini-syntax.md
-  text: 1つの段落に複数の話題が混在している場合
+  text: 1つの段落に無関係な話題が混ざったり
 basis:
 - source: yomiyasu/references/gemini-syntax.md
   text: 1つの段落には1つの話題だけを置く。話題の異なる段落同士を安易にまとめない。1つの段落に複数の話題が混在している場合は、文の順序を変えずに適切に分割する。

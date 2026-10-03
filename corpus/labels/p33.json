@@ -1,0 +1,124 @@
+{
+ "id": "p33",
+ "labels": [
+  {
+   "unit": 0,
+   "rules": []
+  },
+  {
+   "unit": 1,
+   "rules": []
+  },
+  {
+   "unit": 2,
+   "rules": []
+  },
+  {
+   "unit": 3,
+   "rules": []
+  },
+  {
+   "unit": 4,
+   "rules": []
+  },
+  {
+   "unit": 5,
+   "rules": []
+  },
+  {
+   "unit": 6,
+   "rules": []
+  },
+  {
+   "unit": 7,
+   "rules": [
+    "pseudo-cognition"
+   ],
+   "reasons": {
+    "pseudo-cognition": "「原因の解像度を上げるため」。ログを追加する目的を「解像度を上げる」と言っており、画像などの文字どおりの解像度ではない。何を知りたかったのかの中身がない"
+   }
+  },
+  {
+   "unit": 8,
+   "rules": []
+  },
+  {
+   "unit": 9,
+   "rules": []
+  },
+  {
+   "unit": 10,
+   "rules": [
+    "grandiose"
+   ],
+   "reasons": {
+    "grandiose": "「たった1行の `await` の抜けこそが、3週間続いた不具合の真実でした」。await の抜けという日常的な不具合の原因を「真実」という重い語で大げさに語っている。文字どおりの意味を担っていない"
+   }
+  },
+  {
+   "unit": 11,
+   "rules": []
+  },
+  {
+   "unit": 12,
+   "rules": []
+  },
+  {
+   "unit": 13,
+   "rules": []
+  },
+  {
+   "unit": 14,
+   "rules": []
+  },
+  {
+   "unit": 15,
+   "rules": [
+    "direct-translation"
+   ],
+   "reasons": {
+    "direct-translation": "「構造を支える耐力のある部品です」。該当の記述にある「耐力のある」「構造を支える」をそのまま使っている。建築の専門用語としての用法でも事実の記述でもない"
+   }
+  },
+  {
+   "unit": 16,
+   "rules": [
+    "direct-translation"
+   ],
+   "reasons": {
+    "direct-translation": "「キャッシュの実装に深く分け入ることはせず」。該当の記述にある「〜に深く分け入る」をそのまま使っている。専門用語でも事実の記述でもない"
+   }
+  },
+  {
+   "unit": 17,
+   "rules": [
+    "investigation"
+   ],
+   "reasons": {
+    "investigation": "「本番環境での再現確認はできていません」。未確認の表現。確認できなかった理由も、調べたうえで未決として残す事情も書かれていない（判断例「本番環境での動作は未確認です。」と同じ形）"
+   }
+  },
+  {
+   "unit": 18,
+   "rules": []
+  }
+ ],
+ "targets": {
+  "p3": {
+   "rules": [],
+   "reasons": {}
+  },
+  "p9": {
+   "rules": [],
+   "reasons": {}
+  },
+  "p10": {
+   "rules": [],
+   "reasons": {}
+  },
+  "doc": {
+   "rules": [],
+   "reasons": {}
+  }
+ }
+}

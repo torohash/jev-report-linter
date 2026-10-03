@@ -3,8 +3,7 @@ category: 修正
 domain: tech
 detector: jev
 subject:
-- sentence
-- list-item
+- document
 applies:
 - source: yomiyasu/references/domains/tech.md
   text: 具体的な手順や仕組みの説明が不足している

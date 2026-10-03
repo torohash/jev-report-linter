@@ -5,6 +5,9 @@ detector: jev
 subject:
 - sentence
 - list-item
+match:
+  regex: '[かさたなまらわがばざ]れ(る|た|て|ま|な|ず)|られ(る|た|て|ま|な|ず)'
+  from: このリポジトリで決めた。出典の「受動態」を、動詞の未然形に「れる」「られる」が付く形で拾う
 applies:
 - source: yomiyasu/references/domains/business.md
   text: 受動態で曖昧になっている箇所

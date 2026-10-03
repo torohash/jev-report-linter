@@ -1,0 +1,101 @@
+{
+ "id": "p34",
+ "labels": [
+  {
+   "unit": 0,
+   "rules": []
+  },
+  {
+   "unit": 1,
+   "rules": []
+  },
+  {
+   "unit": 2,
+   "rules": []
+  },
+  {
+   "unit": 3,
+   "rules": []
+  },
+  {
+   "unit": 4,
+   "rules": []
+  },
+  {
+   "unit": 5,
+   "rules": []
+  },
+  {
+   "unit": 6,
+   "rules": []
+  },
+  {
+   "unit": 7,
+   "rules": []
+  },
+  {
+   "unit": 8,
+   "rules": []
+  },
+  {
+   "unit": 9,
+   "rules": []
+  },
+  {
+   "unit": 10,
+   "rules": []
+  },
+  {
+   "unit": 11,
+   "rules": []
+  },
+  {
+   "unit": 12,
+   "rules": []
+  },
+  {
+   "unit": 13,
+   "rules": []
+  },
+  {
+   "unit": 14,
+   "rules": []
+  },
+  {
+   "unit": 15,
+   "rules": [
+    "reading-effect-push"
+   ],
+   "reasons": {
+    "reading-effect-push": "「この改善を理解すれば、今後の開発効率が飛躍的に向上します」。該当の記述の例とほぼ同じ形の、読了効果の押し付け"
+   }
+  },
+  {
+   "unit": 16,
+   "rules": [
+    "vague-action"
+   ],
+   "reasons": {
+    "vague-action": "「必要に応じて調整を進めていきます」。何をいつ調整するのかがなく、「適宜対応する」と同じ曖昧な表現"
+   }
+  }
+ ],
+ "targets": {
+  "p3": {
+   "rules": [],
+   "reasons": {}
+  },
+  "p7": {
+   "rules": [],
+   "reasons": {}
+  },
+  "doc": {
+   "rules": [
+    "abstract-only"
+   ],
+   "reasons": {
+    "abstract-only": "「処理の効率を改善しました」「無駄な部分を整理しました」「最適化を行っています」など抽象的な言い方だけで、どのファイルの何をどう変えたか、どう確かめたかという具体的な手順や仕組みの説明が報告のどこにもない"
+   }
+  }
+ }
+}

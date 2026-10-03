@@ -11,6 +11,14 @@ match:
 applies:
 - source: yomiyasu/references/slop-catalog.md
   text: 英語表現を直訳した結果生じる不自然な構文
+- source: yomiyasu/references/slop-catalog.md
+  text: 「〜を正本にする」「〜の正本として」
+- source: yomiyasu/references/slop-catalog.md
+  text: 「〜を指している」「〜を示唆している」
+- source: yomiyasu/references/slop-catalog.md
+  text: 「耐力のある」「構造を支える」
+- source: yomiyasu/references/slop-catalog.md
+  text: 「〜に深く分け入る」「深掘りする」
 excludes:
 - source: yomiyasu/SKILL.md
   text: 文脈上正当な専門用語や事実の記述

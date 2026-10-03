@@ -1,0 +1,94 @@
+{
+ "id": "p39",
+ "labels": [
+  {
+   "unit": 0,
+   "rules": []
+  },
+  {
+   "unit": 1,
+   "rules": []
+  },
+  {
+   "unit": 2,
+   "rules": []
+  },
+  {
+   "unit": 3,
+   "rules": []
+  },
+  {
+   "unit": 4,
+   "rules": []
+  },
+  {
+   "unit": 5,
+   "rules": []
+  },
+  {
+   "unit": 6,
+   "rules": []
+  },
+  {
+   "unit": 7,
+   "rules": []
+  },
+  {
+   "unit": 8,
+   "rules": []
+  },
+  {
+   "unit": 9,
+   "rules": []
+  },
+  {
+   "unit": 10,
+   "rules": []
+  },
+  {
+   "unit": 11,
+   "rules": [
+    "surge-evaluation-noun"
+   ],
+   "reasons": {
+    "surge-evaluation-noun": "「いまのコードとは別物でした」。列挙語「別物」を評価の名詞として使っており、専門用語でも事実の記述でもない"
+   }
+  },
+  {
+   "unit": 12,
+   "rules": []
+  },
+  {
+   "unit": 13,
+   "rules": [
+    "grandiose"
+   ],
+   "reasons": {
+    "grandiose": "「これ以上削れない究極の単純さに行き着きました」。列挙語「究極」。手順書を5項目にしたという日常的な作業を大げさに語っている"
+   }
+  },
+  {
+   "unit": 14,
+   "rules": [
+    "abstract-metaphor-noun"
+   ],
+   "reasons": {
+    "abstract-metaphor-noun": "「学習を加速する起爆剤になります」。列挙語「起爆剤」。文字どおりの意味ではなく、文脈上必要のない比喩"
+   }
+  }
+ ],
+ "targets": {
+  "p7": {
+   "rules": [],
+   "reasons": {}
+  },
+  "p8": {
+   "rules": [],
+   "reasons": {}
+  },
+  "doc": {
+   "rules": [],
+   "reasons": {}
+  }
+ }
+}

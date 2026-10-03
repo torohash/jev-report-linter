@@ -1,0 +1,578 @@
+# Jevが明瞭に答えたのに、正解ラベルと食い違う文
+
+明瞭なNoは0.3未満、明瞭なYesは0.7以上。値はJevが返した確率。
+
+## svo-incomplete  明瞭なYes・正解は該当なし  58件
+
+該当の記述: 「誰が・何を・どうした」が1文で完結しない / 主語の省略、受動態、指示代名詞（「これ」「両者」「片方」）の多用
+
+### 0.81  corpus/reports/p12.json units[19]
+- 前の文: 前回指摘した以下2点は今回のコミットでは対応されていません。
+- **対象の文: マージを妨げるものではないため、対応するかは任意です。**
+- 次の文: - **未使用変数**: `rate_limit_display()` の `local left_s="" pace="" tte_s="" warn=""`（185行目）の `warn` は依然どこでも参照されていません（shellcheck SC2034 相当）。
+
+### 0.81  corpus/reports/p02.json units[8]
+- 前の文: この受け入れ基準が未実装のまま残っている可能性が高い。
+- **対象の文: 上記2点はいずれも要件・認可観点での抜けであり、対応を確認・実装する必要がある。**
+- 次の文: それ以外のロジック（`isDeparted` の日付/時刻フォーマットの整合性、`EmptySeatCount` の表示分岐）に明らかなバグは見当たらなかった。
+
+### 0.81  corpus/reports/p02.json units[4]
+- 前の文: ボタン無効化を回避してAPIを直接呼び出せば、出発時刻を過ぎたスケジュールでも予約作成が可能になってしまうため、認可・入力検証漏れとなる。
+- **対象の文: バックエンド側にも同様の時刻チェックを追加すべき。**
+- 次の文: **予約変更フロー（frontend/src/features/reservation 配下）**
+
+### 0.80  corpus/reports/p30.json units[13]
+- 前の文: #### 軽微: `base_mv_list` / `base_bv_list` も `|| true` にするか考慮する (低優先)
+- **対象の文: `|| true` が付いています。**
+- 次の文: `base_ref` 側でも grep 0 件になるケースは考えにくいですが（タグ時点の pbxproj なら必ず両キーが存在するはず）、もし空になった場合は静かに比較スキップされます。
+
+### 0.80  corpus/reports/p29.json units[26]
+- 前の文: 診断を足した対応は適切です。
+- **対象の文: ただし、次の点だけ補足します。**
+- 次の文: - 起動が 60 秒を超える原因が、ClangCL ジョブの `dotnet build` 直後のディスク・CPU 負荷による Editor の初回起動遅延 (JIT、WPF の初期化) である可能性があります。
+
+### 0.80  corpus/reports/p08.json units[5]
+- 前の文: - 存在しない ID の `cancel()` が `False` を返すこと
+- **対象の文: - 正常終了したジョブが削除されること**
+- 次の文: ### 注意
+
+### 0.80  corpus/reports/p04.json units[6]
+- 前の文: **結論: LGTM。
+- **対象の文: ブロッキングな問題は見つかりませんでした。**
+- 次の文: **
+
+### 0.78  corpus/reports/p19.json units[6]
+- 前の文: ### 差分の内容
+- **対象の文: 前回レビューで指摘した「同じ種目を複数行に分けて送るとエコーバックで種目名が重複し、当日セット数が各行に付く」問題への修正です。**
+- 次の文: `RecordMessageHandler.save`（`app/models/record_message_handler.rb:43-61`）で、保存前に `resolved` を種目（`Exercise` インスタンス）単位でグルーピングし直しています。
+
+### 0.78  corpus/reports/p18.json units[31]
+- 前の文: 「マージしないと確かめられないこと」として PR 本文に書かれている通り、`pull_request_target` の実際の起動確認は次回 Dependabot 実行（次の土曜 06:00 JST）を待つ必要があります。
+- **対象の文: この点は設計上の制約であり、本レビューでの指摘事項ではありません。**
+- 次の文: （なし）
+
+### 0.78  corpus/reports/p17.json units[5]
+- 前の文: 実装し直すと、確認済みのものと違う内容になるため、やっていません。
+- **対象の文: 確認済みのブランチから PR を出してください。**
+- 次の文: このブランチにはコミットが無いので、PR を出せませんでした。
+
+### 0.77  corpus/reports/p08.json units[3]
+- 前の文: - [x] `tests/test_timer.py` を追加
+- **対象の文: - キャンセル後に `list_jobs()` からジョブが消え、done callback 実行後も loop の例外ハンドラに何も届かないこと**
+- 次の文: - 存在しない ID の `cancel()` が `False` を返すこと
+
+### 0.77  corpus/reports/p05.json units[19]
+- 前の文: 内容が前後を空白で挟まれ、かつ空白のみではない場合にCommonMark §6.1が要求する前後1文字の表示上トリムが未実装でした。
+- **対象の文: 既存のマーカー非表示・カーソル接触時展開と同じ仕組みで対応し、原文は変更していません。**
+- 次の文: いずれも、コード内容に含まれる強調記号・単語内アンダースコアの無効化・単語内アスタリスクの有効化・エスケープの扱いはpulldown-cmarkの解釈をそのまま使っており、独自正規表現などでの置き換えは行っていません。
+
+### 0.76  corpus/reports/p28.json units[2]
+- 前の文: **結論：サイトの表示や予約導線を壊すような重大なエラーは見つかりませんでした。
+- **対象の文: ** 下記は改善候補です。**
+- 次の文: #### 問題なし
+
+### 0.76  corpus/reports/p17.json units[4]
+- 前の文: この環境では `git fetch` が承認待ちで、そのブランチを取得できませんでした。
+- **対象の文: 実装し直すと、確認済みのものと違う内容になるため、やっていません。**
+- 次の文: 確認済みのブランチから PR を出してください。
+
+### 0.76  corpus/reports/p10.json units[9]
+- 前の文: - [x] 変更をコミット・push
+- **対象の文: **原因（前回コメントの診断を修正）****
+- 次の文: 前回の実行コメントでは「`DialogContent` に `gridTemplateRows` が未指定なのが原因」と診断されていましたが、実際に検証したところ、この2カラムグリッドは行が1つしかないため、`gridTemplateRows` の有無にかかわらず既定の `align-content: normal`（グリッドでは `stretch` として扱われる）により行の高さは常にコンテナの高さぴったりに揃っており、両者で挙動に差はありませんでした（実測でも同一の高さになることを確認）。
+
+### 0.75  corpus/reports/p22.json units[23]
+- 前の文: ただし「Severe 状態から回復するときのメッセージ」ではなく「Severe へ向けた回復(current==Severe)は定義上ありえないため空」という意味を一言示すとより自明になります。
+- **対象の文: これはドキュメントの話なので必須ではありません。**
+- 次の文: ### 総評
+
+### 0.75  corpus/reports/p16.json units[37]
+- 前の文: 残課題として `HTMLTargetIntegrity` の計算値不一致が Issue 予定とのことで、今後の追跡が楽しみです。
+- **対象の文: 上記 2〜3 点（特にタイムアウト）を取り込んでいただけると、より堅牢な CLI になります。**
+- 次の文: （なし）
+
+### 0.75  corpus/reports/p16.json units[17]
+- 前の文: 呼び出し元 (`fetch-and-verify-all.ts:25`) で既に `process.env.REGISTRY_OPS ?? ""` を渡しているため、デフォルト引数は実質使われません。
+- **対象の文: どちらかに統一するか、呼び出し元でデフォルト処理を持たせ関数のシグネチャをシンプルにする方が意図が伝わりやすいです。**
+- 次の文: **2. HTTP リクエストにタイムアウトが設定されていない**
+
+### 0.75  corpus/reports/p12.json units[18]
+- 前の文: #### 軽微な指摘（未対応・ブロッキングではない）
+- **対象の文: 前回指摘した以下2点は今回のコミットでは対応されていません。**
+- 次の文: マージを妨げるものではないため、対応するかは任意です。
+
+### 0.75  corpus/reports/p08.json units[8]
+- 前の文: この環境ではテスト実行のコマンドが許可されておらず、`python -m unittest` を**実行できていません**。
+- **対象の文: 手元か CI で確認をお願いします。**
+- 次の文: なお CLAUDE.md では PR は `dev` 向けとされているため、作成時に base を `dev` に変更してください。
+
+### 0.74  corpus/reports/p29.json units[13]
+- 前の文: - `Master` を除く条件を `matrix.configuration != 'Master'` に一本化し、marker 側を `== 'Master'` にしたので、2 つの条件が排他的で漏れがありません。
+- **対象の文: - キャッシュキーを v2 に上げたこと、ヘッダコメントの追従、plan ジョブ側の prefix の v2 化がそろっています。**
+- 次の文: - ClangCL では `--filter` で接続テスト 1 件に絞り、trx の `executed` が 1 件であることも確かめています。0 件で緑になる事故を防げます。
+
+### 0.74  corpus/reports/p29.json units[3]
+- 前の文: ローカルでのビルドとテストは AGENTS.md に従って行っていません。
+- **対象の文: **マージを止めるような問題は見つかりませんでした。**
+- 次の文: **
+
+### 0.74  corpus/reports/p16.json units[36]
+- 前の文: 主要な指摘事項はすべて解消されており、コードの品質・構造・型設計も良好です。
+- **対象の文: 残課題として `HTMLTargetIntegrity` の計算値不一致が Issue 予定とのことで、今後の追跡が楽しみです。**
+- 次の文: 上記 2〜3 点（特にタイムアウト）を取り込んでいただけると、より堅牢な CLI になります。
+
+### 0.74  corpus/reports/p14.json units[23]
+- 前の文: 制限超過時は X 側の 4xx を `BadGateway` として返す形になるため機能上は破綻しませんが、事前バリデーションで早期に `422` を返した方がクライアントにとって分かりやすいかもしれません。
+- **対象の文: いずれも設計判断としては妥当な範囲であり、PR説明にある「後続PRで ops 側の manifest 整備」という前提を踏まえると、現時点でマージをブロックするような問題ではないと判断しました。**
+- 次の文: 重大な問題は見当たりませんでした。
+
+### 0.74  corpus/reports/p11.json units[5]
+- 前の文: - [x] 各ファイルについて「分割可能」か「ignore対象」か判定
+- **対象の文: - [x] 分割可能なものはリファクタリング実施**
+- 次の文: - [x] ignore対象は理由とともに `.filelengthignore` に追加
+
+### 0.74  corpus/reports/p09.json units[9]
+- 前の文: - 一覧の読み込み失敗時に、選択済みの材料が「削除された材料」と誤表示される問題は、75be27c0 で修正済みと記載されています。
+- **対象の文: - `reload` の公開と並び順の統一も、75be27c0 で対応済みと記載されています。**
+- 次の文: - 削除済みの材料を × で外したときに層名が戻らない問題も、75be27c0 で対応済みと記載されています。
+
+### 0.74  corpus/reports/p03.json units[9]
+- 前の文: インラインコメントとして3件投稿しました。
+- **対象の文: 集計とマージ判定は後続のワークフローに委ねます。**
+- 次の文: （なし）
+
+### 0.73  corpus/reports/p21.json units[9]
+- 前の文: `.github/workflows/deploy-web.yml:37-41` — `pnpm --filter @site-blocker/web run build` を明示的に実行したあと `test:e2e` を走らせていますが、`apps/web/playwright.config.ts:15-19` の `webServer.command` が `pnpm run build && pnpm run preview` なので、`test:e2e` の中でもう一度ビルドが走ります。
+- **対象の文: 意図的に「Chromium インストール前にビルド失敗を早期検知する」ためのフェイルファストであれば理解できますが、そうであれば一言コメントで残すと次に読む人が「二重ビルドでは？**
+- 次の文: 」と迷わずに済みそうです。
+
+### 0.73  corpus/reports/p11.json units[6]
+- 前の文: - [x] 分割可能なものはリファクタリング実施
+- **対象の文: - [x] ignore対象は理由とともに `.filelengthignore` に追加**
+- 次の文: - [x] 品質ゲート実行（lint/test/format）
+
+### 0.72  corpus/reports/p22.json units[7]
+- 前の文: 全体的に方針に沿った実装で、問題となる箇所はほとんどありません。
+- **対象の文: 細かい観点を3点挙げます。**
+- 次の文: ### 1. `TestLogTemperatureChange` の「悪化」と「回復」の方向性が暗黙的
+
+### 0.72  corpus/reports/p16.json units[10]
+- 前の文: `private: true` の追加、`verfiedOps` の誤字修正、`res.ok` チェック、Document 二重構築の解消、入力バリデーション、テスト追加、ロックファイルの修正、いずれも適切に対応されています。
+- **対象の文: 以下にさらなる改善点をいくつか挙げます。**
+- 次の文: #### 要対応
+
+### 0.72  corpus/reports/p13.json units[20]
+- 前の文: まとめとして、issueの問題認識と修正方針の大枠（escape-doubling / NUL→U+FFFD のいずれか）は正しいです。
+- **対象の文: 実装するなら、コードフェンス側の同種の漏れも一緒に塞げる Option 2 を推奨します。**
+- 次の文: 今回はレビューのみで実装は行っていません。
+
+### 0.72  corpus/reports/p12.json units[16]
+- 前の文: - `rate_limits` 無し（既存の非対応入力）のケースも回帰確認として残っています。
+- **対象の文: - CI（`.github/workflows/shell-tests.yml`）に `statusline` ジョブを追加し、`.claude/statusline-command.sh` の変更をトリガーに含めた点、`Makefile` の `test` ターゲットと `CLAUDE.md` のドキュメントも合わせて更新されている点、いずれも `CLAUDE.md` の「CI は workflow ごとに paths フィルタで対象を絞る」という既存方針に沿っています。**
+- 次の文: #### 軽微な指摘（未対応・ブロッキングではない）
+
+### 0.72  corpus/reports/p11.json units[22]
+- 前の文: ### 判断が必要な項目（フォローアップ推奨）
+- **対象の文: - 実際に配布される `.devcontainer/templates/.filelengthignore.template` には、上記の「対象拡張子はts/tsx/js/jsxのみ」という注意コメントが欠けています。ルート版の削除に伴い、この注意書きを配布側テンプレートにも追記するのが望ましいですが、**このセッションのサンドボックスでは `.devcontainer/` 配下の編集がセンシティブファイルとしてブロックされ、直接反映できませんでした**。人手または別セッションでの追記をご検討ください（差分は上記コメントと同内容）。**
+- 次の文: - `templates/policies/complexity-thresholds.json` にも `fileLines` しきい値の設定があり、`check-file-length.sh` とは別軸のコード複雑度チェック体系（`code-complexity-check.sh`）が既に存在します。今回のIssue範囲（`.filelengthignore`本体）とは別管理のため変更していませんが、長期的に基準を一本化するかは別途ご判断ください。
+
+### 0.72  corpus/reports/p05.json units[1]
+- 前の文: ### 完了報告 (Hane progress run=34368792206 attempt=1)
+- **対象の文: 太字・斜体・インラインコードの表示層に見つかった不具合2件を修正し、回帰テストを追加、標準チェックのうち本サンドボックス環境で実施可能な範囲を完了しました。**
+- 次の文: #### タスクリスト
+
+### 0.71  corpus/reports/p30.json units[18]
+- 前の文: #### 軽微: `head_bv_list` が空のときのエラーメッセージ
+- **対象の文: `MARKETING_VERSION` と表記が揃っていて問題ありません。**
+- 次の文: ただ、`MARKETING_VERSION` と `CURRENT_PROJECT_VERSION` が **同時に** 欠落している場合（両方空）に両行出力されるのは仕様通りで正しいです。
+
+### 0.71  corpus/reports/p29.json units[22]
+- 前の文: - `Process` は `using` で破棄しています。
+- **対象の文: - `application.Kill()` の前に取得しているので、順序も正しいです。**
+- 次の文: - 補足 (任意): `MainWindowHandle` / `Responding` は、UI スレッドが固まっているときの判定に使えます。もう一歩踏み込むなら、`Threads` ではなく CPU 時間 (`TotalProcessorTime`) を数百 ms 離して 2 回取ると、固まりと起動の遅れを区別しやすいです。今回の目的には現状で足りています。
+
+### 0.71  corpus/reports/p21.json units[18]
+- 前の文: `apps/web/eslint.config.js`（lint-setup 由来、`**/*.config.{js,ts}` を型情報なしの lint に落とす設定）により `vite.config.ts` と同様 `playwright.config.ts` も `tsc` の対象からは外れますが、これは今回のPR固有の抜けではなく既存の運用方針の延長です。
+- **対象の文: 念のため共有します。**
+- 次の文: IMO (Style):
+
+### 0.71  corpus/reports/p16.json units[21]
+- 前の文: `CAS 検証に失敗します → 別途 Issue 予定` との記述もあるとおり今後改善が入る箇所ですが、対象 URL が応答しない場合にプロセスが無期限に待ち続けます。
+- **対象の文: `AbortSignal.timeout(ms)` を渡すことで簡単に対応できます。**
+- 次の文: **3. `urls` 要素の型検証が行われていない**
+
+### 0.71  corpus/reports/p16.json units[9]
+- 前の文: Copilot・YuukiTsuchida さんのレビューコメントへの対応を確認しました。
+- **対象の文: `private: true` の追加、`verfiedOps` の誤字修正、`res.ok` チェック、Document 二重構築の解消、入力バリデーション、テスト追加、ロックファイルの修正、いずれも適切に対応されています。**
+- 次の文: 以下にさらなる改善点をいくつか挙げます。
+
+### 0.71  corpus/reports/p14.json units[24]
+- 前の文: いずれも設計判断としては妥当な範囲であり、PR説明にある「後続PRで ops 側の manifest 整備」という前提を踏まえると、現時点でマージをブロックするような問題ではないと判断しました。
+- **対象の文: 重大な問題は見当たりませんでした。**
+- 次の文: Reviewed commit: e7726eb436
+
+### 0.71  corpus/reports/p14.json units[5]
+- 前の文: ### レビュー結果
+- **対象の文: X API v2 (OAuth2 Refresh Token フロー) によるツイート投稿機能の実装、およびトークンを k8s Secret に永続化する `tokenstore` パッケージについて確認しました。**
+- 次の文: **良い点**
+
+### 0.71  corpus/reports/p12.json units[10]
+- 前の文: `rate_limit_display()` で `tte_s` の代入（`[ -n "$pace" ] && [ "$pace" != "ok" ] && tte_s=$pace`）が色分岐 (`if [ "$remaining" -lt 5 ]; then ...`) より前に移動し、`remaining -lt 5` で最初の `if` に入っても `tte_s` は正しく計算済みの値を保持します。
+- **対象の文: 13ケースすべて（`7d ペース内` 〜 `resets_at 無しは残り% 閾値`、および `残り 5% 未満でも枯渇警告` の再現ケース）を awk のロジックに沿って手計算で追跡し、期待値と一致することを確認しました。**
+- 次の文: 特に修正対象だった `five_hour used=97, left_s=1000` のケースは `remaining=3%` → 赤、`tte_s=525s` → `⚠8m` が正しく算出されます。
+
+### 0.71  corpus/reports/p11.json units[18]
+- 前の文: 調査中に、`.filelengthignore` の整理漏れとして**未使用の重複テンプレート**を発見し削除しました。
+- **対象の文: - リポジトリルート直下の `.filelengthignore.template` は、どのビルド/セットアップスクリプトからも参照されていない死蔵ファイルで、実際に config-base イメージへ取り込まれ利用される `.devcontainer/templates/.filelengthignore.template` と内容が乖離していました（片方にのみ「対象拡張子はts/tsx/js/jsxのみ」という注意書きがある等）。**
+- 次の文: - 未使用側（ルート直下）を削除し、`script/README.md` の参照パスを実際に使われる `.devcontainer/templates/.filelengthignore.template` に修正しました。
+
+### 0.71  corpus/reports/p10.json units[1]
+- 前の文: ### 対応完了
+- **対象の文: 前回の実行（エラーで中断）を再実行し、スマホ横表示で右カラムがスクロールできず項目が見切れる不具合を修正しました。**
+- 次の文: **タスク一覧**
+
+### 0.71  corpus/reports/p07.json units[6]
+- 前の文: 「Review fix」（363fae6）を含む最新の状態をレビューしました。
+- **対象の文: 解決済みの指摘には触れていません。**
+- 次の文: #### 新規の指摘
+
+### 0.71  corpus/reports/p02.json units[7]
+- 前の文: PR本文の受け入れ基準に「出発時刻が現在時刻よりも前の有効な予約を予約変更できないようにする」とあるが、今回変更されたファイルは `EmptySeatCount.tsx` と `ScheduleItem.tsx`（列車検索結果一覧）のみで、予約変更（`ReservationSelectItem.tsx` / `useChangeModal.ts` 等）側に `isDeparted` 相当のチェックが存在しない（grep で該当ロジックなしを確認済み）。
+- **対象の文: この受け入れ基準が未実装のまま残っている可能性が高い。**
+- 次の文: 上記2点はいずれも要件・認可観点での抜けであり、対応を確認・実装する必要がある。
+
+### 0.70  corpus/reports/p30.json units[16]
+- 前の文: 今回のスコープ外ですが、将来 `base_mv` が空のまま `enforce` モードで比較ロジックへ進んだ場合、「bump されていない」誤検知にはならず `mv_increased=false` のまま error メッセージが出るため、**現状でも安全** です。
+- **対象の文: 指摘レベルは低です。**
+- 次の文: #### 軽微: `head_bv_list` が空のときのエラーメッセージ
+
+### 0.70  corpus/reports/p29.json units[34]
+- 前の文: - 改行コードの混在についても、差分の行数は編集量と釣り合っており、不自然な全行変更はありません。
+- **対象の文: CI が全構成で緑になったことを確認してからマージしてください。**
+- 次の文: （なし）
+
+### 0.70  corpus/reports/p24.json units[9]
+- 前の文: **`README.md`**
+- **対象の文: - 日付付きの検証ログを削除し、動作条件に統合する整理は妥当です。`jq` 未導入時の挙動は上の `jq` 項目に残っており、情報の欠落はありません。**
+- 次の文: - `host_not_allowed` の記述がなくなりました。ユーザーがエラーから原因を引きやすいよう、必要なら「ネットワークアクセス」項目にエラー名を一言残すのも一案です。任意です。
+
+### 0.70  corpus/reports/p17.json units[6]
+- 前の文: 確認済みのブランチから PR を出してください。
+- **対象の文: このブランチにはコミットが無いので、PR を出せませんでした。**
+- 次の文: • ブランチ: `claude/issue-3-20260929-1346`（変更なし）
+
+### 0.70  corpus/reports/p16.json units[29]
+- 前の文: `packages/cas-monitor/src/verify/cas-verification.ts:24-26`
+- **対象の文: `new Request(resource).url` を経由するのは URL 正規化のためかもしれませんが、`fetch(resource, options)` をそのまま渡すか、`URL.canParse` が保証されているなら `fetch(resource instanceof Request ? resource.url : resource, options)` の方がシンプルです。**
+- 次の文: 意図的な正規化であればコメントで補足すると読みやすくなります。
+
+### 0.70  corpus/reports/p16.json units[20]
+- 前の文: `packages/cas-monitor/src/fetch/fetch-html.ts:22`
+- **対象の文: `CAS 検証に失敗します → 別途 Issue 予定` との記述もあるとおり今後改善が入る箇所ですが、対象 URL が応答しない場合にプロセスが無期限に待ち続けます。**
+- 次の文: `AbortSignal.timeout(ms)` を渡すことで簡単に対応できます。
+
+### 0.70  corpus/reports/p13.json units[7]
+- 前の文: コードを確認しました（`markdown.py:4598-4641` の `render_inline`）。
+- **対象の文: 指摘は正確で、`\x00PH{n}\x00` を stash → 復元する際に入力側の `\x00` を一切エスケープしていないため、`docs/antipatterns.md:40` の `FORGEABLE_INBAND_PLACEHOLDER` にそのまま該当します。**
+- 次の文: 同じファイル内の `_dialect_inline_to_markdown`（`markdown.py:5613-5664`）が全く同じクラスのバグを private-use センチネル `` の escape-doubling で既に修正済みであることも確認しました。
+
+### 0.70  corpus/reports/p11.json units[23]
+- 前の文: - 実際に配布される `.devcontainer/templates/.filelengthignore.template` には、上記の「対象拡張子はts/tsx/js/jsxのみ」という注意コメントが欠けています。ルート版の削除に伴い、この注意書きを配布側テンプレートにも追記するのが望ましいですが、**このセッションのサンドボックスでは `.devcontainer/` 配下の編集がセンシティブファイルとしてブロックされ、直接反映できませんでした**。人手または別セッションでの追記をご検討ください（差分は上記コメントと同内容）。
+- **対象の文: - `templates/policies/complexity-thresholds.json` にも `fileLines` しきい値の設定があり、`check-file-length.sh` とは別軸のコード複雑度チェック体系（`code-complexity-check.sh`）が既に存在します。今回のIssue範囲（`.filelengthignore`本体）とは別管理のため変更していませんが、長期的に基準を一本化するかは別途ご判断ください。**
+- 次の文: （なし）
+
+### 0.70  corpus/reports/p06.json units[6]
+- 前の文: - [x] レビューコメント投稿
+- **対象の文: 全体として、既存の設計方針(`k8up-global` への相乗り、`backend` を書かない、bun ベースのシンプルなスクリプト)を踏襲しており、新しい配線も RBAC も最小限に抑えられています。**
+- 次の文: `restore.sh` の `mattermostWebhook` 追加は既存の Secret 作成ブロックにきれいに乗っており、`:-}` のフォールバックも古い env ファイルとの互換性という観点で妥当です。
+
+### 0.70  corpus/reports/p04.json units[3]
+- 前の文: - [x] 変更ファイルの精読 (serve.py, busy.html, perf-windows.yml, テスト2ファイル)
+- **対象の文: - [x] ロジックの静的検証 (ロック境界・ループの腕分離・env 配線)**
+- 次の文: - [x] レビューコメント投稿
+
+### 0.70  corpus/reports/p03.json units[5]
+- 前の文: - [x] `comment-lint.mjs` の変更確認(規則の突合・フィクスチャの手動検証を含む)
+- **対象の文: - [x] `dev-setup` 側の移行差分確認(参照の残留なし)**
+- 次の文: - [x] インラインコメント投稿(🔴 CRITICAL 1件、🟡 WARNING 2件)
+
+## investigation  明瞭なYes・正解は該当なし  17件
+
+該当の記述: 未確認や未確定といった表現が使われた場合
+除外の記述: 情報を調べてなお未決事項として保持しなければいけないものや、調べたうえで情報が存在しなかった
+
+### 0.83  corpus/reports/p09.json units[4]
+- 前の文: - `git fetch origin pull/48/head` は権限がなく実行できませんでした。
+- **対象の文: - そのため、指定の観点（S4/RCWA の妥当性、API 整合性など）の確認はしていません。行番号を確かめられない inline comment も投稿していません。**
+- 次の文: #### 参考: 既存レビューの内容
+
+### 0.82  corpus/reports/p04.json units[19]
+- 前の文: - 差分の静的読解 (`git diff origin/main...HEAD`) は完了し、ロジック・ロック境界・PowerShell 側の腕分離ループを一通り追いました。
+- **対象の文: - サンドボックスの制約により `python3 -m unittest discover -s .github/scripts` / `cargo test` 等の実行コマンドがこのセッションでは承認されず、実行結果の再現確認はできませんでした。PR 本文に記載の実行結果 (194 tests OK / cargo fmt・clippy・test --lib 1052 passed) は妥当な内容に見えますが、CI 側の結果を正としてご確認ください。**
+- 次の文: (branch: `claude/phase-4-progress-yspbfv`)
+
+### 0.81  corpus/reports/p08.json units[8]
+- 前の文: この環境ではテスト実行のコマンドが許可されておらず、`python -m unittest` を**実行できていません**。
+- **対象の文: 手元か CI で確認をお願いします。**
+- 次の文: なお CLAUDE.md では PR は `dev` 向けとされているため、作成時に base を `dev` に変更してください。
+
+### 0.80  corpus/reports/p26.json units[14]
+- 前の文: - 4 行目の `|| s === undefined` も削除を勧めます。`s` は `string` 型で、`s.trim()` を先に評価しているため、`s` が `undefined` ならその時点で例外になります。右辺には到達せず、比較として意味がありません。lint のエラーではありませんが、レビューでは指摘される箇所です。
+- **対象の文: - 同じ行の `==` は `===` にそろえるのが望ましいです。ここで `eqeqeq` ルールが有効かどうかはログからは確認できていません。**
+- 次の文: ### 補足
+
+### 0.80  corpus/reports/p01.json units[23]
+- 前の文: - `pyright` / `shellcheck` はこの環境で実行できる権限が無かったため未実施です(PR作者も同様に未実行と記載、CIでの確認待ち)。
+- **対象の文: - サンドボックスの制約で `python -m pytest` 自体を実行する権限が無かったため、テストは実際には実行せず静的レビューのみで確認しました。PR作者の報告(2342 passed, 13 skipped)を前提としています。**
+- 次の文: （なし）
+
+### 0.79  corpus/reports/p09.json units[7]
+- 前の文: PR 本文と既存のレビューコメントから読み取れる範囲です。
+- **対象の文: コードは見ていません。**
+- 次の文: - 一覧の読み込み失敗時に、選択済みの材料が「削除された材料」と誤表示される問題は、75be27c0 で修正済みと記載されています。
+
+### 0.79  corpus/reports/p05.json units[10]
+- 前の文: - [x] 標準チェック（`cargo check` / `cargo test` / `cargo fmt` / `cargo clippy`）※実施可能な範囲
+- **対象の文: - [ ] GUIでの目視確認 — 本サンドボックス環境ではブロックされ未実施（詳細は下記）**
+- 次の文: - [x] Pull Request作成用リンクの提示
+
+### 0.78  corpus/reports/p23.json units[15]
+- 前の文: `test/features/room/view/game_result_page_test.dart`の新規テスト（「ホームへ戻る途中に巻き戻しが届いても、役割リセットを書き込まない」等）は、退出・巻き戻し・pop中競合の3方向をそれぞれ検証しており、回帰の再現性も高いです。
+- **対象の文: この環境には`flutter`コマンドが無く`flutter test`/`flutter analyze`を実際には実行できなかったため、コードの静的な読み込みとテストコードの内容確認にとどめています（PR本文記載の実行結果は追試していません）。**
+- 次の文: ### 気になった点（ブロッカーではない）
+
+### 0.78  corpus/reports/p05.json units[30]
+- 前の文: - `cargo test -p hane-ui`: 本サンドボックス環境に `libxcb` / `libxkbcommon` 等のシステムライブラリが無くリンクできず**未実施**（ホスト環境の制約であり、CIのmacOS/Windowsランナーでの確認が必要です）
+- **対象の文: - GUIでの目視確認: 本サンドボックス環境はディスプレイが無くGPUIアプリをリンクできないため**未実施**です。マージ前にローカル環境またはCIでの確認をお願いします。**
+- 次の文: - PR #100（Issue #99、見出し対応）とはネットワーク制限により直接diffを取得できませんでしたが、本変更は `crates/presentation/src/lib.rs` の段落インライン装飾処理に限定しており、見出し固有ロジックとは独立しています。マージ順によっては軽微なコンフリクトの可能性があるため、レビュー時にご確認ください。
+
+### 0.77  corpus/reports/p25.json units[5]
+- 前の文: - シークレットは `secrets.RENOVATE_APP_PRIVATE_KEY`、ID は `vars.RENOVATE_APP_CLIENT_ID` から参照しており、混入はありません。`permissions: {}` のままで権限が広がることもありません。
+- **対象の文: **要確認(軽微)**: マージ後に `workflow_dispatch` で一度手動実行し、`danything` と `5ym` の両 matrix でトークン生成が通ることを確認すると安心です。**
+- 次の文: v3 は実行環境が Node 24 になるため、ランナー側の要件にも注意してください。
+
+### 0.76  corpus/reports/p06.json units[16]
+- 前の文: - RBAC は `k8up.io` の 4 リソースに対する `get`/`list` のみで、範囲は妥当です
+- **対象の文: なお、`k8up-global` への `mattermostWebhook` キー追加はまだ本番クラスタに当てられていない(PR 本文より)とのことなので、キーを足したあとに実際に CronJob が完走して Mattermost に届くか(特に `NODE_EXTRA_CA_CERTS` 経由の TLS 信頼がこのリポジトリで初めて使うパターンのため)、一度実機での確認をおすすめします。**
+- 次の文: （なし）
+
+### 0.76  corpus/reports/p02.json units[7]
+- 前の文: PR本文の受け入れ基準に「出発時刻が現在時刻よりも前の有効な予約を予約変更できないようにする」とあるが、今回変更されたファイルは `EmptySeatCount.tsx` と `ScheduleItem.tsx`（列車検索結果一覧）のみで、予約変更（`ReservationSelectItem.tsx` / `useChangeModal.ts` 等）側に `isDeparted` 相当のチェックが存在しない（grep で該当ロジックなしを確認済み）。
+- **対象の文: この受け入れ基準が未実装のまま残っている可能性が高い。**
+- 次の文: 上記2点はいずれも要件・認可観点での抜けであり、対応を確認・実装する必要がある。
+
+### 0.74  corpus/reports/p01.json units[22]
+- 前の文: #### 未実行の確認事項
+- **対象の文: - `pyright` / `shellcheck` はこの環境で実行できる権限が無かったため未実施です(PR作者も同様に未実行と記載、CIでの確認待ち)。**
+- 次の文: - サンドボックスの制約で `python -m pytest` 自体を実行する権限が無かったため、テストは実際には実行せず静的レビューのみで確認しました。PR作者の報告(2342 passed, 13 skipped)を前提としています。
+
+### 0.73  corpus/reports/p24.json units[7]
+- 前の文: - 将来 `SKILL.md` を別の場所に増やした場合も除外されます。意図しない除外を避けたいなら `/jp-diet-minutes/SKILL.md export-ignore` とパスを固定する手もありますが、現状では必須ではありません。
+- **対象の文: - 補足: GitHub の tarball/zip を直接取得してスキルを導入するツールがあれば、`SKILL.md` が欠けて失敗します。`git clone` ベースの `npx skills add` には影響しません。README の導入手順が clone ベースのままか、念のため確認してください。**
+- 次の文: **`README.md`**
+
+### 0.73  corpus/reports/p19.json units[19]
+- 前の文: ### 実行確認について
+- **対象の文: CI サンドボックスの制約により、今回も `bundle exec rspec` / `bundle exec rubocop` の実行はブロックされ、独立した実行確認はできませんでした（コード読解によるレビューのみ）。**
+- 次の文: PR コメント記載の「ローカルで 328 examples, 0 failures」「RuboCop 指摘なし」はコード上の変更範囲と整合しています。
+
+### 0.71  corpus/reports/p05.json units[29]
+- 前の文: - `cargo check -p hane-ui`: 成功（presentationのAPI変更がUI側に影響しないことを確認）
+- **対象の文: - `cargo test -p hane-ui`: 本サンドボックス環境に `libxcb` / `libxkbcommon` 等のシステムライブラリが無くリンクできず**未実施**（ホスト環境の制約であり、CIのmacOS/Windowsランナーでの確認が必要です）**
+- 次の文: - GUIでの目視確認: 本サンドボックス環境はディスプレイが無くGPUIアプリをリンクできないため**未実施**です。マージ前にローカル環境またはCIでの確認をお願いします。
+
+### 0.70  corpus/reports/p06.json units[10]
+- 前の文: 1 点、`apps/k8up/notify.yaml` の判定ロジックについて要確認のコメントをインラインで付けました。
+- **対象の文: - **`Completed` 条件が付かないまま止まった `Backup` を検知できない可能性**(apps/k8up/notify.yaml:134-141): `verdict()` が `null` を返すケース(＝走ったが `Completed` に到達していない)では、失敗判定にも 25 時間チェックにも引っかからず、その namespace は毎日 `OK` として扱われ続けます。README で「2 が本命」としている「そもそも走ったか」の検知が、*走ったが完了しなかった* ケースで抜ける形になっているため、意図的な割り切りかどうか確認をお願いします。**
+- 次の文: その他、気になった点はありませんでした:
+
+## investigation  明瞭なNo・正解は該当  1件
+
+該当の記述: 未確認や未確定といった表現が使われた場合
+除外の記述: 情報を調べてなお未決事項として保持しなければいけないものや、調べたうえで情報が存在しなかった
+
+### 0.11  corpus/reports/p19.json units[9]
+- 前の文: ### 確認したこと
+- **対象の文: - **グルーピングの正しさ**: `resolved` の各要素の `exercise` は `Exercise.find_exact_match` の呼び出しごとに別オブジェクトになり得ますが、`ActiveRecord::Base` は永続化済みレコードなら `id` ベースで `hash` / `eql?` を実装しているため、同じ行に別インスタンスとして現れても `Hash` のキーとして正しく同一視されます。3 行目のベンチプレスが 1 行目と同じキーにまとまる点は問題ありません。**
+- 次の文: - **順序の保持**: Ruby の `Hash` は挿入順を保持するため「初出の順」でまとまり、`groups` は `concat` で行の登場順のまま連結されます（`ベンチプレス60/5` → `ベンチプレス70/3` の順で `append_sets!` に渡り、採番も 1→2 のまま）。
+- 正解ラベルの根拠: 「別オブジェクトになり得ますが」。別オブジェクトになるかどうかを確かめず、可能性として述べている
+
+## vague-action  明瞭なYes・正解は該当なし  4件
+
+該当の記述: 「適宜対応する」といった曖昧な表現
+
+### 0.89  corpus/reports/p18.json units[22]
+- 前の文: 現状 pnpm catalog 機能は使っていないため実害はありませんが、将来 `pnpm-workspace.yaml` の `catalog:` を使い始めた場合、そこだけの変更ではこの workflow がトリガーされず追随漏れになり得ます。
+- **対象の文: 将来対応で構いません。**
+- 次の文: ### 確認した点（問題なし）
+
+### 0.88  corpus/reports/p12.json units[19]
+- 前の文: 前回指摘した以下2点は今回のコミットでは対応されていません。
+- **対象の文: マージを妨げるものではないため、対応するかは任意です。**
+- 次の文: - **未使用変数**: `rate_limit_display()` の `local left_s="" pace="" tte_s="" warn=""`（185行目）の `warn` は依然どこでも参照されていません（shellcheck SC2034 相当）。
+
+### 0.79  corpus/reports/p24.json units[10]
+- 前の文: - 日付付きの検証ログを削除し、動作条件に統合する整理は妥当です。`jq` 未導入時の挙動は上の `jq` 項目に残っており、情報の欠落はありません。
+- **対象の文: - `host_not_allowed` の記述がなくなりました。ユーザーがエラーから原因を引きやすいよう、必要なら「ネットワークアクセス」項目にエラー名を一言残すのも一案です。任意です。**
+- 次の文: セキュリティ・パフォーマンス面の懸念はありません。
+
+### 0.74  corpus/reports/p21.json units[22]
+- 前の文: 」が3行目に落ちる件）は `tasks.md` 2.6 の検証項目（横スクロールなし・海や太陽に文字が隠れない）には抵触せず、見た目の好みの範囲だと思います。
+- **対象の文: 気になるなら `.headline` の `clamp(40px, 5.2vw, 66px)`（`App.css:60`）の下限をもう少し下げるか `letter-spacing` を狭めると収まりそうですが、直すかどうかは見た目の好み次第で急ぎではなさそうです。**
+- 次の文: その他、セキュリティ（`dangerouslySetInnerHTML` 不使用・同一オリジンのみ通信）、公開ワークフローの権限分離（`contents: read` → `pages: write`/`id-token: write` は deploy ジョブのみ）、URL の契約（末尾スラッシュ・フラグメントの非エンコード）はいずれも仕様どおりでした。
+
+## subject-predicate-mismatch  明瞭なNo・正解は該当  1件
+
+該当の記述: 主語と述語がねじれている文
+
+### 0.29  corpus/reports/p22.json units[10]
+- 前の文: `temperature_test.go:393-417`
+- **対象の文: 引数の順が `(current, prev)` であることが関数名・ドキュメントから読み取れますが、呼び出し側のテストコードで「current > prev なら悪化」という文脈が暗黙に依存しています。**
+- 次の文: `logTemperatureChange(world, gc.ConditionHypothermia, gc.SeverityNone /*current*/, gc.SeverityMinor /*prev*/)` のように、コメントを入れると意図が一目瞭然になります。
+- 正解ラベルの根拠: 「〜という文脈が暗黙に依存しています」。依存しているのはテストコードの側で、主語「文脈が」と述語「依存しています」がねじれている
+
+## redundant-paren  明瞭なNo・正解は該当  1件
+
+該当の記述: 情報量が増えない言い換えや同義語の補足カッコ
+
+### 0.25  corpus/reports/p28.json units[15]
+- 前の文: #### 軽微な問題（優先度順）
+- **対象の文: 1. **`og:image` などが `http://`（非HTTPS）**（lines 17, 23–27）。Squarespace CDN の画像を指しており、SNSシェア時に画像が出ない可能性があります。CDN は契約終了で消えるリスクもあります（既知TODO #4）。**
+- 次の文: 2. **Kit の `ck.5.js` が2回読み込まれている**（line 3220）。同じタグが重複しています。
+- 正解ラベルの根拠: 「`http://`（非HTTPS）」。http:// の言い換えで、情報量が増えない
+
+## stance-ending  明瞭なNo・正解は該当  13件
+
+該当の記述: 文書の中で文末が混ざっているとき（主語のない「〜します」と「〜しましょう」「〜してください」、敬体と常体、決まりの「〜します」と「〜ことが重要です」の結びなど）
+除外の記述: やり方や仕組みを「〜します」で説明し、文書や段落の最後の1文だけを「〜しましょう」で結ぶ形（技術記事によくある形） / 原則や大事な点（「〜が最も大切です」など）を述べてから手順を並べる形
+
+### 0.14  corpus/reports/p30.json units[10]
+- 前の文: - **GitHub Actions 形式**: `::error::` アノテーションを使っているため、Actions の Summary UI に赤字で浮き出て視認性が高い。
+- **対象の文: - **最小変更範囲**: `base_mv_list` / `base_bv_list` の抽出には `|| true` を付けていない点も適切。base 側が取れなくても比較ロジック下流の `-z "$base_mv"` ガード (行 :145/148) で安全にスキップされる。**
+- 次の文: ### 指摘・提案
+- 正解ラベルの根拠: 「適切。」「スキップされる。」。本文は敬体なのに、この項目は常体で結んでいる
+
+### 0.11  corpus/reports/p28.json units[19]
+- 前の文: 4. **`<base href=".">`**（line 7）。サブパスから開くと相対リンクが想定外になる可能性があります。ルート直下の `index.html` なら問題ありません。
+- **対象の文: 5. **Squarespace の JS/CSS が大量に残っている**（ファイルは約214KB）。既知TODO #5・#8（二重読み込みによるコンソールエラーなど）に該当します。**
+- 次の文: 確認方法は静的な読み取りとファイル存在チェックです。
+- 正解ラベルの根拠: 「残っている」と「該当します」。1項目の中で常体と敬体が混ざっている
+
+### 0.10  corpus/reports/p30.json units[9]
+- 前の文: - **コメント付き意図説明** (`scripts/version-bump-check.sh:92-93`): 変更理由をインラインコメントで明示しており、将来の読者にも追いやすい。
+- **対象の文: - **GitHub Actions 形式**: `::error::` アノテーションを使っているため、Actions の Summary UI に赤字で浮き出て視認性が高い。**
+- 次の文: - **最小変更範囲**: `base_mv_list` / `base_bv_list` の抽出には `|| true` を付けていない点も適切。base 側が取れなくても比較ロジック下流の `-z "$base_mv"` ガード (行 :145/148) で安全にスキップされる。
+- 正解ラベルの根拠: 「視認性が高い。」。本文は敬体なのに、この項目は常体で結んでいる
+
+### 0.10  corpus/reports/p30.json units[8]
+- 前の文: ### 良い点
+- **対象の文: - **コメント付き意図説明** (`scripts/version-bump-check.sh:92-93`): 変更理由をインラインコメントで明示しており、将来の読者にも追いやすい。**
+- 次の文: - **GitHub Actions 形式**: `::error::` アノテーションを使っているため、Actions の Summary UI に赤字で浮き出て視認性が高い。
+- 正解ラベルの根拠: 「追いやすい。」。本文は敬体（です・ます）なのに、この項目は常体で結んでいる
+
+### 0.10  corpus/reports/p28.json units[17]
+- 前の文: 2. **Kit の `ck.5.js` が2回読み込まれている**（line 3220）。同じタグが重複しています。
+- **対象の文: 3. **Kit のスライドインフォームが本文末尾に残っている**（lines 3220–3271）。既知TODO #10 のとおり、表示が本文に重なる原因になります。**
+- 次の文: 4. **`<base href=".">`**（line 7）。サブパスから開くと相対リンクが想定外になる可能性があります。ルート直下の `index.html` なら問題ありません。
+- 正解ラベルの根拠: 「残っている」と「原因になります」。1項目の中で常体と敬体が混ざっている
+
+### 0.10  corpus/reports/p28.json units[16]
+- 前の文: 1. **`og:image` などが `http://`（非HTTPS）**（lines 17, 23–27）。Squarespace CDN の画像を指しており、SNSシェア時に画像が出ない可能性があります。CDN は契約終了で消えるリスクもあります（既知TODO #4）。
+- **対象の文: 2. **Kit の `ck.5.js` が2回読み込まれている**（line 3220）。同じタグが重複しています。**
+- 次の文: 3. **Kit のスライドインフォームが本文末尾に残っている**（lines 3220–3271）。既知TODO #10 のとおり、表示が本文に重なる原因になります。
+- 正解ラベルの根拠: 「読み込まれている」と「重複しています」。1項目の中で常体と敬体が混ざっている
+
+### 0.10  corpus/reports/p14.json units[8]
+- 前の文: - `internal/tokenstore`・`internal/xauth` ともに fake clientset / httptest を使ったユニットテストが用意されており、正常系・異常系（Secret 未存在、リフレッシュ失敗、投稿失敗）を一通りカバーしている。
+- **対象の文: - Access Token / Refresh Token / Client Secret がログに出力されておらず、エラーメッセージにも機微情報が含まれていない。**
+- 次の文: - `handler/tweet.go` は失敗時に外部 API のエラー詳細をクライアントに漏らさず、サーバーログにのみ出力している点も適切。
+- 正解ラベルの根拠: 「含まれていない。」。報告のほかの文は敬体で、この項目は常体で終わっており、敬体と常体が混ざっている
+
+### 0.10  corpus/reports/p10.json units[14]
+- 前の文: **修正内容**
+- **対象の文: - `src/components/dialogs/FormationEditorDialog.tsx`: 右カラムの `flex` コンテナに `'& > *': { flexShrink: 0 }` を追加し、カードが自然な高さを保つようにした。これによりコンテナの高さを超えた分は `overflowY: auto` で正しくスクロールできる**
+- 次の文: - `e2e/formation-editor-layout.spec.ts`: モバイル横表示（844×390）で右カラムの `scrollHeight` が `clientHeight` を上回ること（＝スクロール可能な状態になっていること）と、スクロール後に最後の入力欄（「前後」）が表示されることを検証する回帰テストを追加（修正前のコードでは失敗することを確認済み）
+- 正解ラベルの根拠: 「保つようにした。」「スクロールできる」。本文は敬体（〜しました、〜でした）なのに、この項目は常体で結んでいる
+
+### 0.09  corpus/reports/p28.json units[13]
+- 前の文: - 予約リンク `https://toriihealth.intakeq.com/booking`（line 1239）は正常
+- **対象の文: - 古い reCAPTCHA の iframe は残っていない**
+- 次の文: #### 軽微な問題（優先度順）
+- 正解ラベルの根拠: 「残っていない」。本文は敬体なのに、この項目は常体で結んでいる
+
+### 0.09  corpus/reports/p28.json units[11]
+- 前の文: - 参照先のファイルは実在する（`assets/`、`partials/`、`Torii_Health_TopPage_files/` のJS）
+- **対象の文: - canonical は `https://toriihealth.org/` で apex になっている**
+- 次の文: - 予約リンク `https://toriihealth.intakeq.com/booking`（line 1239）は正常
+- 正解ラベルの根拠: 「なっている」。本文は敬体なのに、この項目は常体で結んでいる
+
+### 0.09  corpus/reports/p28.json units[10]
+- 前の文: - `include-partials.js`（line 3271）
+- **対象の文: - 参照先のファイルは実在する（`assets/`、`partials/`、`Torii_Health_TopPage_files/` のJS）**
+- 次の文: - canonical は `https://toriihealth.org/` で apex になっている
+- 正解ラベルの根拠: 「実在する」。本文は敬体なのに、この項目は常体で結んでいる
+
+### 0.09  corpus/reports/p28.json units[4]
+- 前の文: #### 問題なし
+- **対象の文: - `<html>`・`<body>` は各1つで正しく閉じている**
+- 次の文: - 共通パーツの読み込みは CLAUDE.md の規約どおり
+- 正解ラベルの根拠: 「閉じている」。本文は敬体（です・ます）なのに、この項目は常体で結んでいる
+
+### 0.09  corpus/reports/p14.json units[7]
+- 前の文: **良い点**
+- **対象の文: - `internal/tokenstore`・`internal/xauth` ともに fake clientset / httptest を使ったユニットテストが用意されており、正常系・異常系（Secret 未存在、リフレッシュ失敗、投稿失敗）を一通りカバーしている。**
+- 次の文: - Access Token / Refresh Token / Client Secret がログに出力されておらず、エラーメッセージにも機微情報が含まれていない。
+- 正解ラベルの根拠: 「カバーしている。」。報告のほかの文は敬体（「確認しました」「可能性があります」）で、この項目は常体で終わっており、敬体と常体が混ざっている
+
+## announce-only  明瞭なYes・正解は該当なし  1件
+
+該当の記述: 中身を言わずに予告だけを行う文（「ここで重要なポイントがあります」「理由は以下の通りです」等）
+
+### 0.74  corpus/reports/p28.json units[2]
+- 前の文: **結論：サイトの表示や予約導線を壊すような重大なエラーは見つかりませんでした。
+- **対象の文: ** 下記は改善候補です。**
+- 次の文: #### 問題なし
+
+## connective-mismatch  明瞭なNo・正解は該当  1件
+
+該当の記述: 文と文をつなぐ接続詞が前後の論理と合っていなかったり
+
+### 0.24  corpus/reports/p30.json units[19]
+- 前の文: `MARKETING_VERSION` と表記が揃っていて問題ありません。
+- **対象の文: ただ、`MARKETING_VERSION` と `CURRENT_PROJECT_VERSION` が **同時に** 欠落している場合（両方空）に両行出力されるのは仕様通りで正しいです。**
+- 次の文: ### テストカバレッジ
+- 正解ラベルの根拠: 「ただ、」。前の文「問題ありません」に対して留保を予告する接続詞だが、続く内容は「仕様通りで正しいです」という肯定で、前後の論理と合っていない
+
+## surge-failure-metaphor  明瞭なNo・正解は該当  3件
+
+該当の記述: AI普及以後の技術文書で急増した比喩・評価名詞 / `事故` `混ざる` `落とし穴` `破綻` `実害` `素通り`
+除外の記述: 文脈上正当な専門用語や事実の記述
+
+### 0.29  corpus/reports/p01.json units[19]
+- 前の文: #### 軽微な所見(nit、対応不要)
+- **対象の文: - `MY_HOME_SYSTEM/services/system_maintenance_service.py` の `get_deploy_state()` は、再起動後の新プロセスの起動時刻(`_PROCESS_STARTED_AT`)と要求時刻(`restart_requested_at`)を `time.time()` の単純比較で「再起動が完了したか」を判定しています。理論上、同一ミリ秒未満の差では新プロセス側が先に判定ロジックを実行する前に古いプロセスの状態を誤って「中断」と報告する可能性がありますが、systemdによるプロセス入れ替えには実運用上十分な時間差(数百ms以上)があるため、実害はほぼ無いと考えられます。**
+- 次の文: - `tests/test_system_deploy.py` の `TestTrigger` 系テストはバックグラウンドスレッドの完了をポーリング(`for _ in range(100): time.sleep(0.02)`)で待っていますが、既存の `backup_service` 関連テストと同様のパターンであれば問題ありません(未確認)。
+- 正解ラベルの根拠: 「実害はほぼ無いと考えられます」。専門用語でも事実の記述でもなく、影響の評価として「実害」を使っている
+
+### 0.28  corpus/reports/p18.json units[21]
+- 前の文: 3. **`paths:` フィルタに `pnpm-workspace.yaml` が含まれていない**（`dependabot-lockfile.yml:43-46`）
+- **対象の文: 現状 pnpm catalog 機能は使っていないため実害はありませんが、将来 `pnpm-workspace.yaml` の `catalog:` を使い始めた場合、そこだけの変更ではこの workflow がトリガーされず追随漏れになり得ます。**
+- 次の文: 将来対応で構いません。
+- 正解ラベルの根拠: 「実害はありませんが」。「実害」を影響の有無の評価として使っている
+
+### 0.28  corpus/reports/p18.json units[19]
+- 前の文: lockfile 不一致以外の理由（レジストリ障害・タイムアウト等）で失敗した場合も一律 `broken=true` として扱われ、「作り直す」ステップ以降に進みます。
+- **対象の文: 後段の「直った lockfile で `--frozen-lockfile` が通ることを確かめる」ステップで最終的には失敗して落ちるので実害は限定的ですが、`before` ステップの標準エラーも Job Summary に残すと、原因切り分け（lockfile 不一致 vs インフラ障害）がしやすくなります。**
+- 次の文: 3. **`paths:` フィルタに `pnpm-workspace.yaml` が含まれていない**（`dependabot-lockfile.yml:43-46`）
+- 正解ラベルの根拠: 「実害は限定的ですが」。「実害」を影響の大きさの評価として使っている
+
+## surge-verification-metaphor  明瞭なNo・正解は該当  1件
+
+該当の記述: AI普及以後の技術文書で急増した比喩・評価名詞 / `実測` `疑う` `照合` `突き合わせる` `断定` `取り違える`
+除外の記述: 文脈上正当な専門用語や事実の記述
+
+### 0.18  corpus/reports/p18.json units[28]
+- 前の文: - `.github/dependabot.yml` のブランチ命名 (`dependabot/...`) と `startsWith(github.head_ref, 'dependabot/')` の整合を確認
+- **対象の文: - `CLAUDE.md` の追記は実装内容・実測結果と齟齬なし**
+- 次の文: ### 補足
+- 正解ラベルの根拠: 「実測結果と齟齬なし」。PR で行われたのは手動再現で、計測ではないものを「実測」と呼んでいる

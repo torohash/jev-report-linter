@@ -1,0 +1,106 @@
+{
+ "id": "p38",
+ "labels": [
+  {
+   "unit": 0,
+   "rules": []
+  },
+  {
+   "unit": 1,
+   "rules": []
+  },
+  {
+   "unit": 2,
+   "rules": []
+  },
+  {
+   "unit": 3,
+   "rules": []
+  },
+  {
+   "unit": 4,
+   "rules": []
+  },
+  {
+   "unit": 5,
+   "rules": []
+  },
+  {
+   "unit": 6,
+   "rules": [
+    "negative-parallelism"
+   ],
+   "reasons": {
+    "negative-parallelism": "「単なるリファクタリングではなく、設計の見直しです」。見出しで自らリファクタリングと呼んでおり、誤解の訂正ではない。否定を外して「設計の見直しです」としても主張が変わらない"
+   }
+  },
+  {
+   "unit": 7,
+   "rules": []
+  },
+  {
+   "unit": 8,
+   "rules": []
+  },
+  {
+   "unit": 9,
+   "rules": []
+  },
+  {
+   "unit": 10,
+   "rules": [
+    "pseudo-texture"
+   ],
+   "reasons": {
+    "pseudo-texture": "「実装の手触りを確かめながら」。列挙語「手触り」。文字どおりの意味ではなく、何を確かめたのかを示していない"
+   }
+  },
+  {
+   "unit": 11,
+   "rules": []
+  },
+  {
+   "unit": 12,
+   "rules": []
+  },
+  {
+   "unit": 13,
+   "rules": []
+  },
+  {
+   "unit": 14,
+   "rules": []
+  },
+  {
+   "unit": 15,
+   "rules": []
+  },
+  {
+   "unit": 16,
+   "rules": []
+  },
+  {
+   "unit": 17,
+   "rules": [
+    "closing-proposal"
+   ],
+   "reasons": {
+    "closing-proposal": "報告の最後の段落で、「社会全体のソフトウェア品質を底上げする取り組みとして、未来の世代のためにも広げていくべきです」と、社会と未来への提言をしている"
+   }
+  }
+ ],
+ "targets": {
+  "p3": {
+   "rules": [],
+   "reasons": {}
+  },
+  "p5": {
+   "rules": [],
+   "reasons": {}
+  },
+  "doc": {
+   "rules": [],
+   "reasons": {}
+  }
+ }
+}

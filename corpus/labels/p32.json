@@ -1,0 +1,98 @@
+{
+ "id": "p32",
+ "labels": [
+  {
+   "unit": 0,
+   "rules": []
+  },
+  {
+   "unit": 1,
+   "rules": []
+  },
+  {
+   "unit": 2,
+   "rules": []
+  },
+  {
+   "unit": 3,
+   "rules": []
+  },
+  {
+   "unit": 4,
+   "rules": []
+  },
+  {
+   "unit": 5,
+   "rules": []
+  },
+  {
+   "unit": 6,
+   "rules": []
+  },
+  {
+   "unit": 7,
+   "rules": []
+  },
+  {
+   "unit": 8,
+   "rules": [
+    "pseudo-evaluation"
+   ],
+   "reasons": {
+    "pseudo-evaluation": "「本質的なアプローチで」。該当の記述の例と同じ語句。何が本質的かの中身がなく、「本質」が文の主題や論点にもなっていない"
+   }
+  },
+  {
+   "unit": 9,
+   "rules": []
+  },
+  {
+   "unit": 10,
+   "rules": []
+  },
+  {
+   "unit": 11,
+   "rules": []
+  },
+  {
+   "unit": 12,
+   "rules": [
+    "personification"
+   ],
+   "reasons": {
+    "personification": "「古いコードが設計者の迷いを物語っています」。コードが「物語る」と述べ、例の「コードが語る」と同じ形。コードの働きを客観的に述べた文ではない"
+   }
+  },
+  {
+   "unit": 13,
+   "rules": []
+  },
+  {
+   "unit": 14,
+   "rules": [
+    "honorific-cushion"
+   ],
+   "reasons": {
+    "honorific-cushion": "「皆さま、お忙しいところ大変恐縮ではございますが、もしお手すきの際にでも…幸いでございます」。呼びかけ語と敬語クッションを重ねている"
+   }
+  },
+  {
+   "unit": 15,
+   "rules": []
+  }
+ ],
+ "targets": {
+  "p2": {
+   "rules": [],
+   "reasons": {}
+  },
+  "p8": {
+   "rules": [],
+   "reasons": {}
+  },
+  "doc": {
+   "rules": [],
+   "reasons": {}
+  }
+ }
+}

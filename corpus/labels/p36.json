@@ -1,0 +1,109 @@
+{
+ "id": "p36",
+ "labels": [
+  {
+   "unit": 0,
+   "rules": []
+  },
+  {
+   "unit": 1,
+   "rules": [
+    "meta-declaration",
+    "empty-opening"
+   ],
+   "reasons": {
+    "meta-declaration": "「対応にあたっては、多角的な視点から慎重に検討を重ねました」。該当の記述の例「検討にあたっては多角的な視点を考慮し…」と同じ形の前置きで、何を検討したかを述べていない",
+    "empty-opening": "報告の最初の文で、「多角的な視点から慎重に検討を重ねました」と述べるだけで中身がない。冒頭の空疎な前置きに当たる"
+   }
+  },
+  {
+   "unit": 2,
+   "rules": []
+  },
+  {
+   "unit": 3,
+   "rules": []
+  },
+  {
+   "unit": 4,
+   "rules": []
+  },
+  {
+   "unit": 5,
+   "rules": []
+  },
+  {
+   "unit": 6,
+   "rules": []
+  },
+  {
+   "unit": 7,
+   "rules": [
+    "emphasis-comma",
+    "announce-only",
+    "preface-filler"
+   ],
+   "reasons": {
+    "emphasis-comma": "「前提を、先に書きます」。該当の記述の例「前提を、〜」そのままの文頭の強調読点",
+    "announce-only": "「前提を、先に書きます」。前提の中身を言わず、これから書くという予告だけをしている",
+    "preface-filler": "「前提を、先に書きます」。次の文の前に置いた前置きだけの文で、評価を担っていない"
+   }
+  },
+  {
+   "unit": 8,
+   "rules": []
+  },
+  {
+   "unit": 9,
+   "rules": [
+    "stiff-kango"
+   ],
+   "reasons": {
+    "stiff-kango": "「異常終了が発生し」「実行可否の判定が困難となる事象が発生した」「品質の担保を目的に修正を実施」。例に挙がる「発生」（2回）「担保」を含み、漢語が連続して硬くなっている"
+   }
+  },
+  {
+   "unit": 10,
+   "rules": []
+  },
+  {
+   "unit": 11,
+   "rules": []
+  },
+  {
+   "unit": 12,
+   "rules": []
+  },
+  {
+   "unit": 13,
+   "rules": [
+    "emphasis-comma"
+   ],
+   "reasons": {
+    "emphasis-comma": "「ここでは、`test` ジョブには…」。該当の記述の例「ここでは、〜」そのままの文頭の強調読点"
+   }
+  },
+  {
+   "unit": 14,
+   "rules": []
+  },
+  {
+   "unit": 15,
+   "rules": []
+  }
+ ],
+ "targets": {
+  "p4": {
+   "rules": [],
+   "reasons": {}
+  },
+  "p8": {
+   "rules": [],
+   "reasons": {}
+  },
+  "doc": {
+   "rules": [],
+   "reasons": {}
+  }
+ }
+}

@@ -1,0 +1,26 @@
+{
+ "id": "p31",
+ "source": "自作（Issue #6）。30件に該当がなかったルールの該当例を置くために書いた。実在の報告ではない",
+ "text": "### 実装完了\n\n近年、外部 API の不安定さはますます大きな課題になっています。\n\n- [x] Issue の内容を確認\n- [x] `src/api/client.ts` の現状を調査\n- [x] リトライ処理を実装\n- [x] テストを追加\n- [x] コミットとプッシュ\n\n### 変更内容\n\n今回の変更の主役は `RetryPolicy` です。`src/api/client.ts` の `request()` が 5xx を受け取ったとき、最大3回まで再送します。待ち時間は 200ms、400ms、800ms と倍に伸ばします。\n\n- `src/api/retry.ts`: `RetryPolicy` を新規追加\n- `src/api/client.ts:42-58`: `request()` から `RetryPolicy` を呼ぶよう変更\n- `test/api/retry.test.ts`: 再送回数と待ち時間のテストを4件追加\n\n### 補足\n\n4xx は再送しません。なお、README の「セットアップ」にあった誤字を1か所直しています。依存パッケージの `axios` は 1.7 系のままで、来月にサポートが切れます。\n\n`npm test` は 128 件すべて成功しました。",
+ "units": [
+  "### 実装完了",
+  "近年、外部 API の不安定さはますます大きな課題になっています。",
+  "- [x] Issue の内容を確認",
+  "- [x] `src/api/client.ts` の現状を調査",
+  "- [x] リトライ処理を実装",
+  "- [x] テストを追加",
+  "- [x] コミットとプッシュ",
+  "### 変更内容",
+  "今回の変更の主役は `RetryPolicy` です。",
+  "`src/api/client.ts` の `request()` が 5xx を受け取ったとき、最大3回まで再送します。",
+  "待ち時間は 200ms、400ms、800ms と倍に伸ばします。",
+  "- `src/api/retry.ts`: `RetryPolicy` を新規追加",
+  "- `src/api/client.ts:42-58`: `request()` から `RetryPolicy` を呼ぶよう変更",
+  "- `test/api/retry.test.ts`: 再送回数と待ち時間のテストを4件追加",
+  "### 補足",
+  "4xx は再送しません。",
+  "なお、README の「セットアップ」にあった誤字を1か所直しています。",
+  "依存パッケージの `axios` は 1.7 系のままで、来月にサポートが切れます。",
+  "`npm test` は 128 件すべて成功しました。"
+ ]
+}

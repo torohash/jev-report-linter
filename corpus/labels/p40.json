@@ -1,0 +1,116 @@
+{
+ "id": "p40",
+ "labels": [
+  {
+   "unit": 0,
+   "rules": []
+  },
+  {
+   "unit": 1,
+   "rules": []
+  },
+  {
+   "unit": 2,
+   "rules": []
+  },
+  {
+   "unit": 3,
+   "rules": []
+  },
+  {
+   "unit": 4,
+   "rules": []
+  },
+  {
+   "unit": 5,
+   "rules": []
+  },
+  {
+   "unit": 6,
+   "rules": []
+  },
+  {
+   "unit": 7,
+   "rules": []
+  },
+  {
+   "unit": 8,
+   "rules": []
+  },
+  {
+   "unit": 9,
+   "rules": []
+  },
+  {
+   "unit": 10,
+   "rules": [
+    "negative-parallelism"
+   ],
+   "reasons": {
+    "negative-parallelism": "「単なるバージョン更新ではなく、ビルド基盤の更新です」。直前までバージョンを上げる変更として報告しており、誤解の訂正ではない。否定を外して「ビルド基盤の更新です」としても主張が変わらない"
+   }
+  },
+  {
+   "unit": 11,
+   "rules": [
+    "surge-role-metaphor",
+    "reading-effect-push"
+   ],
+   "reasons": {
+    "surge-role-metaphor": "「この核心を押さえておけば」。列挙語「核心」。専門用語でも事実の記述でもない",
+    "reading-effect-push": "「この核心を押さえておけば、チームの開発体験は劇的に良くなります」。該当の記述の例「これらを理解すれば…飛躍的に向上します」と同じ形で、理解した効果を押し付けている"
+   }
+  },
+  {
+   "unit": 12,
+   "rules": []
+  },
+  {
+   "unit": 13,
+   "rules": []
+  },
+  {
+   "unit": 14,
+   "rules": []
+  },
+  {
+   "unit": 15,
+   "rules": []
+  },
+  {
+   "unit": 16,
+   "rules": []
+  },
+  {
+   "unit": 17,
+   "rules": [
+    "honorific-cushion"
+   ],
+   "reasons": {
+    "honorific-cushion": "「お手数をおかけして誠に恐れ入りますが、何卒ご確認のほどよろしくお願い申し上げます」。形式的な敬語のクッションを重ねている"
+   }
+  }
+ ],
+ "targets": {
+  "p2": {
+   "rules": [],
+   "reasons": {}
+  },
+  "p5": {
+   "rules": [],
+   "reasons": {}
+  },
+  "p7": {
+   "rules": [
+    "paragraph-topic"
+   ],
+   "reasons": {
+    "paragraph-topic": "Node 18 のサポート終了と `.nvmrc` の話に、「ところで」以降の `docs/architecture.md` の図、`renovate.json` のスケジュールという無関係な話題が1つの段落に混ざっている"
+   }
+  },
+  "doc": {
+   "rules": [],
+   "reasons": {}
+  }
+ }
+}
