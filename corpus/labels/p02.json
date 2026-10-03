@@ -3,14 +3,14 @@
   "labels": [
     {"unit": 0, "rules": []},
     {"unit": 1, "rules": []},
-    {"unit": 2, "rules": ["long-sentence"], "note": "「実装されており、〜見当たらない」で約80文字の複文"},
-    {"unit": 3, "rules": ["long-sentence"], "note": "「呼び出せば、〜しまうため、〜となる」で約69文字"},
+    {"unit": 2, "rules": []},
+    {"unit": 3, "rules": []},
     {"unit": 4, "rules": []},
-    {"unit": 5, "rules": ["halfwidth-space"], "note": "「reservation 配下」に半角空白"},
-    {"unit": 6, "rules": ["long-sentence", "halfwidth-space"], "note": "「とあるが、〜のみで、〜存在しない」で200文字前後。「grep で」に半角空白"},
-    {"unit": 7, "rules": ["unconfirmed"], "note": "推量の「未実装のまま残っている可能性が高い」"},
+    {"unit": 5, "rules": []},
+    {"unit": 6, "rules": []},
+    {"unit": 7, "rules": ["unconfirmed"]},
     {"unit": 8, "rules": []},
     {"unit": 9, "rules": []},
-    {"unit": 10, "rules": ["stock-closing"], "note": "「以上でレビューは完了。」は内容のない定型の結び"}
+    {"unit": 10, "rules": []}
   ]
 }

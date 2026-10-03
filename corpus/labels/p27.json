@@ -5,8 +5,8 @@
     {"unit": 1, "rules": []},
     {"unit": 2, "rules": []},
     {"unit": 3, "rules": []},
-    {"unit": 4, "rules": ["long-sentence", "too-many-commas"], "note": "コマンドを含め100文字超で「テストは〜で、…失敗です」と節をつないだ文。読点3個（で、/選択、/成功、）"},
-    {"unit": 5, "rules": ["halfwidth-space", "unconfirmed"], "note": "「実際の CLI で」の半角空白。「この環境では確かめていません」"},
-    {"unit": 6, "rules": ["halfwidth-space"], "note": "「PR 本文」の半角空白"}
+    {"unit": 4, "rules": []},
+    {"unit": 5, "rules": ["unconfirmed"]},
+    {"unit": 6, "rules": []}
   ]
 }

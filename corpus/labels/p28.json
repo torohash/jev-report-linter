@@ -1,27 +1,27 @@
 {
   "id": "p28",
   "labels": [
-    {"unit": 0, "rules": ["halfwidth-space"], "note": "「index.html チェック結果」の半角空白"},
-    {"unit": 1, "rules": ["metaphor-verb"], "note": "「サイトの表示や予約導線を壊す」"},
+    {"unit": 0, "rules": []},
+    {"unit": 1, "rules": ["metaphor-verb"]},
     {"unit": 2, "rules": []},
     {"unit": 3, "rules": []},
     {"unit": 4, "rules": []},
-    {"unit": 5, "rules": ["halfwidth-space"], "note": "「読み込みは CLAUDE.md の」の半角空白"},
+    {"unit": 5, "rules": []},
     {"unit": 6, "rules": []},
     {"unit": 7, "rules": []},
     {"unit": 8, "rules": []},
     {"unit": 9, "rules": []},
     {"unit": 10, "rules": []},
-    {"unit": 11, "rules": ["halfwidth-space"], "note": "「canonical は」「で apex に」の半角空白"},
+    {"unit": 11, "rules": []},
     {"unit": 12, "rules": []},
-    {"unit": 13, "rules": ["halfwidth-space"], "note": "「古い reCAPTCHA の iframe は」の半角空白"},
+    {"unit": 13, "rules": []},
     {"unit": 14, "rules": []},
-    {"unit": 15, "rules": ["redundant-paren", "halfwidth-space", "unconfirmed"], "note": "「`http://`（非HTTPS）」は同義の補足。「Squarespace CDN の」「CDN は」の半角空白。「画像が出ない可能性があります」は推量"},
-    {"unit": 16, "rules": ["halfwidth-space", "mixed-ending"], "note": "「Kit の」の半角空白。です・ます体の中で1文目が「読み込まれている（line 3220）。」と常体"},
-    {"unit": 17, "rules": ["halfwidth-space", "mixed-ending"], "note": "「Kit のスライドイン」の半角空白。1文目が「残っている（lines 3220–3271）。」と常体"},
-    {"unit": 18, "rules": ["unconfirmed"], "note": "「想定外になる可能性があります」は推量"},
-    {"unit": 19, "rules": ["halfwidth-space", "mixed-ending"], "note": "「Squarespace の JS/CSS が」の半角空白。1文目が「残っている（ファイルは約214KB）。」と常体"},
+    {"unit": 15, "rules": ["redundant-paren", "unconfirmed"]},
+    {"unit": 16, "rules": []},
+    {"unit": 17, "rules": []},
+    {"unit": 18, "rules": ["unconfirmed"]},
+    {"unit": 19, "rules": []},
     {"unit": 20, "rules": []},
-    {"unit": 21, "rules": ["unconfirmed"], "note": "「表示確認…やコンソールエラーの確認は行っていません」"}
+    {"unit": 21, "rules": ["unconfirmed"]}
   ]
 }

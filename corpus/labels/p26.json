@@ -1,8 +1,8 @@
 {
   "id": "p26",
   "labels": [
-    {"unit": 0, "rules": ["halfwidth-space"], "note": "「node ジョブ」の半角空白"},
-    {"unit": 1, "rules": ["halfwidth-space"], "note": "「CI の状態」の半角空白"},
+    {"unit": 0, "rules": []},
+    {"unit": 1, "rules": []},
     {"unit": 2, "rules": []},
     {"unit": 3, "rules": []},
     {"unit": 4, "rules": []},
@@ -10,14 +10,14 @@
     {"unit": 6, "rules": []},
     {"unit": 7, "rules": []},
     {"unit": 8, "rules": []},
-    {"unit": 9, "rules": ["long-sentence", "halfwidth-space"], "note": "約68文字で「成功しており、…だけです」の複文。「のは lint だけ」の半角空白"},
+    {"unit": 9, "rules": []},
     {"unit": 10, "rules": []},
-    {"unit": 11, "rules": ["halfwidth-space"], "note": "「直せば lint は」の半角空白"},
+    {"unit": 11, "rules": []},
     {"unit": 12, "rules": []},
-    {"unit": 13, "rules": ["long-sentence", "halfwidth-space"], "note": "2文目「`s` は `string` 型で、〜例外になります。」が約74文字の複文。「lint のエラー」の半角空白"},
-    {"unit": 14, "rules": ["unconfirmed", "investigated-unresolved"], "note": "「ログからは確認できていません」。ログを調べたうえで分からなかったことの記述でもある"},
+    {"unit": 13, "rules": []},
+    {"unit": 14, "rules": ["unconfirmed", "investigated-unresolved"]},
     {"unit": 15, "rules": []},
-    {"unit": 16, "rules": ["halfwidth-space"], "note": "「コミットも push も」の半角空白"},
-    {"unit": 17, "rules": ["halfwidth-space"], "note": "「この PR は」「push 後に」の半角空白"}
+    {"unit": 16, "rules": []},
+    {"unit": 17, "rules": []}
   ]
 }

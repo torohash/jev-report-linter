@@ -2,18 +2,18 @@
   "id": "p09",
   "labels": [
     {"unit": 0, "rules": []},
-    {"unit": 1, "rules": ["halfwidth-space", "investigated-unresolved"], "note": "「この PR は」。コードを取得しようとして取得できなかったことを述べる"},
-    {"unit": 2, "rules": ["halfwidth-space", "investigated-unresolved"], "note": "「この PR で」。作業ブランチを調べたうえで追加ファイルが存在しなかった"},
-    {"unit": 3, "rules": ["unconfirmed", "investigated-unresolved"], "note": "「権限がなく実行できませんでした」"},
-    {"unit": 4, "rules": ["halfwidth-space", "list-for-reasoning", "unconfirmed", "investigated-unresolved"], "note": "「RCWA の」「API 整合性」「inline comment も」。前2項目を受けた「そのため、〜」という論理展開の項目。「確認はしていません」。コードを取得できず確認不能のまま残る"},
+    {"unit": 1, "rules": ["investigated-unresolved"]},
+    {"unit": 2, "rules": ["investigated-unresolved"]},
+    {"unit": 3, "rules": ["unconfirmed", "investigated-unresolved"]},
+    {"unit": 4, "rules": ["list-for-reasoning", "unconfirmed", "investigated-unresolved"]},
     {"unit": 5, "rules": []},
-    {"unit": 6, "rules": ["halfwidth-space", "unclear-svo"], "note": "「PR 本文」。何が「読み取れる範囲」なのか主語がない"},
-    {"unit": 7, "rules": ["unconfirmed"], "note": "「コードは見ていません」と未確認を明示"},
-    {"unit": 8, "rules": ["halfwidth-space"], "note": "「75be27c0 で」"},
-    {"unit": 9, "rules": ["halfwidth-space"], "note": "「75be27c0 で」"},
-    {"unit": 10, "rules": ["halfwidth-space", "sentence-end-repetition"], "note": "「75be27c0 で」。直前2文と同じ「記載されています」"},
-    {"unit": 11, "rules": ["sentence-end-repetition"], "note": "直前2文「記載されています」に続き「判断されています」"},
-    {"unit": 12, "rules": ["long-sentence"], "note": "「集約し、〜使っていることです（…）」で60文字超"},
-    {"unit": 13, "rules": ["long-sentence"], "note": "「必要な場合は、〜対象にして〜呼び直してください」で60文字超"}
+    {"unit": 6, "rules": ["unclear-svo"]},
+    {"unit": 7, "rules": ["unconfirmed"]},
+    {"unit": 8, "rules": []},
+    {"unit": 9, "rules": []},
+    {"unit": 10, "rules": []},
+    {"unit": 11, "rules": []},
+    {"unit": 12, "rules": []},
+    {"unit": 13, "rules": []}
   ]
 }

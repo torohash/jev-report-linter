@@ -9,14 +9,14 @@
     {"unit": 5, "rules": []},
     {"unit": 6, "rules": []},
     {"unit": 7, "rules": []},
-    {"unit": 8, "rules": ["halfwidth-space"], "note": "「slang の再生成」"},
+    {"unit": 8, "rules": []},
     {"unit": 9, "rules": []},
-    {"unit": 10, "rules": ["long-sentence", "halfwidth-space", "list-for-reasoning"], "note": "2文目「到達すると〜出て、〜送られます」が約63文字の複文。「Crashlytics にも」。「このため、〜」「〜なら対応は不要」と論理展開を箇条書きで記述"},
-    {"unit": 11, "rules": ["halfwidth-space"], "note": "「新しい UI（」"},
+    {"unit": 10, "rules": ["list-for-reasoning"]},
+    {"unit": 11, "rules": []},
     {"unit": 12, "rules": []},
-    {"unit": 13, "rules": ["long-sentence", "halfwidth-space"], "note": "2文とも60文字超の複文（まとめたことで、/チェックもあり、）。「OK 押下時」"},
-    {"unit": 14, "rules": ["long-sentence", "halfwidth-space"], "note": "1文目「無効になり、〜解除します」が60文字超。「が false のとき」"},
-    {"unit": 15, "rules": ["sentence-end-repetition"], "note": "直前の「解除します」「更新されています」に続き「削除されています」「生成されています」"},
+    {"unit": 13, "rules": []},
+    {"unit": 14, "rules": []},
+    {"unit": 15, "rules": []},
     {"unit": 16, "rules": []}
   ]
 }
