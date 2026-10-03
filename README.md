@@ -22,6 +22,52 @@ Claude code および Pi Coding Agentのターミナル上で表示されるユ�
 
 調査は未確認や未確定といった表現が使われた場合とし、確定状態に持っていけるように調査させる。情報を調べてなお未決事項として保持しなければいけないものや、調べたうえで情報が存在しなかった。というケースの場合は正常扱いとする。
 
+## アーキテクチャ
+
+ルールの定義と判定の流れは、[jev-lint](https://github.com/mizchi/jev-lint) の構成に準じる。
+
+### 判定の流れ
+
+1. 報告を判定の単位に分ける。単位は文（sentence）、箇条書きの1項目（list-item）、見出し（heading）、段落（paragraph）。コードブロック、表、引用は対象外。
+2. 静的ルール（`detector: static`）を掛ける。正規表現や文字数で決まるものは、Jevを呼ばずに決める。
+3. Jevルール（`detector: jev`）は、`subject` と `match` で対象を絞り、絞った対象だけをJevに聞く。対象を絞るのはローカルの処理で、意味の判断だけをJevに任せる。
+4. Jevの返す確率が、そのルールの `threshold` 以上なら該当とする。
+5. 該当したルールの `category`（削除・修正・調査）と `instruction` から、エージェントに返す差し戻しの指示を作る。`category: 正常` のルールに該当した文は、調査を取り消す。
+
+### ルールの定義
+
+1ルール1ディレクトリで、`rules/<id>/rule.yml` に書く。
+
+| 項目 | 内容 |
+|---|---|
+| `category` | 削除、修正、調査、正常 |
+| `source` | ルールの出典 |
+| `detector` | `static` か `jev` |
+| `subject` | 判定の単位 |
+| `match` | 対象の絞り込み。正規表現（`regex`）、位置（`position`）、数える検査（`check`）、先行ルール（`after`） |
+| `state` | Jevに渡す文脈。`bare` は対象だけ、`located` は報告全文と位置。答えが見える最小限を選ぶ |
+| `ask` | 欠陥がある状態を言い切った一文 |
+| `criteria` | Yes（`true`）とNo（`false`）の意味 |
+| `note` | 境界例の扱い |
+| `threshold` | 該当とみなす確率の下限。ルールごとに実測から当てはめる |
+| `instruction` | 差し戻し時にエージェントへ返す指示 |
+
+`rules/<id>/baseline.json` には、しきい値を当てはめたときの実測値を残す。
+
+### しきい値の当てはめ
+
+`corpus/` に、GitHub上の公開Issue/PRから集めた実際の完了報告（`corpus/reports/`、出典URLつき）と、LLMが全文を読んで付けた正解ラベル（`corpus/labels/`、基準は `corpus/LABELING.md`）を置く。
+
+- 該当と非該当の値が分かれるルールは、その隙間の中点をしきい値にする。
+- 分かれないルールは、精度0.7以上・再現率0.5以上を満たす点があればそこに置き、なければ `threshold: null` として無効にする。無効のルールは、しきい値ではなく `ask` を書き直す。
+- 該当例がコーパスにないルールは、非該当の最大値より上に仮のしきい値を置く。
+
+### 実装
+
+本体と判定のテストはRustで書く。`scripts/` のPythonは、収集（`collect.py`）と当てはめ（`eval.py`）のための一時的な道具である。
+
 ## 謝辞
 
 採用しているルールは、[yomiyasu](https://github.com/nanaism/yomiyasu) を最大限参考にしています。
+
+ルールの定義とアーキテクチャは、[jev-lint](https://github.com/mizchi/jev-lint) の構成に準じています。

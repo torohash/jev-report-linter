@@ -1,0 +1,10 @@
+id: post-label
+category: 修正
+source: yomiyasu/references/slop-catalog.md 6章「後置ラベリング」
+detector: static
+subject:
+- sentence
+- list-item
+match:
+  regex: というわけです|に他なりません|と言えるでしょう|面白いのはここ
+instruction: 文末を客観的な事実記述で閉じる。元の文が推量の場合は、断定に上げず推量の強さを保つ。

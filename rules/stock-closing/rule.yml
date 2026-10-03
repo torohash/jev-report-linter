@@ -1,0 +1,10 @@
+id: stock-closing
+category: 削除
+source: yomiyasu/references/slop-catalog.md 6章「定型クロージング」、references/domains/essay.md 3章、scripts/yomiyasu_lint.py FILLER_PATTERNS
+detector: static
+subject:
+- sentence
+- list-item
+match:
+  regex: いかがでした|ぜひ(参考|試し|活用)(に)?して(みて)?ください|参考になれば幸い|してみてはいかがでしょうか
+instruction: 形式的な呼びかけを削り、本文の自然な結びで終わる。

@@ -1,0 +1,14 @@
+id: unclear-svo
+category: 修正
+source: yomiyasu/SKILL.md「主語と目的語の明確化」、references/gemini-syntax.md 原則1
+detector: jev
+subject:
+- sentence
+state: located
+kind: noul
+threshold: null  # 分離不可（無効）
+ask: Even read in its place in the report, this sentence does not say what was done to what.
+criteria:
+  'true': The object or target of the action is missing and cannot be recovered from the sentences around it.
+  'false': The sentence names its object, or the omitted subject or object is the one any reader would supply from the preceding sentence. An omitted "I" in a first-person report is normal Japanese.
+instruction: 元の文や前後から分かる範囲で、動作主と対象を置く。省かれた語を補うのは、前後の文にその語があるときだけにする。分からない語は作らない。

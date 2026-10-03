@@ -1,0 +1,15 @@
+id: wrapper-phrase
+category: 修正
+source: yomiyasu/references/gemini-syntax.md 原則6、知見3
+detector: jev
+subject:
+- sentence
+- list-item
+state: bare
+kind: noul
+threshold: 0.62  # 該当例なし（仮）
+ask: This sentence is wrapped in generic framing or a boilerplate disclaimer.
+criteria:
+  'true': The sentence opens with empty framing ("一般に", "現代社会において") or adds a generic hedge ("もちろん〜とは限りませんが") that is not about this work.
+  'false': Any qualification in the sentence is a specific condition or limit of this work.
+instruction: 無意味な包装や免責を削り、事実のみを残す。

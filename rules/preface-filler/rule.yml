@@ -1,0 +1,17 @@
+id: preface-filler
+category: 修正
+source: yomiyasu/references/slop-catalog.md 6章「前置フィラー」、SKILL.md「セルフラベリングと否定対比の整理」、references/gemini-syntax.md 原則5
+detector: jev
+subject:
+- sentence
+- list-item
+match:
+  regex: 重要なのは|大事なのは|結論から言うと|正直に言うと|避けたいのは|注目すべきは
+state: bare
+kind: noul
+threshold: 0.6  # 該当例なし（仮）
+ask: The matched preface can be deleted without changing what the sentence claims.
+criteria:
+  'true': The preface (結論から言うと, 正直に言うと, 重要なのは and the like) only announces the sentence; the claim is the same without it.
+  'false': The preface carries the evaluation itself, saying which of several things matters most, so deleting it would drop that judgment.
+instruction: 単なる前置きは削り、要点の主文から書き始める。

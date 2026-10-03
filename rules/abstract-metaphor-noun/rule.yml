@@ -1,0 +1,17 @@
+id: abstract-metaphor-noun
+category: 修正
+source: yomiyasu/scripts/yomiyasu_lint.py SLOP_WORDS「抽象比喩名詞」
+detector: jev
+subject:
+- sentence
+- list-item
+match:
+  regex: 営み|装置|羅針盤|起爆剤|触媒
+state: bare
+kind: noul
+threshold: 0.6  # 該当例なし（仮）
+ask: The matched noun is used as an abstract metaphor.
+criteria:
+  'true': The noun (営み, 装置, 羅針盤, 起爆剤, 触媒) figuratively describes something that is not literally that thing.
+  'false': The noun is literal or carries context the sentence needs, such as an actual device.
+instruction: 文脈上必要のない比喩であれば、ふだん使う自然な表現に置き換える。

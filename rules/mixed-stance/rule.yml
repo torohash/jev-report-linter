@@ -1,0 +1,17 @@
+id: mixed-stance
+category: 修正
+source: yomiyasu/SKILL.md「文書の立場と文末」、references/gemini-syntax.md 原則2
+detector: jev
+subject:
+- sentence
+- list-item
+match:
+  regex: しましょう|ましょう。|ことが重要です|ことが大切です
+state: located
+kind: noul
+threshold: 0.6  # 該当例なし（仮）
+ask: The ending of this sentence takes a different stance from the rest of the report.
+criteria:
+  'true': The report explains what was done or found, and this sentence instead urges the reader in general terms or states a value judgment as its ending ("〜しましょう", "〜ことが重要です").
+  'false': The ending fits the report's stance, or it is a single closing recommendation after an explanation.
+instruction: 文書全体の立場を1つ決め、立場に合わない文末だけを直す。主語は足さない。強さを上げない。

@@ -1,0 +1,17 @@
+id: connective-mismatch
+category: 修正
+source: yomiyasu/SKILL.md「段落と文の論理構造」1、references/gemini-syntax.md 原則13
+detector: jev
+subject:
+- sentence
+- list-item
+match:
+  regex: ^(ただし|ただ|しかし|また|そして|つまり|そのため|なお|一方)[、,]
+state: located
+kind: noul
+threshold: 0.34  # 隙間の中点
+ask: The connective at the start of this sentence does not match the logical relation to the sentence before it.
+criteria:
+  'true': The connective signals a relation that is not there, for example an adversative (ただし, しかし) before a sentence that simply continues or follows from the previous one.
+  'false': 'The connective names the actual relation: contrast, addition, consequence, restatement, or a side note.'
+instruction: 接続の根拠が前後から明確に分かる場合は、適切な接続表現に直す。分からない場合は無理に直さない。

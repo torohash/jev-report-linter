@@ -1,0 +1,18 @@
+id: redundant-paren
+category: 修正
+source: yomiyasu/SKILL.md「装飾記号と不要な空白の排除」、references/gemini-syntax.md 原則10
+detector: jev
+subject:
+- sentence
+- list-item
+- heading
+match:
+  regex: '[（(][^）)]+[）)]'
+state: bare
+kind: noul
+threshold: 0.37  # 分離不可（F1最大）
+ask: A parenthetical in this sentence only rephrases the word before it and adds no information.
+criteria:
+  'true': The parenthetical is a synonym or a restatement of the preceding term, such as "キャッシュ（一時保存）" or "不自然な日本語（いわゆるAI臭さ）".
+  'false': 'The parenthetical adds something new: a file path, a line number, a value, a condition, an example, a source, or a qualification.'
+instruction: 意味の重複する注釈カッコを削る。必要な情報は地の文に組み込む。

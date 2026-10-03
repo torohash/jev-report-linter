@@ -1,0 +1,17 @@
+id: direct-translation
+category: 修正
+source: yomiyasu/references/slop-catalog.md 2章
+detector: jev
+subject:
+- sentence
+- list-item
+match:
+  regex: 静かに|黙って|した瞬間|正本|を指してい|示唆|耐力|構造を支え|分け入|深掘り
+state: bare
+kind: noul
+threshold: 0.36  # 隙間の中点
+ask: The matched phrase is a literal translation of an English idiom that reads unnaturally in Japanese.
+criteria:
+  'true': The phrase mirrors an English expression such as "silently fail / silently ignored", "the moment ...", "single source of truth", "points to / suggests", "load-bearing", or "delve into".
+  'false': The phrase is used in its ordinary Japanese sense, for example an actual moment in time or something that is physically quiet.
+instruction: 直訳調の言い回しを自然な日本語にする。「静かに」「黙って」は「気づかないうちに」「知らないうちに」のように、気づけない幅のまま直す。

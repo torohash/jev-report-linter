@@ -1,0 +1,38 @@
+{
+ "fitted_on": "corpus/ 30 reports, single pass",
+ "asked": 245,
+ "positives": 3,
+ "missed_by_matcher": 0,
+ "positive_scores": [
+  0.21,
+  0.51,
+  0.6
+ ],
+ "clean_max": 0.65,
+ "threshold": null,
+ "fit": "分離不可（無効）",
+ "caught": 0,
+ "false_positives": 0,
+ "top_clean": [
+  {
+   "score": 0.65,
+   "text": "** 下記は改善候補です。"
+  },
+  {
+   "score": 0.58,
+   "text": "この基準でリポジトリ内の対象ファイルを全件洗い出したところ："
+  },
+  {
+   "score": 0.49,
+   "text": "**Todo**"
+  },
+  {
+   "score": 0.48,
+   "text": "念のため共有します。"
+  },
+  {
+   "score": 0.47,
+   "text": "Q (Simplicity):"
+  }
+ ]
+}

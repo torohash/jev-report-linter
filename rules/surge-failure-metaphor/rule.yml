@@ -1,0 +1,17 @@
+id: surge-failure-metaphor
+category: 修正
+source: yomiyasu/references/slop-catalog.md 3章「障害・失敗の比喩」、SKILL.md Step 3
+detector: jev
+subject:
+- sentence
+- list-item
+match:
+  regex: 事故|混ざ|落とし穴|破綻|実害|素通り
+state: bare
+kind: noul
+threshold: 0.28  # 分離不可（F1最大）
+ask: The matched word is used as a metaphor for a failure or a problem.
+criteria:
+  'true': The word (事故, 混ざる, 落とし穴, 破綻, 実害, 素通り) stands in figuratively for a mistake, a risk, or something going wrong.
+  'false': The word is a legitimate technical term or a plain statement of fact, such as two things literally being mixed together or an actual accident.
+instruction: ふだん使う平易な言葉に開く。事故→思いがけない失敗・トラブル、混ざる→入り込む、落とし穴→見落としやすい点、破綻→うまくいかなくなる、実害→実際の困りごと、素通り→気づかず通る。

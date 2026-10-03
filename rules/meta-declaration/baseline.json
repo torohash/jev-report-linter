@@ -1,0 +1,34 @@
+{
+ "fitted_on": "corpus/ 30 reports, single pass",
+ "asked": 245,
+ "positives": 0,
+ "missed_by_matcher": 0,
+ "positive_scores": [],
+ "clean_max": 0.76,
+ "threshold": 0.86,
+ "fit": "該当例なし（仮）",
+ "caught": 0,
+ "false_positives": 0,
+ "top_clean": [
+  {
+   "score": 0.76,
+   "text": "将来対応で構いません。"
+  },
+  {
+   "score": 0.7,
+   "text": "IMO (Style):"
+  },
+  {
+   "score": 0.64,
+   "text": "ただし、次の点だけ補足します。"
+  },
+  {
+   "score": 0.61,
+   "text": "Q (Simplicity):"
+  },
+  {
+   "score": 0.61,
+   "text": "**Non-blocking**"
+  }
+ ]
+}

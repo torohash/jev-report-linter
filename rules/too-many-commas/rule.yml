@@ -1,0 +1,12 @@
+id: too-many-commas
+category: 修正
+source: yomiyasu/SKILL.md「文長と読点の調整」、references/gemini-syntax.md 原則7
+detector: static
+subject:
+- sentence
+- list-item
+match:
+  check: char-count
+  char: 、
+  min: 3
+instruction: 1文あたりの読点を0〜2個に抑える。

@@ -1,0 +1,18 @@
+{
+ "fitted_on": "corpus/ 30 reports, single pass",
+ "asked": 1,
+ "positives": 0,
+ "missed_by_matcher": 0,
+ "positive_scores": [],
+ "clean_max": 0.27,
+ "threshold": 0.6,
+ "fit": "該当例なし（仮）",
+ "caught": 0,
+ "false_positives": 0,
+ "top_clean": [
+  {
+   "score": 0.27,
+   "text": "- **Option 2（`markdown_to_html` 入口で NUL → U+FFFD に一括置換）を推奨**します。CommonMark 仕様の \"insecure characters\" 規定にも合致し、一箇所の置換で `re"
+  }
+ ]
+}

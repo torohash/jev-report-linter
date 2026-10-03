@@ -1,0 +1,38 @@
+{
+ "fitted_on": "corpus/ 30 reports, single pass",
+ "asked": 11,
+ "positives": 7,
+ "missed_by_matcher": 0,
+ "positive_scores": [
+  0.64,
+  0.68,
+  0.77,
+  0.79,
+  0.8,
+  0.82,
+  0.85
+ ],
+ "clean_max": 0.73,
+ "threshold": 0.64,
+ "fit": "分離不可（F1最大）",
+ "caught": 7,
+ "false_positives": 1,
+ "top_clean": [
+  {
+   "score": 0.73,
+   "text": "2. **「壊れているかどうかを先に記録する」ステップ**（`dependabot-lockfile.yml:103-114`）で `pnpm install --frozen-lockfile --lockfile-only >/dev/"
+  },
+  {
+   "score": 0.19,
+   "text": "`Store.Save` は `Get` → `Update` で楽観的ロック（ResourceVersion）が効くため Secret の破損は防げますが、競合時のリトライis無いため、ユーザー影響（ツイート投稿失敗）は残ります。"
+  },
+  {
+   "score": 0.12,
+   "text": "2. 「関連 Issue のクローズ（PR マージ時）」の見出しを「関連 Issue のクローズ（main へのリリース時）」に変更し、本文をコミットメッセージのクローズキーワードが**既定ブランチ（main）に入った時点**で効く（dev"
+  },
+  {
+   "score": 0.08,
+   "text": "- 同じ行の `==` は `===` にそろえるのが望ましいです。ここで `eqeqeq` ルールが有効かどうかはログからは確認できていません。"
+  }
+ ]
+}

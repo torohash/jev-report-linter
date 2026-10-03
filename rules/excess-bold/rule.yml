@@ -1,0 +1,10 @@
+id: excess-bold
+category: 修正
+source: yomiyasu/references/domains/tech.md 1章、scripts/yomiyasu_lint.py excess_bold
+detector: static
+subject:
+- paragraph
+match:
+  check: bold-count
+  min: 2
+instruction: 太字は重要な要点だけに絞り、段落内に複数置かない。

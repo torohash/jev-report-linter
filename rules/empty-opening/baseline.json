@@ -1,0 +1,34 @@
+{
+ "fitted_on": "corpus/ 30 reports, single pass",
+ "asked": 30,
+ "positives": 0,
+ "missed_by_matcher": 0,
+ "positive_scores": [],
+ "clean_max": 0.27,
+ "threshold": 0.6,
+ "fit": "該当例なし（仮）",
+ "caught": 0,
+ "false_positives": 0,
+ "top_clean": [
+  {
+   "score": 0.27,
+   "text": "**タスク一覧**"
+  },
+  {
+   "score": 0.14,
+   "text": "**frontend/src/features/schedule/components/ScheduleItem.tsx:102-105, 121**"
+  },
+  {
+   "score": 0.13,
+   "text": "**Todo**"
+  },
+  {
+   "score": 0.12,
+   "text": "**Todo**"
+  },
+  {
+   "score": 0.11,
+   "text": "確認ありがとうございます。"
+  }
+ ]
+}

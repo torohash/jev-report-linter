@@ -1,0 +1,12 @@
+id: long-sentence
+category: 修正
+source: yomiyasu/SKILL.md「文長と読点の調整」、references/gemini-syntax.md 原則7
+detector: static
+subject:
+- sentence
+- list-item
+match:
+  check: length
+  min: 61
+  also_regex: (が|ので|ため|て|で|と|れば|たら|なら|り|し)、
+instruction: 前後のつながりを後ろの文のつなぎ言葉（そのため、こうすることで、一方で、反対に）で残せるときだけ分ける。目的や理由が文末の結論にかかっている文は分けない。

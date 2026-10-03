@@ -1,0 +1,36 @@
+{
+ "fitted_on": "corpus/ 30 reports, single pass",
+ "asked": 522,
+ "positives": 1,
+ "missed_by_matcher": 0,
+ "positive_scores": [
+  0.45
+ ],
+ "clean_max": 0.85,
+ "threshold": null,
+ "fit": "分離不可（無効）",
+ "caught": 0,
+ "false_positives": 0,
+ "top_clean": [
+  {
+   "score": 0.85,
+   "text": "将来対応で構いません。"
+  },
+  {
+   "score": 0.83,
+   "text": "**修正内容**"
+  },
+  {
+   "score": 0.76,
+   "text": "`packages/core/src/ep8-probe.ts` を次のように直せば lint は通ります。"
+  },
+  {
+   "score": 0.75,
+   "text": "**Todo**"
+  },
+  {
+   "score": 0.7,
+   "text": "マージを妨げるものではないため、対応するかは任意です。"
+  }
+ ]
+}

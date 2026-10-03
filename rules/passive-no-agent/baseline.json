@@ -1,0 +1,34 @@
+{
+ "fitted_on": "corpus/ 30 reports, single pass",
+ "asked": 78,
+ "positives": 0,
+ "missed_by_matcher": 0,
+ "positive_scores": [],
+ "clean_max": 0.8,
+ "threshold": 0.9,
+ "fit": "該当例なし（仮）",
+ "caught": 0,
+ "false_positives": 0,
+ "top_clean": [
+  {
+   "score": 0.8,
+   "text": "- `StructureView` の `useMemo` は、プロジェクトの方針として対応しないと判断されています。妥当です。"
+  },
+  {
+   "score": 0.63,
+   "text": "- 削除済みの材料を × で外したときに層名が戻らない問題も、75be27c0 で対応済みと記載されています。"
+  },
+  {
+   "score": 0.5,
+   "text": "- `reload` の公開と並び順の統一も、75be27c0 で対応済みと記載されています。"
+  },
+  {
+   "score": 0.45,
+   "text": "- `room_home_page.dart`は宣言通り未変更（`state.error`の生文字列がまだ残っていますが、追従PRでの対応とスコープ外にしている旨が明記されています）。"
+  },
+  {
+   "score": 0.41,
+   "text": "なお CLAUDE.md では PR は `dev` 向けとされているため、作成時に base を `dev` に変更してください。"
+  }
+ ]
+}

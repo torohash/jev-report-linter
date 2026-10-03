@@ -1,0 +1,15 @@
+id: moralizing
+category: 修正
+source: yomiyasu/references/domains/essay.md 1章、2章
+detector: jev
+subject:
+- sentence
+- list-item
+state: bare
+kind: noul
+threshold: 0.66  # 該当例なし（仮）
+ask: This sentence turns a small finding or a single event into a sweeping lesson or generalisation.
+criteria:
+  'true': The sentence draws a universal moral or a broad general rule from one specific piece of work.
+  'false': The sentence stays with the specific work, or states a recommendation that applies to this change.
+instruction: 無理な教訓や一般論を外し、元の文にある素朴な内容を平易な言葉で表す。

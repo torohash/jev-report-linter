@@ -1,0 +1,15 @@
+id: stiff-kango
+category: 修正
+source: yomiyasu/SKILL.md「比喩動詞の具体化」、references/gemini-syntax.md 原則7、references/domains/tech.md 2章・3章
+detector: jev
+subject:
+- sentence
+- list-item
+state: bare
+kind: noul
+threshold: null  # 分離不可（無効）
+ask: This sentence uses needlessly stiff Sino-Japanese words where everyday words would do.
+criteria:
+  'true': The sentence leans on stiff two-character kango such as 発生, 担保, 抵触, 乖離, or chains several kango together, where plain verbs would say the same thing.
+  'false': The kango in the sentence are the normal terms for what is described, and no simpler everyday wording is being avoided.
+instruction: 難解な漢語の連続を、和語や動詞へ適度に開く。

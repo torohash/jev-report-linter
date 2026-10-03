@@ -1,120 +1,214 @@
 #!/usr/bin/env python3
-"""scripts/problems（実際の報告）と scripts/answers（正解ラベル）で、ルールごとの判定精度を測る。
+"""corpus/ の報告と正解ラベルで、Jevルール（rules/*/rule.yml の detector: jev）を測る。
 
-正解ラベルはLLMが報告を読んで付けたもので、このスクリプトは正解を作らない。
-
-Jevには1文につき1リクエストを送る。state には報告全文と、対象の文の位置（前後の文、冒頭か末尾か）
-を入れ、文章全体の構造の中で対象の文を判定できるようにする。
+- 対象の絞り込み（subject と match）はこのスクリプトが決め、絞った対象だけをJevに聞く。
+- state は rule.yml の state に従う。bare は対象の文だけ、located は報告全文と位置を渡す。
+- 正解ラベルはLLMが付けたもので、このスクリプトは正解を作らない。
 
 使い方:
-  python3 scripts/eval.py            全問を実行して集計を出す
-  python3 scripts/eval.py --dump     文ごとの判定値も出す
+  python3 scripts/eval.py           測って集計を出す
+  python3 scripts/eval.py --fit     集計に加え、しきい値を rule.yml に書き、実測を baseline.json に残す
 """
 import json
+import re
 import sys
 from concurrent.futures import ThreadPoolExecutor
 
-from jev_check import PRICE_PER_MTOK, ROOT, ask, load_rules
+import yaml
 
-THRESHOLDS = (0.5, 0.6, 0.7, 0.8)
-PREFIX = (
-    "報告の全文は `report` にある。対象の文は `target_sentence` で、"
-    "報告の中での位置は `position`、直前の文は `previous_sentences`、直後の文は `next_sentence` にある。"
-)
+from jev_check import PRICE_PER_MTOK, ROOT, ask
+
+TASK = "Judge only the text identified below, and only for the statement given -- other problems with it are not your concern here."
 
 
-def build_state(problem, i):
+def load_rules():
+    rules = [yaml.safe_load(p.read_text()) for p in sorted((ROOT / "rules").glob("*/rule.yml"))]
+    return [r for r in rules if r["detector"] == "jev"]
+
+
+def unit_kind(unit: str) -> str:
+    if unit.startswith("#"):
+        return "heading"
+    if re.match(r"^([-*+]|\d+\.)\s", unit):
+        return "list-item"
+    return "sentence"
+
+
+def paragraph_ids(problem):
+    """各 unit が何番目の段落にあるかを返す。空行と見出しで段落を区切る。"""
+    ids, para, pos = [], 0, 0
     units = problem["units"]
+    for block in re.split(r"\n\s*\n", problem["text"]):
+        para += 1
+        while pos < len(units) and units[pos] in block and len(ids) == pos:
+            ids.append(para)
+            block = block.split(units[pos], 1)[1]
+            pos += 1
+    ids += [para] * (len(units) - len(ids))
+    return ids
+
+
+def matched(rule, problem, i, paras, kinds):
+    """対象なら、モデルに渡す一致箇所（なければ空文字）を返す。対象外なら None。"""
+    if kinds[i] not in rule["subject"]:
+        return None
+    m = rule.get("match") or {}
+    if "regex" in m:
+        hit = re.search(m["regex"], problem["units"][i])
+        return hit.group(0) if hit else None
+    if m.get("position") == "first":
+        first = next((k for k, kind in enumerate(kinds) if kind == "sentence"), None)
+        return "" if i == first else None
+    if m.get("position") == "last-paragraph":
+        return "" if paras[i] == paras[-1] else None
+    return ""
+
+
+def build_state(rule, problem, i):
+    units = problem["units"]
+    if rule["state"] == "bare":
+        return {"text": units[i]}
     return {
         "report": problem["text"],
-        "position": {
-            "index": i + 1,
-            "total": len(units),
-            "is_first_sentence": i == 0,
-            "is_last_sentence": i == len(units) - 1,
-        },
+        "position": {"index": i + 1, "total": len(units), "is_first": i == 0, "is_last": i == len(units) - 1},
         "previous_sentences": units[max(0, i - 2):i],
-        "target_sentence": units[i],
+        "text": units[i],
         "next_sentence": units[i + 1] if i + 1 < len(units) else None,
     }
 
 
-def judge(problem, i, rules):
-    questions = {r["id"]: {"type": "noul", "instructions": PREFIX + r["question"]} for r in rules}
-    status, sec, data = ask(build_state(problem, i), questions)
-    if status != 200:
-        raise SystemExit(f"{problem['id']}[{i}] status={status} {data}")
-    return sec, data["usage"]["input_tokens"], {k: v["noul"] for k, v in data["answers"].items()}
+def build_question(rule, hit):
+    instructions = {"task": TASK, "statement": rule["ask"], "text_to_judge": "`text`"}
+    if rule.get("note"):
+        instructions["also"] = rule["note"]
+    if hit:
+        instructions["matched"] = hit
+    return {"type": "noul", "instructions": instructions, "criteria": {"true": rule["criteria"]["true"], "false": rule["criteria"]["false"]}}
 
 
-def load_jobs(rule_ids):
-    jobs = []
-    for path in sorted((ROOT / "scripts" / "problems").glob("*.json")):
-        problem = json.loads(path.read_text())
-        answer_path = ROOT / "scripts" / "answers" / path.name
-        if not answer_path.exists():
-            print(f"{problem['id']}: 正解がないので飛ばす", file=sys.stderr)
-            continue
-        labels = {x["unit"]: x["rules"] for x in json.loads(answer_path.read_text())["labels"]}
-        if sorted(labels) != list(range(len(problem["units"]))):
-            raise SystemExit(f"{problem['id']}: 正解の unit が問題の units と対応していません")
-        unknown = {r for rs in labels.values() for r in rs} - set(rule_ids)
-        if unknown:
-            raise SystemExit(f"{problem['id']}: 未定義のルール: {unknown}")
-        for i in range(len(problem["units"])):
-            jobs.append({"problem": problem, "i": i, "expected": set(labels[i])})
-    return jobs
+def run(requests):
+    def one(req):
+        status, sec, data = ask(req["state"], req["questions"])
+        if status != 200:
+            raise SystemExit(f"status={status} {data}")
+        return sec, data["usage"]["input_tokens"], {k: v["noul"] for k, v in data["answers"].items()}
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        return list(pool.map(one, requests))
 
 
 def main():
-    dump = "--dump" in sys.argv
+    fit = "--fit" in sys.argv
     rules = load_rules()
-    rule_ids = [r["id"] for r in rules]
-    jobs = load_jobs(rule_ids)
+    by_id = {r["id"]: r for r in rules}
+    problems = []
+    for path in sorted((ROOT / "corpus" / "reports").glob("*.json")):
+        problem = json.loads(path.read_text())
+        labels = json.loads((ROOT / "corpus" / "labels" / path.name).read_text())["labels"]
+        problem["expected"] = [set(x["rules"]) for x in labels]
+        problems.append(problem)
 
-    with ThreadPoolExecutor(max_workers=8) as pool:
-        results = list(pool.map(lambda j: judge(j["problem"], j["i"], rules), jobs))
+    # 1巡目: after を持たないルール。対象ごと・state ごとに1リクエスト。
+    scores, missed, requests, keys = {}, {r["id"]: 0 for r in rules}, [], []
+    for p in problems:
+        kinds = [unit_kind(u) for u in p["units"]]
+        paras = paragraph_ids(p)
+        p["kinds"], p["paras"] = kinds, paras
+        for i in range(len(p["units"])):
+            for arm in ("bare", "located"):
+                qs = {}
+                for r in rules:
+                    if r["state"] != arm or (r.get("match") or {}).get("after"):
+                        continue
+                    hit = matched(r, p, i, paras, kinds)
+                    if hit is None:
+                        missed[r["id"]] += r["id"] in p["expected"][i]
+                        continue
+                    qs[r["id"]] = build_question(r, hit)
+                if qs:
+                    rule0 = next(r for r in rules if r["state"] == arm)
+                    requests.append({"state": build_state(rule0, p, i), "questions": qs})
+                    keys.append((p["id"], i))
+    results = run(requests)
+    for key, (_, _, nouls) in zip(keys, results):
+        for rid, v in nouls.items():
+            scores[(key[0], key[1], rid)] = v
 
-    secs = sorted(r[0] for r in results)
-    tokens = sum(r[1] for r in results)
-    problems = len({j["problem"]["id"] for j in jobs})
-    print(f"問題数={problems} 文数={len(jobs)} ルール数={len(rules)} 判定数={len(jobs) * len(rules)}")
-    print(f"応答時間 中央値={secs[len(secs) // 2]:.2f}s 最大={secs[-1]:.2f}s  入力トークン合計={tokens} 費用=${tokens / 1e6 * PRICE_PER_MTOK:.4f}")
+    # 2巡目: after のルールは、先行ルールが0.5以上を返した対象にだけ聞く。
+    requests2, keys2 = [], []
+    for r in rules:
+        dep = (r.get("match") or {}).get("after")
+        if not dep:
+            continue
+        for p in problems:
+            for i in range(len(p["units"])):
+                if scores.get((p["id"], i, dep), 0) >= 0.5 and p["kinds"][i] in r["subject"]:
+                    requests2.append({"state": build_state(r, p, i), "questions": {r["id"]: build_question(r, "")}})
+                    keys2.append((p["id"], i))
+                else:
+                    missed[r["id"]] += r["id"] in p["expected"][i]
+    results2 = run(requests2)
+    for key, (_, _, nouls) in zip(keys2, results2):
+        for rid, v in nouls.items():
+            scores[(key[0], key[1], rid)] = v
 
-    if dump:
-        for j, (_, _, nouls) in zip(jobs, results):
-            hits = sorted(((v, k) for k, v in nouls.items() if v >= 0.5 or k in j["expected"]), reverse=True)
-            marks = [f"{k}={v:.2f}{'*' if k in j['expected'] else ''}" for v, k in hits]
-            print(f"[{j['problem']['id']}:{j['i']}] {j['problem']['units'][j['i']][:80]}\n    {', '.join(marks) or '-'}")
-        print("（* は正解で該当とされたルール）")
-
+    all_results = results + results2
+    secs = sorted(x[0] for x in all_results)
+    tokens = sum(x[1] for x in all_results)
+    units = sum(len(p["units"]) for p in problems)
+    print(f"報告={len(problems)} 単位={units} Jevルール={len(rules)} リクエスト={len(all_results)} 判定={len(scores)}")
+    print(f"応答時間 中央値={secs[len(secs) // 2]:.2f}s 最大={secs[-1]:.2f}s  入力トークン={tokens} 費用=${tokens / 1e6 * PRICE_PER_MTOK:.4f} 報告1件あたり=${tokens / 1e6 * PRICE_PER_MTOK / len(problems):.5f}")
     print()
-    print(f"{'rule':30s} {'該当':>4s} {'非該当':>5s}  該当の値(最小-中央-最大)  非該当の最大  " + "  ".join(f"@{t} 拾/誤" for t in THRESHOLDS))
-    totals = {t: [0, 0, 0, 0] for t in THRESHOLDS}
-    for rid in rule_ids:
-        pos = sorted(r[2][rid] for j, r in zip(jobs, results) if rid in j["expected"])
-        neg = [r[2][rid] for j, r in zip(jobs, results) if rid not in j["expected"]]
-        cells = []
-        for t in THRESHOLDS:
-            tp = sum(p >= t for p in pos)
-            fp = sum(n >= t for n in neg)
-            totals[t][0] += tp
-            totals[t][1] += len(pos)
-            totals[t][2] += fp
-            totals[t][3] += len(neg)
-            cells.append(f"{tp}/{len(pos)} {fp:3d}")
-        pos_range = f"{pos[0]:.2f}-{pos[len(pos) // 2]:.2f}-{pos[-1]:.2f}" if pos else "-"
-        print(f"{rid:30s} {len(pos):4d} {len(neg):5d}  {pos_range:>22s}  {max(neg):10.2f}  " + "  ".join(f"{c:>9s}" for c in cells))
-    print()
-    for t in THRESHOLDS:
-        tp, p, fp, n = totals[t]
-        print(f"しきい値{t}: 該当を拾えた {tp}/{p}  誤検出 {fp}/{n}")
-
-    out = ROOT / "scripts" / "out"
-    out.mkdir(exist_ok=True)
-    (out / "eval.json").write_text(json.dumps(
-        [{"problem": j["problem"]["id"], "unit": j["i"], "text": j["problem"]["units"][j["i"]], "expected": sorted(j["expected"]), "nouls": r[2]} for j, r in zip(jobs, results)],
-        ensure_ascii=False, indent=1))
+    print(f"{'rule':28s} {'聞いた':>5s} {'該当':>4s} {'絞込漏れ':>6s}  {'該当の値':>16s} {'非該当の最大':>8s}  {'しきい値':>6s}  拾えた  誤検出")
+    text_of = {(p["id"], i): p["units"][i] for p in problems for i in range(len(p["units"]))}
+    expected = {(p["id"], i): p["expected"][i] for p in problems for i in range(len(p["units"]))}
+    total_tp = total_pos = total_fp = 0
+    for r in rules:
+        rid = r["id"]
+        asked = [(k, v) for k, v in scores.items() if k[2] == rid]
+        pos = sorted(v for k, v in asked if rid in expected[(k[0], k[1])])
+        neg = sorted((v for k, v in asked if rid not in expected[(k[0], k[1])]), reverse=True)
+        neg_max = neg[0] if neg else 0.0
+        separable = bool(pos) and pos[0] > neg_max
+        if separable:
+            threshold, how = round((pos[0] + neg_max) / 2, 2), "隙間の中点"
+        elif pos:
+            # 分かれないときはF1が最大になる点を探し、精度か再現率が足りなければ無効にする
+            def f1(t):
+                tp, fp = sum(p >= t for p in pos), sum(n >= t for n in neg)
+                return 2 * tp / (2 * tp + fp + (len(pos) - tp))
+            best = max(sorted(set(pos)), key=f1)
+            tp, fp = sum(p >= best for p in pos), sum(n >= best for n in neg)
+            if tp / (tp + fp) >= 0.7 and tp / len(pos) >= 0.5:
+                threshold, how = best, "分離不可（F1最大）"
+            else:
+                threshold, how = None, "分離不可（無効）"
+        else:
+            # 該当例がないので、問題なしの最大値より上に仮に置く
+            threshold, how = round(max(0.6, neg_max + 0.1), 2), "該当例なし（仮）"
+        tp = sum(p >= threshold for p in pos) if threshold is not None else 0
+        fp = sum(n >= threshold for n in neg) if threshold is not None else 0
+        total_tp += tp
+        total_pos += len(pos) + missed[rid]
+        total_fp += fp
+        pos_range = f"{pos[0]:.2f}-{pos[-1]:.2f}" if pos else "-"
+        th = f"{threshold:.2f}" if threshold is not None else "-"
+        print(f"{rid:28s} {len(asked):5d} {len(pos):4d} {missed[rid]:6d}  {pos_range:>16s} {neg_max:10.2f}  {th:>6s}  {tp}/{len(pos) + missed[rid]:<4d}  {fp:3d}  {how}")
+        if fit:
+            top_neg = sorted(((v, text_of[(k[0], k[1])][:120]) for k, v in asked if rid not in expected[(k[0], k[1])]), reverse=True)[:5]
+            base = {
+                "fitted_on": "corpus/ 30 reports, single pass",
+                "asked": len(asked), "positives": len(pos), "missed_by_matcher": missed[rid],
+                "positive_scores": pos, "clean_max": neg_max, "threshold": threshold, "fit": how,
+                "caught": tp, "false_positives": fp,
+                "top_clean": [{"score": v, "text": t} for v, t in top_neg],
+            }
+            d = ROOT / "rules" / rid
+            (d / "baseline.json").write_text(json.dumps(base, ensure_ascii=False, indent=1) + "\n")
+            yml = (d / "rule.yml").read_text()
+            yml = re.sub(r"^threshold: .*$", f"threshold: {threshold if threshold is not None else 'null'}  # {how}", yml, flags=re.M)
+            (d / "rule.yml").write_text(yml)
+    print(f"\n合計: 該当を拾えた {total_tp}/{total_pos}  誤検出 {total_fp}")
 
 
 if __name__ == "__main__":

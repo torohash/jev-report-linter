@@ -1,0 +1,17 @@
+id: empty-opening
+category: 削除
+source: yomiyasu/references/domains/tech.md 3章
+detector: jev
+subject:
+- sentence
+match:
+  position: first
+state: located
+kind: noul
+threshold: 0.6  # 該当例なし（仮）
+ask: The report opens with an empty preamble instead of the problem, the result, or a precondition.
+criteria:
+  'true': The first sentence only sets a generic scene (a trend, how important or complex a field is) or warms up, and removing it loses no information about the work.
+  'false': The first sentence states a result, a cause, what was changed, a precondition, or an answer to the request.
+note: Only the opening sentence is judged. An acknowledgement or a statement of what was done is not an empty preamble.
+instruction: 冒頭の空疎な前置きを削り、解決すべき課題や前提条件から書き始める。

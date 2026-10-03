@@ -1,0 +1,17 @@
+id: pseudo-texture
+category: 修正
+source: yomiyasu/references/slop-catalog.md 5章「質感を装う語」
+detector: jev
+subject:
+- sentence
+- list-item
+match:
+  regex: 手触り|肌感|体温|温度感|熱量|血の通った|泥臭
+state: bare
+kind: noul
+threshold: 0.6  # 該当例なし（仮）
+ask: The matched word fakes a tactile feel instead of stating a fact.
+criteria:
+  'true': The word (手触り, 肌感, 温度感, 熱量, 血の通った, 泥臭い) stands in for a concrete observation that the sentence does not give.
+  'false': The word is literal, such as an actual temperature.
+instruction: 元の文や前後から分かる範囲で客観的な事実を書く。情報が足りない場合は作り話を足さず、同じ幅のふだんの言葉で書く。

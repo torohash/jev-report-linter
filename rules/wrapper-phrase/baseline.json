@@ -1,0 +1,34 @@
+{
+ "fitted_on": "corpus/ 30 reports, single pass",
+ "asked": 522,
+ "positives": 0,
+ "missed_by_matcher": 0,
+ "positive_scores": [],
+ "clean_max": 0.52,
+ "threshold": 0.62,
+ "fit": "該当例なし（仮）",
+ "caught": 0,
+ "false_positives": 0,
+ "top_clean": [
+  {
+   "score": 0.52,
+   "text": "念のため共有します。"
+  },
+  {
+   "score": 0.52,
+   "text": "FYI (Document):"
+  },
+  {
+   "score": 0.5,
+   "text": "FYI (Test):"
+  },
+  {
+   "score": 0.47,
+   "text": "以下は参考所見です(ブロッカーではありません)。"
+  },
+  {
+   "score": 0.35,
+   "text": "以下は Q / FYI のみです。"
+  }
+ ]
+}

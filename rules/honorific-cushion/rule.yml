@@ -1,0 +1,15 @@
+id: honorific-cushion
+category: 修正
+source: yomiyasu/references/gemini-syntax.md 知見4
+detector: jev
+subject:
+- sentence
+- list-item
+state: bare
+kind: noul
+threshold: 0.34  # 隙間の中点
+ask: This sentence piles on formal politeness cushions.
+criteria:
+  'true': The request or statement is padded with stacked humble or apologetic phrases ("お手数をおかけして誠に恐縮ではございますが", "させていただきます").
+  'false': The sentence uses ordinary polite form (です・ます, 〜してください, お願いします).
+instruction: 過剰な呼びかけ語や敬語のクッションを外す。

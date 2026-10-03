@@ -1,0 +1,16 @@
+id: closing-proposal
+category: 削除
+source: yomiyasu/references/domains/essay.md 3章
+detector: jev
+subject:
+- sentence
+match:
+  position: last-paragraph
+state: located
+kind: noul
+threshold: 0.6  # 該当例なし（仮）
+ask: This closing sentence forces a proposal about society or the future onto the end of the report.
+criteria:
+  'true': The sentence leaves the work that was reported and makes a general appeal about society, the industry, or the future.
+  'false': The sentence is about the reported work itself, such as a remaining task, a next step, or a request to the reader.
+instruction: 最後の段落に無理に置いた社会や未来への提言を削り、自然に閉じる。

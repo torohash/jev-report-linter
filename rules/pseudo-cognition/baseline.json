@@ -1,0 +1,15 @@
+{
+ "fitted_on": "corpus/ 30 reports, single pass",
+ "asked": 1,
+ "positives": 1,
+ "missed_by_matcher": 0,
+ "positive_scores": [
+  0.44
+ ],
+ "clean_max": 0.0,
+ "threshold": 0.22,
+ "fit": "隙間の中点",
+ "caught": 1,
+ "false_positives": 0,
+ "top_clean": []
+}

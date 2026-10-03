@@ -1,0 +1,14 @@
+id: mixed-topic
+category: 修正
+source: yomiyasu/SKILL.md「段落と文の論理構造」3、references/gemini-syntax.md 原則13
+detector: jev
+subject:
+- sentence
+state: located
+kind: noul
+threshold: null  # 分離不可（無効）
+ask: This sentence is about a different topic from the sentences immediately before it in the same paragraph.
+criteria:
+  'true': The preceding sentences in the paragraph discuss one matter and this sentence switches to an unrelated one without a paragraph break.
+  'false': The sentence continues, details, qualifies, or concludes the same matter, or it starts a paragraph.
+instruction: 文の順序を変えずに、段落を分ける。

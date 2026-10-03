@@ -1,0 +1,14 @@
+id: meta-declaration
+category: 修正
+source: yomiyasu/references/domains/business.md 2章「メタ宣言の削除」
+detector: jev
+subject:
+- sentence
+state: bare
+kind: noul
+threshold: 0.86  # 該当例なし（仮）
+ask: This sentence only declares the attitude or approach the writer took, and reports no finding.
+criteria:
+  'true': The sentence says how carefully or from what angles the writer considered things ("検討にあたっては多角的な視点を考慮し") without stating a result.
+  'false': The sentence states what was done, found, or decided, or names the concrete items that were checked.
+instruction: 前置きを削り、結論や要請事項から書き始める。

@@ -1,0 +1,34 @@
+{
+ "fitted_on": "corpus/ 30 reports, single pass",
+ "asked": 522,
+ "positives": 0,
+ "missed_by_matcher": 0,
+ "positive_scores": [],
+ "clean_max": 0.59,
+ "threshold": 0.69,
+ "fit": "該当例なし（仮）",
+ "caught": 0,
+ "false_positives": 0,
+ "top_clean": [
+  {
+   "score": 0.59,
+   "text": "上記 2〜3 点（特にタイムアウト）を取り込んでいただけると、より堅牢な CLI になります。"
+  },
+  {
+   "score": 0.46,
+   "text": "- Option 2 を選ぶ場合でも、`docs/antipatterns.md` にこの具体的な教訓（「stdlib `html.escape` は NUL を無害化しない」）を1行追記しておくと、今後同種のバグの再発防止に役立ちます。"
+  },
+  {
+   "score": 0.45,
+   "text": "`logTemperatureChange(world, gc.ConditionHypothermia, gc.SeverityNone /*current*/, gc.SeverityMinor /*prev*/)` のように、コメント"
+  },
+  {
+   "score": 0.4,
+   "text": "実装するなら、コードフェンス側の同種の漏れも一緒に塞げる Option 2 を推奨します。"
+  },
+  {
+   "score": 0.4,
+   "text": "- 将来 `Object` のアラインメントが変わっても、バッファ側が追従します。"
+  }
+ ]
+}

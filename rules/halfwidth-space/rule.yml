@@ -1,0 +1,15 @@
+id: halfwidth-space
+category: 修正
+source: yomiyasu/SKILL.md「装飾記号と不要な空白の排除」、references/gemini-syntax.md 原則11、scripts/yomiyasu_lint.py unnatural_halfwidth_space
+detector: static
+subject:
+- sentence
+- list-item
+- heading
+match:
+  regex: '[ぁ-んァ-ヶ一-龥] +[A-Za-z][A-Za-z0-9_.-]*|[A-Za-z][A-Za-z0-9_.-]* +[ぁ-んァ-ヶ一-龥]'
+strip:
+- inline-code
+- links
+- bold-markers
+instruction: 日本語の助詞や平仮名とアルファベットの間は、空白を空けずに接続する。

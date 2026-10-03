@@ -1,0 +1,10 @@
+id: sentence-end-repetition
+category: 修正
+source: yomiyasu/references/gemini-syntax.md 原則8、scripts/yomiyasu_lint.py sentence_end_repetition
+detector: static
+subject:
+- sentence
+match:
+  check: sentence-end-repetition
+  run: 3
+instruction: 文末のリズムを調整する。文書の立場に合った文末の種類は変えない。

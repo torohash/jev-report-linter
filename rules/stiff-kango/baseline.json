@@ -1,0 +1,42 @@
+{
+ "fitted_on": "corpus/ 30 reports, single pass",
+ "asked": 522,
+ "positives": 7,
+ "missed_by_matcher": 0,
+ "positive_scores": [
+  0.27,
+  0.39,
+  0.4,
+  0.41,
+  0.49,
+  0.5,
+  0.61
+ ],
+ "clean_max": 0.49,
+ "threshold": null,
+ "fit": "分離不可（無効）",
+ "caught": 0,
+ "false_positives": 0,
+ "top_clean": [
+  {
+   "score": 0.49,
+   "text": "**approve の意思表示をします。"
+  },
+  {
+   "score": 0.48,
+   "text": "上記2点はいずれも要件・認可観点での抜けであり、対応を確認・実装する必要がある。"
+  },
+  {
+   "score": 0.48,
+   "text": "- 分岐・境界・契約の検証という方針が一貫して守られています"
+  },
+  {
+   "score": 0.45,
+   "text": "この基準でリポジトリ内の対象ファイルを全件洗い出したところ："
+  },
+  {
+   "score": 0.45,
+   "text": "- `CLAUDE_CONFIG_DIR` を一時ディレクトリに向けてアカウント判別・キャッシュを実環境から分離しており、テストの副作用がないよう配慮されています。"
+  }
+ ]
+}

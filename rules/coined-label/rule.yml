@@ -1,0 +1,15 @@
+id: coined-label
+category: 修正
+source: yomiyasu/references/slop-catalog.md 5章「未定義造語」
+detector: jev
+subject:
+- sentence
+- list-item
+state: bare
+kind: noul
+threshold: 0.76  # 該当例なし（仮）
+ask: This sentence uses an invented metaphorical name that is not an established term.
+criteria:
+  'true': The sentence coins a label by metaphor, such as "意思決定OS", for something that has a plain description.
+  'false': Every name in the sentence is an established technical term, a product name, or an identifier from the code.
+instruction: ふだん使う平易な言葉や客観的な機能説明で書く。硬い漢語を並べない。

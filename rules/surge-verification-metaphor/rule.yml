@@ -1,0 +1,17 @@
+id: surge-verification-metaphor
+category: 修正
+source: yomiyasu/references/slop-catalog.md 3章「確認・検証の比喩」、SKILL.md Step 3
+detector: jev
+subject:
+- sentence
+- list-item
+match:
+  regex: 実測|疑[うい]|照合|突き合わせ|断定|取り違え
+state: bare
+kind: noul
+threshold: 0.34  # 隙間の中点
+ask: The matched word is used as a figure of speech for checking or verifying.
+criteria:
+  'true': The word (実測, 疑う, 照合, 突き合わせる, 断定, 取り違える) is a stylised way of saying compare, check, measure, or confuse.
+  'false': The word is a legitimate technical term or a plain statement of fact in this context, such as an actually measured value.
+instruction: ふだん使う平易な言葉に開く。実測→実際に測った値、疑う→念のため確かめる、照合→照らし合わせる、突き合わせる→比べる、断定→言い切る、取り違える→間違える。

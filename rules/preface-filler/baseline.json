@@ -1,0 +1,13 @@
+{
+ "fitted_on": "corpus/ 30 reports, single pass",
+ "asked": 0,
+ "positives": 0,
+ "missed_by_matcher": 1,
+ "positive_scores": [],
+ "clean_max": 0.0,
+ "threshold": 0.6,
+ "fit": "該当例なし（仮）",
+ "caught": 0,
+ "false_positives": 0,
+ "top_clean": []
+}

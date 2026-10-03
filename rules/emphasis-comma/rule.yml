@@ -1,0 +1,17 @@
+id: emphasis-comma
+category: 修正
+source: yomiyasu/references/gemini-syntax.md 原則7
+detector: jev
+subject:
+- sentence
+- list-item
+match:
+  regex: ^[^、。]{1,6}[をはでにも]、
+state: bare
+kind: noul
+threshold: 0.6  # 該当例なし（仮）
+ask: The comma right after the opening phrase is an unnatural emphatic pause.
+criteria:
+  'true': The comma splits a short object or topic from its verb only for dramatic effect, as in "前提を、先に確認しました".
+  'false': The comma is an ordinary pause after a topic, a conjunction, or an adverbial phrase.
+instruction: 文頭の不自然な強調読点を外す。

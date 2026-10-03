@@ -1,0 +1,26 @@
+{
+ "fitted_on": "corpus/ 30 reports, single pass",
+ "asked": 8,
+ "positives": 7,
+ "missed_by_matcher": 0,
+ "positive_scores": [
+  0.28,
+  0.33,
+  0.34,
+  0.34,
+  0.7,
+  0.83,
+  0.88
+ ],
+ "clean_max": 0.38,
+ "threshold": 0.28,
+ "fit": "分離不可（F1最大）",
+ "caught": 7,
+ "false_positives": 1,
+ "top_clean": [
+  {
+   "score": 0.38,
+   "text": "- テストが §42.4/§42.5 の実際の壊れ方 (再起動で負になる、腕が混ざる) をそのまま回帰テストにしているのは良い設計です。`test_perf_windows_inputs.py` 側も「変更前の workflow に対して落"
+  }
+ ]
+}

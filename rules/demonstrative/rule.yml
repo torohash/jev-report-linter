@@ -1,0 +1,17 @@
+id: demonstrative
+category: 修正
+source: yomiyasu/SKILL.md「主語と目的語の明確化」、references/gemini-syntax.md 原則1
+detector: jev
+subject:
+- sentence
+- list-item
+match:
+  regex: これ|それ|あれ|両者|片方|前者|後者|こうした|そうした
+state: located
+kind: noul
+threshold: null  # 分離不可（無効）
+ask: The matched demonstrative leaves it unclear what it refers to.
+criteria:
+  'true': Reading the sentence in its place in the report, a reader cannot tell with confidence which thing the demonstrative (これ, それ, 両者, 片方) points to.
+  'false': The referent is the thing named immediately before, or is otherwise obvious from the preceding sentence.
+instruction: 指す先が文脈から分かるときに限り、具体的な名詞に戻す。

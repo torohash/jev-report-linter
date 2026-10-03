@@ -1,0 +1,10 @@
+id: paper-tone
+category: 修正
+source: yomiyasu/references/domains/tech.md 3章
+detector: static
+subject:
+- sentence
+- list-item
+match:
+  regex: 本稿では|筆者は
+instruction: 論文調を削り、解決すべき課題や前提条件から書く。

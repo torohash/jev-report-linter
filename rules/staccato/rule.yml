@@ -1,0 +1,10 @@
+id: staccato
+category: 修正
+source: yomiyasu/references/gemini-syntax.md 原則7
+detector: static
+subject:
+- sentence
+match:
+  check: staccato
+  max: 9
+instruction: 極端な短文の連打をやめる。
