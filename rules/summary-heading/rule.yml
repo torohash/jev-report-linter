@@ -1,9 +1,0 @@
-id: summary-heading
-category: 削除
-source: yomiyasu/references/domains/tech.md 1章
-detector: static
-subject:
-- heading
-match:
-  regex: ^#+\s*まとめ\s*$
-instruction: 短い文章では「まとめ」見出しを置かない。
