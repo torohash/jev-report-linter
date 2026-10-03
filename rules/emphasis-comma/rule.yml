@@ -1,0 +1,10 @@
+id: emphasis-comma
+category: 修正
+domain: common
+detector: jev
+subject:
+- sentence
+- list-item
+quote:
+- source: yomiyasu/references/gemini-syntax.md
+  text: 1文あたりの読点は0〜2個に抑え、文頭の不自然な強調読点（「前提を、〜」「ここでは、〜」など）は打たない。

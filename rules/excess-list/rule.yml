@@ -1,0 +1,14 @@
+id: excess-list
+category: 修正
+domain: tech
+detector: static
+subject:
+- document
+match:
+  check: list-line-ratio
+  over: 0.25
+  min_chars: 300
+  from: yomiyasu_lint.py excess_list
+quote:
+- source: yomiyasu/references/domains/tech.md
+  text: 思考の流れや論理展開を箇条書きに頼らず、地の文の段落で記述します。

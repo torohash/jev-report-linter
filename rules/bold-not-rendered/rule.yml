@@ -1,0 +1,13 @@
+id: bold-not-rendered
+category: 修正
+domain: common
+detector: static
+subject:
+- sentence
+- list-item
+match:
+  check: bold-not-rendered
+  from: yomiyasu_lint.py bold_problems
+quote:
+- source: yomiyasu/SKILL.md
+  text: GitHubなどでは、`**` のすぐ内側が記号（「」『』（）【】、。やバッククォート等）で、すぐ外側が文字（ひらがな・漢字・英数字）だと、太字にならず `**` がそのまま表示されてしまいます。

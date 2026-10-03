@@ -1,0 +1,12 @@
+id: heading-redundant-bracket
+category: 修正
+domain: common
+detector: static
+subject:
+- heading
+match:
+  regex: （(素の出力|いわゆる|概要|詳細|感謝と設計への反映)）
+  from: yomiyasu_lint.py redundant_bracket
+quote:
+- source: yomiyasu/references/gemini-syntax.md
+  text: 情報量が増えない言い換えや同義語の補足カッコを全廃する。

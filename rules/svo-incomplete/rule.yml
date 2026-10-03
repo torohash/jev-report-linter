@@ -1,0 +1,13 @@
+id: svo-incomplete
+category: 修正
+domain: common
+detector: jev
+subject:
+- sentence
+- list-item
+quote:
+- source: yomiyasu/references/gemini-syntax.md
+  text: AI文章が不自然になる最大の要因は、「誰が・何を・どうした」が1文で完結しない点にある。主語の省略、受動態、指示代名詞（「これ」「両者」「片方」）の多用をやめ、独立した文として意味を確定させる。
+fix:
+  source: yomiyasu/references/gemini-syntax.md
+  text: 動作主（S）の明示として、元の文や前後から分かる範囲で処理や判断を行う主体を置く（分からない場合は勝手に動作主を創作して足さない）。

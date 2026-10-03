@@ -1,0 +1,15 @@
+id: post-label
+category: 修正
+domain: common
+detector: static
+subject:
+- sentence
+- list-item
+match:
+  regex: というわけです|に他なりません|と言えるでしょう|面白いのはここです
+quote:
+- source: yomiyasu/references/slop-catalog.md
+  text: '`〜というわけです` `〜に他なりません` `〜と言えるでしょう` `面白いのはここです`'
+fix:
+  source: yomiyasu/references/slop-catalog.md
+  text: 文末を客観的な事実記述で閉じる。元の文が推量（〜でしょう、〜と考えられます）の場合は、勝手に断定に上げず推量の強さを保つ。

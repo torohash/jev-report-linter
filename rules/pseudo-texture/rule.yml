@@ -1,0 +1,20 @@
+id: pseudo-texture
+category: 修正
+domain: common
+detector: jev
+subject:
+- sentence
+- list-item
+match:
+  regex: 手触り|肌感|体温|温度感|熱量|血の通った|泥臭
+  from: 出典の表の列挙。活用する語は語幹で照合
+quote:
+- source: yomiyasu/references/slop-catalog.md
+  text: 一見プロっぽく見えるが、中身が何もない空虚なキーワードを排除する。
+- source: yomiyasu/references/slop-catalog.md
+  text: '`手触り` `肌感` `肌感覚` `体温` `温度感` `熱量` `血の通った` `泥臭い`'
+- source: yomiyasu/scripts/yomiyasu_lint.py
+  text: 文脈上必要のない比喩や大げさな装飾であれば、ふだん使う自然な表現に置き換えてください。ただし、文字どおりの意味や必要な文脈を担っている場合は残してかまいません。
+fix:
+  source: yomiyasu/references/slop-catalog.md
+  text: 元の文や前後から分かる範囲で客観的な事実を書く。情報が足りない場合は作り話を足さず、同じ幅のふだんの言葉で書く。

@@ -1,0 +1,9 @@
+id: subject-predicate-mismatch
+category: 修正
+domain: common
+detector: jev
+subject:
+- sentence
+quote:
+- source: yomiyasu/references/gemini-syntax.md
+  text: 主語と述語がねじれている文は、元の文の意図が通じる範囲で正しく対応させる。

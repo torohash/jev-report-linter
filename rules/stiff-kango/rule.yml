@@ -1,0 +1,12 @@
+id: stiff-kango
+category: 修正
+domain: common
+detector: jev
+subject:
+- sentence
+- list-item
+quote:
+- source: yomiyasu/SKILL.md
+  text: 「発生」「担保」など過度に硬い2字漢語を不要な場面で連発しません。
+- source: yomiyasu/references/gemini-syntax.md
+  text: 漢語が連続して硬くなった箇所は、平仮名や動詞へ適度に開いて読みやすさを確保する。

@@ -1,0 +1,14 @@
+id: emoji
+category: 修正
+domain: common
+detector: static
+subject:
+- sentence
+- list-item
+- heading
+match:
+  check: emoji
+  from: yomiyasu_lint.py EMOJI_PATTERN
+quote:
+- source: yomiyasu/references/gemini-syntax.md
+  text: 見出し、箇条書き、本文、テーブル内を問わず、絵文字は一切使用しない。

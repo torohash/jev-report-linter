@@ -1,0 +1,9 @@
+id: announce-only
+category: 修正
+domain: common
+detector: jev
+subject:
+- sentence
+quote:
+- source: yomiyasu/references/gemini-syntax.md
+  text: 中身を言わずに予告だけを行う文（「ここで重要なポイントがあります」「理由は以下の通りです」等）は、予告の重み（重要など）を述語に残しながら、続く中身の文と1文にまとめる。まとめることで意味が変わる場合は残す。

@@ -1,0 +1,17 @@
+id: grandiose
+category: 修正
+domain: common
+detector: jev
+subject:
+- sentence
+- list-item
+match:
+  regex: 真理|真実|結末|宿命|運命|境地|極致|究極|虚飾|虚像|美学|深淵|禁欲的|優美|冷徹|残酷|凝縮|結晶
+  from: 出典の表の列挙
+quote:
+- source: yomiyasu/references/slop-catalog.md
+  text: 個人のささやかな体験や日常的な技術判断を、重厚な熟語で大げさに語る傾向を排除する。
+- source: yomiyasu/references/slop-catalog.md
+  text: '`真理` `真実` `結末` `宿命` `運命` `境地` `極致` `究極` `虚飾` `虚像` `美学` `深淵` `禁欲的` `優美` `冷徹` `残酷` `凝縮` `結晶`'
+- source: yomiyasu/scripts/yomiyasu_lint.py
+  text: 文脈上必要のない比喩や大げさな装飾であれば、ふだん使う自然な表現に置き換えてください。ただし、文字どおりの意味や必要な文脈を担っている場合は残してかまいません。

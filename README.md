@@ -25,3 +25,5 @@ Claude code および Pi Coding Agentのターミナル上で表示されるユ�
 ## 謝辞
 
 採用しているルールは、[yomiyasu](https://github.com/nanaism/yomiyasu) を最大限参考にしています。
+
+ルールの定義の形は、[jev-lint](https://github.com/mizchi/jev-lint) を参考にしています。

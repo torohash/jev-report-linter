@@ -1,0 +1,14 @@
+id: excess-bold
+category: 修正
+domain: tech
+detector: static
+subject:
+- document
+match:
+  check: bold-per-1000-chars
+  over: 3.0
+  min_chars: 300
+  from: yomiyasu_lint.py excess_bold
+quote:
+- source: yomiyasu/references/domains/tech.md
+  text: 太字は1,000文字あたり1〜2箇所までに抑え、段落内に複数の太字を乱発しません。

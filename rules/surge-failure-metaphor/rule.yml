@@ -1,0 +1,20 @@
+id: surge-failure-metaphor
+category: 修正
+domain: common
+detector: jev
+subject:
+- sentence
+- list-item
+match:
+  regex: 事故|混ざ|落とし穴|破綻|実害|素通り
+  from: 出典の表の列挙。活用する語は語幹で照合
+quote:
+- source: yomiyasu/references/slop-catalog.md
+  text: AI普及以後の技術文書で急増した比喩・評価名詞を解体する。
+- source: yomiyasu/references/slop-catalog.md
+  text: '`事故` `混ざる` `落とし穴` `破綻` `実害` `素通り`'
+- source: yomiyasu/SKILL.md
+  text: 文脈上正当な専門用語や事実の記述であれば無理に言い換えず保持します。
+fix:
+  source: yomiyasu/references/slop-catalog.md
+  text: '`事故`→「思いがけない失敗・トラブル」、`混ざる`→「入り込む」、`落とし穴`→「見落としやすい点・気をつけたい点」、`破綻`→「うまくいかなくなる」、`実害`→「実際の困りごと」、`素通り`→「気づかず通る」'

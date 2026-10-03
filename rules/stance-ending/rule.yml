@@ -1,0 +1,13 @@
+id: stance-ending
+category: 修正
+domain: common
+detector: jev
+subject:
+- sentence
+- list-item
+quote:
+- source: yomiyasu/SKILL.md
+  text: AIの文章は、「誰が、誰に、何のために書くか」という文書全体の立場を決めないまま1文ずつ文末を選ぶため、方針（〜します）・勧め（〜しましょう）・評価（〜ことが重要です）が混ざります。
+fix:
+  source: yomiyasu/SKILL.md
+  text: 文末は1文ずつ決めず、先に文書全体の立場を1つ決めて、すべての文末をその立場に合わせます。

@@ -1,0 +1,10 @@
+id: moralizing
+category: 修正
+domain: essay
+detector: jev
+subject:
+- sentence
+- list-item
+quote:
+- source: yomiyasu/references/domains/essay.md
+  text: 個人の日常の小さな発見や買い物の感想を、過剰に教訓化しません。

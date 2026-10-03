@@ -1,0 +1,16 @@
+id: long-sentence
+category: 修正
+domain: common
+detector: jev
+subject:
+- sentence
+- list-item
+match:
+  check: length
+  min: 61
+quote:
+- source: yomiyasu/references/gemini-syntax.md
+  text: 60文字を超える長大な複文は分割を検討する目安とするが、文が長いことだけを理由に分けることはしない。
+fix:
+  source: yomiyasu/references/gemini-syntax.md
+  text: 長い文を分けるのは、前後のつながり（手段・理由・順序・対比）を、後ろの文のつなぎの言葉（「そのため」「こうすることで」「一方で」「反対に」など）で残せるときだけに限定する。

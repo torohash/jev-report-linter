@@ -1,0 +1,13 @@
+id: personification
+category: 修正
+domain: common
+detector: jev
+subject:
+- sentence
+- list-item
+quote:
+- source: yomiyasu/SKILL.md
+  text: 非生物主語を直すのは、道具や概念に感情や意志を持たせている擬人化表現（「コードが語る」「システムが願う」等）のときだけに限定します。道具や仕組みの働きを客観的に述べている文（「このツールはログを集めます」等）はそのまま残します。
+fix:
+  source: yomiyasu/SKILL.md
+  text: 直す場合も、元にない条件（「〜を使えば」）や可能（「〜できます」）を足しません。

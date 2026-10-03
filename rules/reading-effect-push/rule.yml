@@ -1,0 +1,10 @@
+id: reading-effect-push
+category: 削除
+domain: business
+detector: jev
+subject:
+- sentence
+- list-item
+quote:
+- source: yomiyasu/references/domains/business.md
+  text: 「これらを理解すれば業務効率が飛躍的に向上します」のような読了効果の押し付け文言は削除します。

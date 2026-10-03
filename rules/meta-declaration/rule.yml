@@ -1,0 +1,10 @@
+id: meta-declaration
+category: 修正
+domain: business
+detector: jev
+subject:
+- sentence
+- list-item
+quote:
+- source: yomiyasu/references/domains/business.md
+  text: 「検討にあたっては多角的な視点を考慮し…」といった前置きを削り、結論や要請事項から書き始めます。

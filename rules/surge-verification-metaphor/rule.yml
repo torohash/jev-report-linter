@@ -1,0 +1,20 @@
+id: surge-verification-metaphor
+category: 修正
+domain: common
+detector: jev
+subject:
+- sentence
+- list-item
+match:
+  regex: 実測|疑[わいうえお]|照合|突き合わせ|断定|取り違え
+  from: 出典の表の列挙。活用する語は語幹で照合
+quote:
+- source: yomiyasu/references/slop-catalog.md
+  text: AI普及以後の技術文書で急増した比喩・評価名詞を解体する。
+- source: yomiyasu/references/slop-catalog.md
+  text: '`実測` `疑う` `照合` `突き合わせる` `断定` `取り違える`'
+- source: yomiyasu/SKILL.md
+  text: 文脈上正当な専門用語や事実の記述であれば無理に言い換えず保持します。
+fix:
+  source: yomiyasu/references/slop-catalog.md
+  text: '`実測`→「実際に測った値」、`疑う`→「念のため見直す・確かめる」、`照合`→「照らし合わせる」、`突き合わせる`→「見比べる・比べる」、`断定`→「言い切る」、`取り違える`→「順序を間違える・勘違いする」'

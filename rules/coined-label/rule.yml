@@ -1,0 +1,13 @@
+id: coined-label
+category: 修正
+domain: common
+detector: jev
+subject:
+- sentence
+- list-item
+quote:
+- source: yomiyasu/references/slop-catalog.md
+  text: '`意思決定OS` などの勝手な比喩命名'
+fix:
+  source: yomiyasu/references/slop-catalog.md
+  text: ふだん使う平易な言葉や客観的な機能説明で書く（硬い漢語を並べない）。

@@ -1,0 +1,10 @@
+id: wrapper-phrase
+category: 修正
+domain: common
+detector: jev
+subject:
+- sentence
+- list-item
+quote:
+- source: yomiyasu/references/gemini-syntax.md
+  text: 「一般に〜」「現代社会において〜」「もちろん〜とは限らないが」といったAI特有の無意味な包装紙を削り、事実のみを残す。

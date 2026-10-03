@@ -1,0 +1,10 @@
+id: investigation
+category: 調査
+domain: readme
+detector: jev
+subject:
+- sentence
+- list-item
+quote:
+- source: README.md
+  text: 調査は未確認や未確定といった表現が使われた場合とし、確定状態に持っていけるように調査させる。情報を調べてなお未決事項として保持しなければいけないものや、調べたうえで情報が存在しなかった。というケースの場合は正常扱いとする。

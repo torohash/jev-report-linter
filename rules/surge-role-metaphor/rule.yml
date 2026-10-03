@@ -1,0 +1,20 @@
+id: surge-role-metaphor
+category: 修正
+domain: common
+detector: jev
+subject:
+- sentence
+- list-item
+match:
+  regex: 入口|土台|道具|核心|主役|構図|線引き
+  from: 出典の表の列挙。活用する語は語幹で照合
+quote:
+- source: yomiyasu/references/slop-catalog.md
+  text: AI普及以後の技術文書で急増した比喩・評価名詞を解体する。
+- source: yomiyasu/references/slop-catalog.md
+  text: '`入口` `土台` `道具` `核心` `主役` `構図` `線引き`'
+- source: yomiyasu/SKILL.md
+  text: 文脈上正当な専門用語や事実の記述であれば無理に言い換えず保持します。
+fix:
+  source: yomiyasu/references/slop-catalog.md
+  text: '`入口`→「はじめの一歩・手始め」、`土台`→「基本・根っこ」、`道具`→「手段・やり方」、`核心`→「いちばん肝心なところ・大事な点」、`主役`→「中心」、`構図`→「全体の仕組み・関係」、`線引き`→「区切り・境界」'

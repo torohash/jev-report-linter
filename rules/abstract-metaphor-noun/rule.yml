@@ -1,0 +1,15 @@
+id: abstract-metaphor-noun
+category: 修正
+domain: common
+detector: jev
+subject:
+- sentence
+- list-item
+match:
+  regex: 営み|装置|意思決定OS|土台|羅針盤|起爆剤|触媒
+  from: yomiyasu_lint.py SLOP_WORDS「抽象比喩名詞」
+quote:
+- source: yomiyasu/scripts/yomiyasu_lint.py
+  text: '"営み", "装置", "意思決定OS", "土台", "羅針盤", "起爆剤", "触媒",'
+- source: yomiyasu/scripts/yomiyasu_lint.py
+  text: 文脈上必要のない比喩や大げさな装飾であれば、ふだん使う自然な表現に置き換えてください。ただし、文字どおりの意味や必要な文脈を担っている場合は残してかまいません。
